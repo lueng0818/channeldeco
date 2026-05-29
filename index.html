@@ -3,690 +3,1185 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ChannelDeco 伽宜諾 · Threads 社群聆聽儀表板</title>
+<title>ChannelDeco 伽宜諾 | Threads 居家裝修每日監測儀表板</title>
 <style>
-:root {
-  --bg:#f7f5f1; --card:#ffffff; --border:#e5e1d8;
-  --text:#2c2a26; --sub:#8a8680; --accent:#8a9e82; --accent2:#6a7e64;
-  --dark:#242220; --dark2:#1e1c1a;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Noto Sans TC',-apple-system,sans-serif;background:var(--bg);color:var(--text);}
+  :root {
+    --primary: #2C5F2E;
+    --accent: #97BC62;
+    --bg: #F8F5F0;
+    --card-bg: #FFFFFF;
+    --text: #2D2D2D;
+    --sub: #6B6B6B;
+    --border: #E2DDD6;
+    --tag-budget: #E8F4FD;
+    --tag-budget-text: #1565C0;
+    --tag-trap: #FFF3E0;
+    --tag-trap-text: #E65100;
+    --tag-style: #F3E5F5;
+    --tag-style-text: #7B1FA2;
+    --tag-rant: #FCE4EC;
+    --tag-rant-text: #C62828;
+    --badge-anxiety: #FFF8E1;
+    --badge-anxiety-text: #F57F17;
+    --badge-achieve: #E8F5E9;
+    --badge-achieve-text: #2E7D32;
+    --badge-resign: #E3F2FD;
+    --badge-resign-text: #1565C0;
+    --badge-choice: #EDE7F6;
+    --badge-choice-text: #4527A0;
+    --badge-rational: #F9FBE7;
+    --badge-rational-text: #558B2F;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); font-family: -apple-system, 'Noto Sans TC', sans-serif; color: var(--text); }
 
-.header{background:var(--dark);color:white;padding:20px 28px 0;border-bottom:2px solid var(--accent);}
-.header-top{display:flex;align-items:baseline;gap:16px;margin-bottom:4px;}
-.header-logo{font-size:18px;font-weight:300;letter-spacing:4px;text-transform:uppercase;}
-.header-logo span{color:var(--accent);font-weight:700;}
-.header-badge{font-size:10px;background:rgba(138,158,130,.2);color:var(--accent);border:1px solid rgba(138,158,130,.4);padding:2px 10px;border-radius:12px;letter-spacing:1px;}
-.header-meta{font-size:11px;color:rgba(255,255,255,.35);padding:8px 0 12px;}
+  /* Header */
+  .header {
+    background: var(--primary);
+    color: white;
+    padding: 24px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.02em; }
+  .header .sub { font-size: 0.85rem; opacity: 0.8; margin-top: 4px; }
+  .header .date-badge {
+    background: var(--accent);
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 6px 16px;
+    border-radius: 20px;
+  }
 
-.audience-bar{background:#2e2b28;border-bottom:1px solid #3d3a35;padding:8px 28px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.audience-label{font-size:10px;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase;margin-right:4px;}
-.audience-chip{background:rgba(138,158,130,.12);border:1px solid rgba(138,158,130,.28);color:var(--accent);font-size:11px;padding:3px 12px;border-radius:12px;}
+  /* Nav Tabs */
+  .tabs {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .tab-btn {
+    padding: 14px 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--sub);
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .tab-btn:hover { color: var(--primary); }
+  .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
 
-.tabs-wrap{background:var(--dark2);border-bottom:1px solid #3d3a35;padding:0 28px;overflow-x:auto;display:flex;gap:2px;scrollbar-width:none;}
-.tabs-wrap::-webkit-scrollbar{display:none;}
-.tab-btn{padding:12px 16px;font-size:12px;color:rgba(255,255,255,.45);border:none;background:transparent;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;letter-spacing:.5px;transition:all .2s;}
-.tab-btn:hover{color:rgba(255,255,255,.75);}
-.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
-.tab-count{background:rgba(138,158,130,.18);color:var(--accent);font-size:10px;padding:1px 6px;border-radius:10px;margin-left:5px;}
+  /* Stats Bar */
+  .stats-bar {
+    display: flex;
+    gap: 16px;
+    padding: 20px 32px;
+    flex-wrap: wrap;
+    background: white;
+    border-bottom: 1px solid var(--border);
+  }
+  .stat-card {
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 160px;
+  }
+  .stat-icon { font-size: 1.4rem; }
+  .stat-val { font-size: 1.4rem; font-weight: 700; color: var(--primary); }
+  .stat-label { font-size: 0.78rem; color: var(--sub); margin-top: 2px; }
 
-.content{padding:24px 28px;max-width:1200px;margin:0 auto;}
-.page{display:none;}.page.active{display:block;}
+  /* Content */
+  .content { padding: 24px 32px; max-width: 1400px; margin: 0 auto; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .section-header h2 { font-size: 1.1rem; font-weight: 700; }
+  .section-header .count-badge {
+    background: var(--accent);
+    color: var(--primary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 12px;
+  }
 
-.page-header{margin-bottom:20px;}
-.page-title{font-size:15px;font-weight:300;letter-spacing:2px;margin-bottom:4px;}
-.page-subtitle{font-size:12px;color:var(--sub);}
+  /* Filter Row */
+  .filter-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: white;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text);
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active { border-color: var(--primary); color: var(--primary); background: #EDF5ED; }
 
-.summary-box{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;padding:16px 20px;margin-bottom:20px;}
-.summary-title{font-size:10px;letter-spacing:2px;color:var(--accent2);text-transform:uppercase;margin-bottom:8px;}
-.summary-text{font-size:13px;line-height:1.9;}
+  /* Post Grid */
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 20px;
+  }
 
-.stats-row{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
-.stat-box{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:14px 18px;flex:1;min-width:120px;}
-.stat-lbl{font-size:10px;color:var(--sub);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
-.stat-val{font-size:22px;font-weight:300;}
-.stat-val small{font-size:12px;color:var(--sub);font-weight:400;}
+  /* Post Card */
+  .post-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .post-card:hover { box-shadow: 0 8px 24px rgba(44,95,46,0.12); transform: translateY(-2px); }
+  .post-card-header {
+    padding: 16px 20px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .post-author { font-weight: 700; font-size: 0.95rem; }
+  .post-handle { font-size: 0.8rem; color: var(--sub); margin-top: 2px; }
+  .post-date { font-size: 0.78rem; color: var(--sub); white-space: nowrap; }
+  .post-keyword {
+    font-size: 0.7rem;
+    background: #EDF5ED;
+    color: var(--primary);
+    padding: 2px 8px;
+    border-radius: 8px;
+    margin-top: 4px;
+    display: inline-block;
+  }
 
-.posts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px;}
+  .post-content { padding: 0 20px 14px; font-size: 0.9rem; line-height: 1.65; color: #3D3D3D; }
+  .post-content .highlight { background: #FFFDE7; padding: 0 3px; border-radius: 3px; }
 
-.post-card{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;}
-.post-card.hot{border-top:3px solid var(--accent);}
+  .post-tags { padding: 0 20px 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 12px;
+  }
+  .tag-budget { background: var(--tag-budget); color: var(--tag-budget-text); }
+  .tag-trap { background: var(--tag-trap); color: var(--tag-trap-text); }
+  .tag-style { background: var(--tag-style); color: var(--tag-style-text); }
+  .tag-rant { background: var(--tag-rant); color: var(--tag-rant-text); }
 
-.pc-head{padding:14px 16px 10px;display:flex;gap:10px;align-items:flex-start;}
-.avatar{width:38px;height:38px;background:var(--accent2);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
-.pc-info{flex:1;min-width:0;}
-.pc-author{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.pc-date{font-size:11px;color:var(--sub);}
-.kw-tag{display:inline-block;font-size:10px;background:rgba(138,158,130,.1);color:var(--accent2);border:1px solid rgba(138,158,130,.22);padding:1px 8px;border-radius:10px;margin-top:3px;}
-.threads-link{display:inline-flex;align-items:center;gap:4px;font-size:10px;color:var(--sub);text-decoration:none;border:1px solid var(--border);padding:2px 9px;border-radius:10px;margin-top:4px;transition:all .15s;}
-.threads-link:hover{color:var(--accent2);border-color:var(--accent);background:rgba(138,158,130,.06);}
+  .emotion-badge {
+    font-size: 0.76rem;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+  .em-anxiety { background: var(--badge-anxiety); color: var(--badge-anxiety-text); }
+  .em-achieve { background: var(--badge-achieve); color: var(--badge-achieve-text); }
+  .em-resign { background: var(--badge-resign); color: var(--badge-resign-text); }
+  .em-choice { background: var(--badge-choice); color: var(--badge-choice-text); }
+  .em-rational { background: var(--badge-rational); color: var(--badge-rational-text); }
 
-.pc-text{padding:0 16px 8px;font-size:13px;line-height:1.75;max-height:120px;overflow:hidden;position:relative;transition:max-height .4s ease;}
-.pc-text.expanded{max-height:2000px;overflow:visible;}
-.pc-fade{position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,white);pointer-events:none;transition:opacity .3s;}
-.pc-text.expanded .pc-fade{opacity:0;pointer-events:none;}
-.expand-btn{display:flex;align-items:center;gap:4px;background:none;border:1px solid var(--border);border-radius:4px;color:var(--accent2);font-size:11px;cursor:pointer;padding:3px 12px 3px 16px;margin:0 16px 8px;transition:all .15s;}
-.expand-btn:hover{background:rgba(138,158,130,.06);border-color:var(--accent);}
+  .post-stats {
+    padding: 0 20px 14px;
+    display: flex;
+    gap: 16px;
+    font-size: 0.82rem;
+    color: var(--sub);
+  }
+  .post-stat { display: flex; align-items: center; gap: 4px; }
 
-.pc-stats{padding:8px 16px;border-top:1px solid var(--border);display:flex;gap:14px;}
-.pstat{font-size:12px;color:var(--sub);}
-.pstat b{color:var(--text);}
+  .post-insight {
+    margin: 0 20px 16px;
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 12px 14px;
+    border-left: 3px solid var(--accent);
+    font-size: 0.83rem;
+  }
+  .post-insight .insight-row { margin-bottom: 6px; }
+  .post-insight .insight-label { font-weight: 600; color: var(--primary); font-size: 0.8rem; }
+  .post-insight .insight-text { color: #4D4D4D; margin-top: 2px; line-height: 1.5; }
+  .contrast-badge { color: #E65100; font-weight: 600; }
 
-.emo-row{padding:8px 16px;display:flex;gap:6px;flex-wrap:wrap;}
-.emo-tag{font-size:11px;padding:2px 10px;border-radius:12px;}
-.emo-anxiety{background:#f5eeee;color:#7a3c4a;}
-.emo-achieve{background:#eef2ec;color:#3a5e3a;}
-.emo-regret{background:#f5f2e8;color:#7a5e20;}
-.emo-confused{background:#f0eef5;color:#4a3a70;}
-.emo-rational{background:#eef2f5;color:#2a4a6a;}
-.emo-critical{background:#f5eef0;color:#6a3a5a;}
+  .post-link {
+    display: block;
+    text-align: center;
+    margin: 0 20px 16px;
+    padding: 8px;
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--primary);
+    font-size: 0.83rem;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .post-link:hover { background: var(--primary); color: white; }
 
-.pain-section{padding:8px 16px 12px;}
-.pain-row{margin-bottom:7px;}
-.pain-lbl{font-size:10px;letter-spacing:1px;color:var(--sub);text-transform:uppercase;margin-bottom:2px;}
-.pain-txt{font-size:12px;line-height:1.65;}
+  /* Channel Deco Strategy Panel */
+  .strategy-panel {
+    background: var(--primary);
+    color: white;
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-top: 32px;
+  }
+  .strategy-panel h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 20px; }
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .strategy-item {
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 16px 18px;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .strategy-item h3 { font-size: 0.92rem; font-weight: 600; margin-bottom: 8px; color: var(--accent); }
+  .strategy-item p { font-size: 0.84rem; line-height: 1.6; opacity: 0.9; }
 
-.cmts-section{border-top:1px solid var(--border);}
-.cmts-header{padding:9px 16px 6px;background:#fafaf8;font-size:11px;color:var(--sub);font-weight:600;letter-spacing:.5px;display:flex;align-items:center;gap:6px;}
-.cmts-header::before{content:'💬';}
-.cmts-list{padding:4px 16px 10px;display:block;}
-.cmt{padding:8px 0;border-bottom:1px solid #f0ede8;}
-.cmt:last-child{border-bottom:none;}
-.cmt-author{font-size:11px;font-weight:600;color:var(--sub);margin-bottom:2px;}
-.cmt-text{font-size:12px;line-height:1.65;}
-.cmt.divergent{background:#fffcf0;border-left:2px solid #e0b030;padding:6px 10px;border-radius:0 4px 4px 0;margin:4px 0;}
+  /* Empty state */
+  .empty-state { text-align: center; color: var(--sub); padding: 48px; }
 
-.strategy-section{border-top:1px solid var(--border);padding:12px 16px;background:#f9fdf8;}
-.strategy-lbl{font-size:10px;letter-spacing:2px;color:var(--accent2);text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
-.strategy-lbl::before{content:'';display:inline-block;width:18px;height:1px;background:var(--accent);}
-.strategy-txt{font-size:12px;line-height:1.75;}
-.stag-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
-.stag{font-size:10px;background:rgba(138,158,130,.12);color:var(--accent2);padding:2px 8px;border-radius:10px;border:1px solid rgba(138,158,130,.22);}
+  /* Tab panels */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
 
-.divergent-badge{display:inline-block;font-size:10px;background:#fff3cd;color:#8a6000;border:1px solid #f0d060;padding:1px 7px;border-radius:10px;margin-left:6px;}
+  /* Trend analysis */
+  .trend-row { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
+  .trend-card {
+    background: white;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    padding: 20px;
+    flex: 1;
+    min-width: 220px;
+  }
+  .trend-card h3 { font-size: 0.92rem; font-weight: 700; margin-bottom: 12px; color: var(--primary); }
+  .trend-item { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--bg); font-size: 0.86rem; }
+  .trend-bar { height: 6px; background: var(--accent); border-radius: 3px; transition: width 0.5s; }
+  .trend-label { flex: 1; }
+  .trend-pct { font-size: 0.8rem; color: var(--sub); font-weight: 600; }
 
-/* Brand page */
-.brand-section{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px;margin-bottom:20px;}
-.brand-section-title{font-size:14px;font-weight:600;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
-.brand-section-title::before{content:'';display:inline-block;width:3px;height:18px;background:var(--accent);border-radius:2px;}
-.persona-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;}
-.persona-card{background:#fafaf8;border:1px solid var(--border);border-radius:8px;padding:16px;}
-.persona-icon{font-size:28px;margin-bottom:10px;}
-.persona-name{font-size:14px;font-weight:600;margin-bottom:6px;}
-.persona-desc{font-size:12px;color:var(--sub);line-height:1.75;margin-bottom:10px;}
-.persona-tags{display:flex;gap:5px;flex-wrap:wrap;}
-.ptag{font-size:10px;background:rgba(138,158,130,.1);color:var(--accent2);padding:2px 9px;border-radius:10px;border:1px solid rgba(138,158,130,.22);}
-.persona-pain{font-size:11px;color:#7a3c4a;background:#f5eeee;padding:5px 10px;border-radius:4px;margin-top:10px;line-height:1.6;}
-.kw-cloud{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
-.kw-pill{font-size:12px;padding:4px 16px;border-radius:20px;border:1px solid rgba(138,158,130,.3);color:var(--accent2);background:rgba(138,158,130,.08);}
-.kw-pill.hot{background:var(--accent);color:white;border-color:var(--accent2);}
-.content-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:14px;}
-.content-table th{background:#f0ede8;padding:10px 14px;text-align:left;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--sub);font-weight:600;}
-.content-table td{padding:12px 14px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.7;}
-.content-table tr:last-child td{border-bottom:none;}
-.content-table tr:hover td{background:#fafaf8;}
-.ct-persona{display:inline-block;font-size:10px;background:rgba(138,158,130,.1);color:var(--accent2);padding:1px 8px;border-radius:10px;border:1px solid rgba(138,158,130,.22);margin-right:4px;}
+  /* Source note */
+  .source-note {
+    background: #FFF8E1;
+    border: 1px solid #FFE082;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 0.82rem;
+    color: #795548;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
 
-@media(max-width:768px){
-  .posts-grid{grid-template-columns:1fr;}
-  .persona-grid{grid-template-columns:1fr 1fr;}
-  .content{padding:16px;}
-  .tabs-wrap,.header,.audience-bar{padding-left:16px;padding-right:16px;}
-}
+  @media (max-width: 768px) {
+    .header { padding: 16px 20px; }
+    .tabs { padding: 0 12px; }
+    .stats-bar { padding: 16px 20px; }
+    .content { padding: 16px 20px; }
+    .posts-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
+<!-- Header -->
 <div class="header">
-  <div class="header-top">
-    <div class="header-logo">Channel<span>Deco</span> 伽宜諾</div>
-    <div class="header-badge">THREADS 社群聆聽</div>
+  <div>
+    <h1>🏠 ChannelDeco 伽宜諾 · Threads 居家裝修監測儀表板</h1>
+    <div class="sub">關鍵字監測：居家裝修 / 軟裝設計 / 輕裝修 / 租屋改造 / 裝潢後悔 / 買沙發後悔 / 裝修預算 / 室內佈置靈感</div>
   </div>
-  <div class="header-meta">最後更新：2026-05-25 &nbsp;·&nbsp; 關鍵字：軟裝設計 / 輕裝潢 / 空間佈置 / 室內設計 / 裝潢後悔 / 寵物宅 / 空間佈置靈感</div>
+  <div>
+    <div class="date-badge">最後更新：2026-05-29</div>
+  </div>
 </div>
 
-<div class="audience-bar">
-  <span class="audience-label">目標受眾</span>
-  <span class="audience-chip">28–38 歲</span>
-  <span class="audience-chip">公務員</span>
-  <span class="audience-chip">工程師</span>
-  <span class="audience-chip">夫妻首購族</span>
-  <span class="audience-chip">有毛孩家庭</span>
-  <span class="audience-chip">南台灣 / 雙北</span>
+<!-- Tabs -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('posts', this)">📋 今日貼文分析</button>
+  <button class="tab-btn" onclick="switchTab('trend', this)">📈 趨勢洞察</button>
+  <button class="tab-btn" onclick="switchTab('strategy', this)">🎯 品牌策略</button>
 </div>
 
-<div class="tabs-wrap" id="tabsWrap"></div>
-<div class="content" id="contentArea"></div>
+<!-- Tab: Posts -->
+<div id="tab-posts" class="tab-panel active">
 
-<script>
-const TABS=[
-  {id:'all',    label:'全部總覽'},
-  {id:'soft',   label:'軟裝設計'},
-  {id:'light',  label:'輕裝潢'},
-  {id:'space',  label:'空間佈置'},
-  {id:'id',     label:'室內設計'},
-  {id:'regret', label:'裝潢後悔'},
-  {id:'pet',    label:'寵物宅'},
-  {id:'inspo',  label:'空間佈置靈感'},
-  {id:'brand',  label:'ChannelDeco 品牌策略'},
-];
-
-const POSTS=[
-  /* ─── 軟裝設計 ─── */
-  {id:1,cat:'soft',kw:'軟裝設計',hot:true,
-   author:'gagaccliu',display:'Gaga · 家居選品',avatar:'G',
-   date:'2025-10-12',likes:1889,comments:253,reposts:28,shares:474,
-   text:'剛入住的沙發要怎麼選色？\n米白色好看但怕髒，深色耐髒但顯悶...\n買了兩年還在糾結中\n\n請問大家沙發最後選什麼顏色？後悔嗎？\n\n#軟裝設計 #沙發選色 #居家佈置',
-   emotion:'confused',emoLabel:'選擇困難型',
-   surface:'沙發選色難以抉擇，實用性與美觀難以兼顧',
-   core:'害怕為長期居住空間做出錯誤決定，折射對「理想家」的高期望與責任感',
-   divergent:true,
-   cmts:[
-     {a:'reader_home',t:'我選奶油白，養了兩年一直後悔',d:true},
-     {a:'interior_tips',t:'深灰色超百搭！搭任何風格都好看',d:false},
-     {a:'cleanlife88',t:'買沙發套就好，可以換色也方便清洗',d:false},
-     {a:'design_nerd',t:'其實要看地板顏色，米白配淺木地板太全白',d:false},
-     {a:'minimalist_j',t:'我選莫蘭迪綠，一點都沒後悔',d:false},
-   ],
-   strategy:'切入「沙發選色迷茫」痛點。ChannelDeco 可發布「軟裝選色公式：依地板×牆色×採光決定沙發色」教學貼，搭配高雄/屏東案例 Before/After，吸引正在選購的公務員夫妻族群。加入 #軟裝設計師 互動標籤提升觸達。',
-   stags:['軟裝選色教學','Before/After案例','夫妻族群']},
-
-  {id:2,cat:'soft',kw:'軟裝設計',hot:false,
-   author:'jxconcepts',display:'JX Concepts · 軟裝顧問',avatar:'J',
-   date:'2026-02-14',likes:56,comments:9,reposts:1,shares:18,
-   text:'這棟純軟裝全家具（有衣攏沒搶到）\n只要 $29,800 可以到的吧 😊\n感謝客人入住 ❤️\n（過年後要來落價惜😁）\n趁過年真的很划算...\n\n#軟裝設計 #居家佈置 #台灣設計',
-   emotion:'achieve',emoLabel:'成就感分享型',
-   surface:'分享低預算純軟裝案例，彰顯不動工也能改造的可能性',
-   core:'幫消費者看見「3萬以內就能換新家感」，直接降低決策門檻',
-   divergent:false,
-   cmts:[
-     {a:'follow_design',t:'只要三萬就可以這樣？！超便宜',d:false},
-     {a:'renter_life',t:'租屋族也可以做到嗎？不能改牆',d:false},
-     {a:'budget_home',t:'家具是去哪裡買的？可以私訊嗎',d:false},
-     {a:'critic01',t:'29800只是家具費吧？設計費另計吧？',d:true},
-     {a:'diy_spirit',t:'這個風格好喜歡！請問是什麼風格',d:false},
-   ],
-   strategy:'純軟裝低預算案例是 ChannelDeco 核心差異化優勢，對應「局部換殼族」與預算有限的工程師/公務員。建議發布「3萬元以內，完整一個房間的軟裝清單」，強調「不動工、不敲牆、快速變身」訴求。',
-   stags:['低預算軟裝','局部換殼族','3萬改造']},
-
-  {id:3,cat:'soft',kw:'軟裝設計',hot:false,
-   author:'hsin_ja_design',display:'心隅 HSIN JA · 空間設計',avatar:'心',
-   date:'2026-03-15',likes:23,comments:19,reposts:1,shares:7,
-   text:'「免你選軟裝迷茫」系列開拍中！\n\n匯覺、空間佈局、配色等都幫你整理好\n不需要自己一直糾結！\n\n私訊「1」就會迅速回饋\n讓心隅幫你打造心中最舒服的角落 ✨\n\n#軟裝設計 #空間規劃 #選色指南',
-   emotion:'anxiety',emoLabel:'焦慮求助型',
-   surface:'以解決「選軟裝迷茫」為切入點吸引潛在客戶',
-   core:'軟裝選擇障礙是普遍痛點，背後是「花了錢卻買錯」的深層恐懼',
-   divergent:false,
-   cmts:[
-     {a:'lost_in_deco',t:'我真的超迷茫，連沙發方向都不確定',d:false},
-     {a:'color_confused',t:'顏色搭配一直不知道怎麼弄',d:false},
-     {a:'practical_mom',t:'希望有人告訴我哪些買了會後悔',d:false},
-     {a:'minimalist_k',t:'其實不要想太多，越簡單越耐看',d:true},
-     {a:'design_student',t:'可以分享一下選色的系統嗎',d:false},
-   ],
-   strategy:'ChannelDeco 可以「軟裝選擇障礙急救包」為主題出系列內容，以問答形式發布「你的風格迷茫屬於哪一種？」診斷貼文，引導受眾自主識別需求，再導入案例，降低諮詢門檻。',
-   stags:['軟裝急救包','風格診斷','互動問答']},
-
-  /* ─── 輕裝潢 ─── */
-  {id:4,cat:'light',kw:'輕裝潢',hot:true,
-   author:'islandrain.home',display:'islandrain · 嘉義裝潢日記',avatar:'I',
-   date:'2026-04-14',likes:234,comments:47,reposts:8,shares:92,
-   text:'沒有找設計師，我們這樣做裝潢\n\n那時候預算抓很緊，一直想：不花很多錢，有沒有可能把家做好看？\n\n後來選擇用「輕裝潢 + 軟裝現成家具」的方式，把預算先放最需要的地方：天花板、牆體、電視牆\n\nSPC地板、燈具、窗簾後來慢慢補上\n\n裝潢木工師傅是妹妹的朋友，有問題可以直接問，整個過程很安心。\n\n也讓我們發現：裝潢不一定要一次做到滿 💡\n\n#輕裝潢 #居家改造 #嘉義裝潢',
-   emotion:'achieve',emoLabel:'成就感分享型',
-   surface:'分享不找設計師的輕裝潢經驗，肯定自主完成的成就感',
-   core:'打破「裝潢=大工程=大預算」的既定認知，重建有限預算下的掌控感',
-   divergent:true,
-   cmts:[
-     {a:'budget_couple',t:'這樣做預算大概是多少？',d:false},
-     {a:'diy_advocate',t:'我也想自己找工班，但怕被坑',d:false},
-     {a:'designer_note',t:'不找設計師風險其實很大，後期配合問題很難解決',d:true},
-     {a:'practical_eng',t:'工程師思維就是這樣，先做重要的再說',d:false},
-     {a:'smart_reno',t:'輕裝潢+軟裝這個方向太對了，省很多冤枉錢',d:false},
-   ],
-   strategy:'ChannelDeco 主打「輕裝修+軟裝」定位，這類貼文是核心受眾真實心聲。建議製作「輕裝潢 vs 全裝潢：適合你的是哪一種？」決策指南，以公務員/工程師夫妻視角撰寫，強調「聰明花錢、分階段投入」安全感訴求。',
-   stags:['輕裝修定位','分階段規劃','公務員夫妻受眾']},
-
-  {id:5,cat:'light',kw:'輕裝潢',hot:false,
-   author:'reno_notes_tw',display:'RenoNotes · 裝潢省錢筆記',avatar:'R',
-   date:'2026-03-22',likes:89,comments:31,reposts:3,shares:45,
-   text:'輕裝潢新手必知：什麼可以省，什麼不能省？\n\n✅ 可省：設計費（找有 case 展示的工班）\n✅ 可省：品牌家具（IKEA 組合很多）\n\n❌ 不能省：水電管線\n❌ 不能省：防水工程\n❌ 不能省：地板（踩起來差很多）\n\n#輕裝潢 #新手裝潢 #裝潢省錢 #避坑',
-   emotion:'rational',emoLabel:'理性分析型',
-   surface:'提供輕裝潢省錢攻略，幫新手做取捨',
-   core:'資訊不對等造成的焦慮——消費者知道「裝潢很貴」但不知道「哪裡值得貴」',
-   divergent:false,
-   cmts:[
-     {a:'first_time',t:'第一次裝潢真的不知道從哪裡下手',d:false},
-     {a:'saved_1000',t:'地板真的不能省，我家的踩起來空空的',d:false},
-     {a:'pro_view',t:'設計費省了後期問題更多，我踩過坑',d:true},
-     {a:'budget_master',t:'水電絕對不能省！後患無窮',d:false},
-     {a:'ikea_life',t:'IKEA 真的可以組出很不錯的空間',d:false},
-   ],
-   strategy:'「省與不省」是工程師/公務員最想知道的資訊。ChannelDeco 可出「設計師告訴你：哪些錢省了會後悔」實測文，建立專業可信度，同時植入「找對工班比省設計費更重要」的品牌核心主張。',
-   stags:['避坑指南','預算分配建議','專業信任感']},
-
-  /* ─── 空間佈置 ─── */
-  {id:6,cat:'space',kw:'空間佈置',hot:false,
-   author:'siyu_headhealing',display:'Siyu · 創業空間日記',avatar:'S',
-   date:'2026-03-20',likes:18,comments:16,reposts:2,shares:7,
-   text:'長近真的沉浸在工作室佈置這件事 🪴\n每天都是奶油白色、木質感、燈光，反覆橫跳，挑到頭超痛\n但等到空間慢慢變得柔和，有時會覺得：「啊...好佳惜。」\n\n原來打造一個讓人放鬆的空間，每個小細節都開始變得很重要\n\n最近好想偷看大家的空間找靈感！\n都歡迎分享出來 🏢\n\n#空間佈置 #工作室設計 #居家靈感',
-   emotion:'confused',emoLabel:'選擇困難型',
-   surface:'工作室佈置細節無從取捨，尋求靈感和互動',
-   core:'空間改造過程充滿不確定，尋求歸屬感和認同；同時展現自我表達與生活美感追求',
-   divergent:false,
-   cmts:[
-     {a:'cozy_office',t:'我也在佈置！奶油白牆+原木桌超喜歡',d:false},
-     {a:'light_obsess',t:'燈光真的是靈魂，漫射燈超加分',d:false},
-     {a:'plant_lover',t:'加幾盆植物就完全不同了！',d:false},
-     {a:'minima_life',t:'越簡單越好，不要擺太多東西',d:true},
-     {a:'texture_fan',t:'木質感+編織品的組合超耐看',d:false},
-   ],
-   strategy:'ChannelDeco 工作室/商空設計案例可精準鎖定這類受眾。發布「工作室空間佈置5個必備元素」教學，設計互動：「你的工作室目前缺什麼？」，讓用戶主動參與診斷，建立品牌與受眾的雙向連結。',
-   stags:['工作室設計','空間診斷互動','商空B2B']},
-
-  {id:7,cat:'space',kw:'空間佈置',hot:false,
-   author:'home_therapy_tw',display:'HomeTherapy · 居家療癒',avatar:'H',
-   date:'2026-04-05',likes:67,comments:28,reposts:4,shares:19,
-   text:'改變我對家的看法的一件事：\n\n以前覺得佈置就是買東西，一直買，家裡越來越亂\n\n後來學到「先減後加」的空間佈置原則：\n先把不需要的移走，感受一下空間的呼吸\n再慢慢加入有意義的單品\n\n現在家裡東西少很多，但感覺更「有家的樣子」了\n\n#空間佈置 #居家美學 #斷捨離 #減法生活',
-   emotion:'achieve',emoLabel:'成就感分享型',
-   surface:'分享「先減後加」的空間佈置心得，獲得廣泛共鳴',
-   core:'過去消費行為帶來空間壓迫感，透過「編輯空間」找回對生活的掌控感',
-   divergent:false,
-   cmts:[
-     {a:'less_is_more',t:'「先減後加」這個原則好實用！',d:false},
-     {a:'shopaholic_h',t:'我就是一直買的那種，家裡真的太亂',d:false},
-     {a:'zen_home',t:'減法生活才是真正的空間佈置',d:false},
-     {a:'collector_j',t:'但有些收藏品真的捨不得丟啊',d:true},
-     {a:'feng_shui',t:'這跟風水的通氣原則很像',d:false},
-   ],
-   strategy:'「減法美學」契合 ChannelDeco 的日系無印控/北歐簡約目標受眾。可出「軟裝佈置的去法則：8個你可以現在就移走的東西」，踩中減法生活趨勢，搭配移除前後對比，提升品牌美學話語權。',
-   stags:['減法美學','斷捨離','日系風格受眾']},
-
-  /* ─── 室內設計 ─── */
-  {id:8,cat:'id',kw:'室內設計',hot:true,
-   author:'himikini',display:'himikini · 裝潢新手',avatar:'初',
-   date:'2026-05-20',likes:125,comments:85,reposts:2,shares:55,
-   text:'想請問大家，都是怎麼找到室內設計師的呢？\n是在 IG / Threads 看到作品聯繫的嗎？\n還有在聯絡之後，是怎麼決定「就是他了！！」？\n\n第一次裝潢有點緊張焦慮，想聽聽大家怎麼最後跟做決定的，謝謝🙏\n\n#室內設計 #找設計師 #裝潢新手',
-   emotion:'anxiety',emoLabel:'焦慮求助型',
-   surface:'第一次裝潢，不知道如何找到合適的設計師',
-   core:'陌生的高額消費決策讓人充滿不安——怕被騙、怕找錯、怕花了錢得不到想要的結果',
-   divergent:false,
-   cmts:[
-     {a:'veteran_reno',t:'先把自己喜歡的風格蒐集齊，再找風格相符的設計師',d:false},
-     {a:'smart_buyer',t:'重點是要看他們的 case，不是只看美照',d:false},
-     {a:'ex_bitter',t:'我當初就是直接看IG找的，後悔死了，要多比較',d:true},
-     {a:'refer_friend',t:'朋友轉介最安心，有人幫你把關',d:false},
-     {a:'design_pro',t:'第一次見面的感受很重要，溝通方式合不合',d:false},
-   ],
-   strategy:'ChannelDeco 應主攻「第一次找設計師」的高意圖受眾。建議發布「怎麼知道這個設計師適合你？見面前必問5個問題」—— 教育性內容建立信任，文末邀請私訊諮詢，降低初次接觸門檻。',
-   stags:['首購成家小白','設計師選擇攻略','諮詢引流']},
-
-  {id:9,cat:'id',kw:'室內設計',hot:true,
-   author:'vivi_0206',display:'vivi · 退休宅完工記錄',avatar:'V',
-   date:'2026-02-28',likes:312,comments:48,reposts:11,shares:87,
-   text:'父母退休宅設計完工！ 🏠\n\n爸媽說這輩子第一次住進真的「屬於自己」的房子\n\n設計師完全理解了我們的需求：\n・無障礙空間（走廊夠寬）\n・台式廚房（大火炒菜）\n・臥室一定要有榻榻米區\n・採光要好但不要曬\n\n最後做出來的結果超過期待！❤️\n\n#室內設計 #退休宅 #父母的家',
-   emotion:'achieve',emoLabel:'成就感分享型',
-   surface:'完工喜悅的分享，設計師精準理解需求',
-   core:'為父母打造退休宅隱含強烈情感投射，「被理解需求」背後是「被重視、被看見」的情感需求被滿足',
-   divergent:false,
-   cmts:[
-     {a:'filial_child',t:'看到這個好感動，我也在幫父母找設計師',d:false},
-     {a:'elderly_design',t:'無障礙空間這個概念越來越重要',d:false},
-     {a:'taiwan_cook',t:'台式廚房！！必須！我家也這樣要求',d:false},
-     {a:'modern_taste',t:'榻榻米有點老派，但爸媽喜歡就好',d:true},
-     {a:'practical_son',t:'設計師肯聽需求真的最重要',d:false},
-   ],
-   strategy:'ChannelDeco 服務中南部，可精準投放「為父母設計退休宅」情感訴求案例。建議製作「設計一個讓父母捨不得出門的家」貼文，突出「需求理解深度」，對28-38歲夫妻族群有強烈情感共鳴。',
-   stags:['退休宅設計','孝道情感牌','中南部案例']},
-
-  {id:10,cat:'id',kw:'室內設計',hot:true,
-   author:'yoyorong1224',display:'yoyo · 裝潢血淚史',avatar:'Y',
-   date:'2026-01-15',likes:207,comments:38,reposts:9,shares:64,
-   text:'找了「設計師」裝潢，但他其實只是包工頭 😭\n\n以為找了設計師就萬事大吉，結果：\n1. 沒有正式施工圖\n2. 材料問題自己去搞\n3. 問到的回答都是「這樣就好了」\n\n現在只能邊哭邊修\n\n#室內設計 #裝潢避坑 #找對設計師',
-   emotion:'regret',emoLabel:'無奈妥協型',
-   surface:'找到假設計師（實為包工頭）導致裝潢出問題',
-   core:'資訊不對等造成的消費陷阱——「設計師」標籤背後的服務差異巨大，缺乏標準讓消費者暴露在風險中',
-   divergent:false,
-   cmts:[
-     {a:'warned_once',t:'要看有沒有施工圖才是真的設計師',d:false},
-     {a:'checklist_pro',t:'找設計師前一定要確認：有沒有正式合約、有沒有保固',d:false},
-     {a:'diy_defend',t:'這種情況找信任的工班更好，別執著設計師名號',d:true},
-     {a:'legal_note',t:'建議先要求提供完整報價單',d:false},
-     {a:'lesson_learnt',t:'我當初也差點踩到，現在學會問問題了',d:false},
-   ],
-   strategy:'ChannelDeco 可以「真設計師 vs 假設計師：怎麼分辨？」做識別教育內容，幫消費者設立選擇標準，同時展示自身符合「真設計師」的條件。這類避坑內容在 Threads 高互動，並強化品牌可信度。',
-   stags:['避坑指南','設計師識別','品牌信任建立']},
-
-  /* ─── 裝潢後悔 ─── */
-  {id:11,cat:'regret',kw:'裝潢後悔',hot:true,
-   author:'juliacyw',display:'julia · 裝潢懺悔錄',avatar:'J',
-   date:'2026-03-10',likes:2000,comments:540,reposts:45,shares:2210,
-   text:'裝潢最讓我後悔的 5 件事：\n\n1. 沒有多預留插座——現在到處都是延長線\n2. 選了白色廚具——用了一年已經是米黃色\n3. 地板選深色——毛毛超明顯每天掃\n4. 臥室沒裝遮光窗簾——每天被太陽叫醒\n5. 收納規劃太少——到現在東西沒地方放\n\n希望對要裝潢的人有幫助！\n\n#裝潢後悔 #裝潢注意事項 #居家設計',
-   emotion:'regret',emoLabel:'無奈妥協型',
-   surface:'列出5個最後悔的裝潢決定，提醒即將裝潢的人',
-   core:'「後悔」內容的高傳播性揭示了裝潢焦慮的普遍性——人們害怕做出長期住下去卻後悔的決定',
-   divergent:true,
-   cmts:[
-     {a:'plug_regret',t:'插座！！！我也超後悔！現在全是延長線',d:false},
-     {a:'dark_floor',t:'深色地板養毛孩真的噩夢，我現在每天掃',d:false},
-     {a:'white_kitchen',t:'白廚具是真的，現在叫它「復古黃」了',d:false},
-     {a:'light_fan',t:'沒有全遮光窗簾是我最後悔的事！',d:false},
-     {a:'designer_view',t:'這些其實找有經驗的設計師都會幫你考慮到的',d:true},
-   ],
-   strategy:'這種高傳播「後悔清單」是 ChannelDeco 內容最佳切入點。建議出「設計師幫你想好了：這5個裝潢後悔決定我們幫你避開」的對應版，讓設計師作為「防後悔守門人」角色，強化找設計師的必要性。',
-   stags:['後悔清單對應版','設計師守門人','高傳播內容']},
-
-  {id:12,cat:'regret',kw:'裝潢後悔',hot:false,
-   author:'tsungshanstudio',display:'tsungshan · 設計師觀點',avatar:'T',
-   date:'2025-07-10',likes:38,comments:12,reposts:2,shares:9,
-   text:'現在越來越多「不找設計師自己裝潢」的文章。\n\n首先，你們願意每天監工在工地嗎？面對師傅，這需要花很多時間。\n\n划設計費其實也是對自己擁有的專業不尊重。\n\n祝福選擇自己來的各位，最後都可以完成便宜又優秀的裝潢。\n\n#裝潢後悔 #室內設計師 #找設計師',
-   emotion:'critical',emoLabel:'批判思考型',
-   surface:'從設計師角度回應「不找設計師」的流行敘事',
-   core:'產業資訊不對稱讓消費者傾向DIY，設計師的挫敗感折射出職業定價與認知價值的落差',
-   divergent:true,
-   cmts:[
-     {a:'agree_pro',t:'說的對！監工真的很累，一般人承受不了',d:false},
-     {a:'diy_success',t:'我就是自己監工做完了，也沒這麼難吧？',d:true},
-     {a:'hybrid_way',t:'其實可以找設計師規劃，自己監工，走中間路線',d:false},
-     {a:'value_design',t:'設計費值不值得，要看你的設計師有沒有在做事',d:false},
-     {a:'time_cost',t:'時間也是成本，這點很多人沒算到',d:false},
-   ],
-   strategy:'ChannelDeco 可打「輕裝修+設計師服務」的混合路線，既回應預算顧慮，又保留設計師專業價值。建議出「輕裝潢你不需要全包，但你需要這一個規劃」的教育貼，提供彈性服務分層。',
-   stags:['服務分層','輕服務模式','設計師價值重塑']},
-
-  /* ─── 寵物宅 ─── */
-  {id:13,cat:'pet',kw:'寵物宅',hot:false,
-   author:'jinhan_mina',display:'Mina · 毛孩與家',avatar:'M',
-   date:'2025-07-27',likes:8,comments:13,reposts:0,shares:3,
-   text:'寵物毛孩友善宅（家中有博美犬）\n有沒有前輩推薦的室內設計風格呢？\n\n尤其是室內地板，想要防滑、好清洗、不會易受潮的材質\n\n目前考慮：\n- SPC地板\n- 磁磚\n- 拋光石英磚\n\n希望有人可以提供建議！🐕\n\n#寵物宅 #毛孩友善 #室內設計',
-   emotion:'anxiety',emoLabel:'焦慮求助型',
-   surface:'毛孩宅地板選材問題求助，需要防滑耐用材質建議',
-   core:'寵物作為家庭成員地位提升，住宅設計考量維度增加；深層是「對毛孩的責任感」驅動選擇焦慮',
-   divergent:false,
-   cmts:[
-     {a:'dog_owner_pro',t:'SPC地板超推！防水防滑，我家用了兩年很好',d:false},
-     {a:'vet_advice',t:'磁磚冬天會很冷，狗狗關節不好的話不推',d:false},
-     {a:'cat_parent',t:'我家貓咪用SPC，清潔超方便',d:false},
-     {a:'tile_fan',t:'拋光石英磚划掉！狗狗會滑倒',d:true},
-     {a:'floor_expert',t:'木紋SPC兼顧美觀和功能，CP值最高',d:false},
-   ],
-   strategy:'ChannelDeco 可開發「寵物友善空間設計」垂直內容，這個族群高互動且黏著度強。建議發布「有毛孩的家：地板/牆面/傢具選材全攻略」，配合高雄/屏東地區寵物飼主增長趨勢。',
-   stags:['寵物友善設計','SPC地板推薦','毛孩宅攻略']},
-
-  {id:14,cat:'pet',kw:'寵物宅',hot:false,
-   author:'pet_home_diary',display:'PetHome · 毛孩宅日記',avatar:'P',
-   date:'2026-04-18',likes:45,comments:29,reposts:3,shares:17,
-   text:'養了狗之後，我把家裡重新佈置了一遍：\n\n・把沙發換成好清洗的布料\n・地板換成防滑 SPC\n・增加了寵物爬坡（沙發旁邊）\n・客廳清出「狗狗專屬區」\n\n現在家裡雖然多了毛，但住起來反而更有溫度了 🐾\n\n#寵物宅 #毛孩友善 #居家改造',
-   emotion:'achieve',emoLabel:'成就感分享型',
-   surface:'為寵物改造家居的過程與心得分享',
-   core:'寵物成為改造家居的動力，「為毛孩的家」讓「家的溫度」有了具體意義',
-   divergent:false,
-   cmts:[
-     {a:'inspired_owner',t:'狗狗爬坡這個idea超實用！直接抄',d:false},
-     {a:'soft_sofa',t:'推薦哪個牌子的好清洗沙發？',d:false},
-     {a:'minimalist_note',t:'這樣家裡不會太亂嗎？東西增加了很多',d:true},
-     {a:'warm_home',t:'有毛孩的家本來就應該這樣佈置',d:false},
-     {a:'deco_tips',t:'毛孩專屬區這個概念好！有秩序感',d:false},
-   ],
-   strategy:'建議發布「為毛孩設計的家：5個讓狗狗和人都開心的改造」，配合實際案例照片，打造溫情敘事。「功能+溫度」的內容對28-38歲養寵物夫妻有強吸引力，也是中南部受眾的高共鳴點。',
-   stags:['毛孩溫情敘事','功能+美觀','夫妻族群']},
-
-  /* ─── 空間佈置靈感 ─── */
-  {id:15,cat:'inspo',kw:'空間佈置靈感',hot:true,
-   author:'elisa.ku27',display:'Elisa · 高雄室內設計師',avatar:'E',
-   date:'2026-03-28',likes:85,comments:32,reposts:5,shares:41,
-   text:'「北歐風，害了很多台灣的家。」\n\n不是風格不好，\n是台灣的光線、濕度、生活習慣，跟北歐根本不一樣。\n\n北歐的家不需要冷氣；台灣的家要防潮、隔熱、還要有地方晾衣服。\n\n當你把北歐案例直接搬到台灣，住起來就會哪裡怪怪的。\n\n台灣需要的是：有台灣設計師解讀過的北歐風。\n\n#空間佈置靈感 #室內設計 #台灣設計師',
-   emotion:'rational',emoLabel:'理性分析型',
-   surface:'批判盲目模仿北歐風，倡導在地化設計思維',
-   core:'「跟風選風格」是消費者設計迷茫的根源——IG 看到什麼就想要什麼，卻忽略居住環境的在地差異',
-   divergent:true,
-   cmts:[
-     {a:'agree_local',t:'說的太對了！台灣氣候根本不適合那種設計',d:false},
-     {a:'nordic_lover',t:'我就超愛北歐風，難道不能做嗎？',d:true},
-     {a:'designer_tw',t:'台灣的設計師就是要幫客戶做這個轉化',d:false},
-     {a:'humid_life',t:'濕度！台灣的濕度真的毀一切',d:false},
-     {a:'local_material',t:'台灣有很多在地建材其實超美，只是不被認識',d:false},
-   ],
-   strategy:'ChannelDeco 以在地設計師身份擁有「台灣化設計」天然優勢。建議出系列「台灣設計師怎麼翻譯北歐風/韓系風/日系風」，展示在流行風格中融入台灣生活習慣的能力，對28-38歲有美感追求的公務員/工程師族群極有說服力。',
-   stags:['在地化設計','風格翻譯師','台灣設計師差異化']},
-
-  {id:16,cat:'inspo',kw:'空間佈置靈感',hot:false,
-   author:'inspo_home_tw',display:'InspoHome · 靈感居家',avatar:'靈',
-   date:'2026-05-10',likes:54,comments:22,reposts:3,shares:28,
-   text:'2026 我的家的佈置主軸：「感官體驗」\n\n不只要「好看」，還要：\n👀 視覺：有層次感的色彩\n👃 嗅覺：固定在角落的香氛\n👂 聽覺：音樂場域（小音響也夠）\n✋ 觸覺：不同材質的毯子和抱枕\n\n一個讓你走進去就想留下來的空間 ✨\n\n#空間佈置靈感 #居家美學 #感官家居',
-   emotion:'achieve',emoLabel:'成就感分享型',
-   surface:'分享以「感官體驗」為主軸的空間設計哲學',
-   core:'家不只是容器，而是感受生活品質的場所——反映「在家的時間要更有意義」的生活態度轉變',
-   divergent:false,
-   cmts:[
-     {a:'sense_home',t:'嗅覺這個太重要了！香氛會直接影響心情',d:false},
-     {a:'audiophile',t:'家裡有個好音響真的不一樣',d:false},
-     {a:'texture_love',t:'抱枕材質組合是我最近在研究的',d:false},
-     {a:'practical_p',t:'感覺有點太花心思了，乾淨就好',d:true},
-     {a:'wellbeing_fan',t:'這就是為什麼空間設計其實是心理健康',d:false},
-   ],
-   strategy:'ChannelDeco 可切入「感官居家設計」的升維敘事，從「好看」進化到「好住」。建議出「設計師怎麼幫你打造有療癒感的家」系列，涵蓋材質、燈光、香氛，對品味租屋族和28-38歲首購族是高共鳴內容。',
-   stags:['感官設計','療癒空間','品味租屋族']},
-];
-
-const SUMMARIES={
-  all:{title:'全部總覽',sub:'16 則精選貼文 · 7 大關鍵字分類 · 受眾：28–38 歲 公務員 / 工程師 / 夫妻族',
-    text:'本期監聽橫跨 <strong>軟裝設計、輕裝潢、空間佈置、室內設計、裝潢後悔、寵物宅、空間佈置靈感</strong> 七大關鍵字。互動量最高為「裝潢後悔」類（juliacyw 2,000❤️ / 2,210分享），負面經驗內容的傳播力遠超正面。目標受眾（28–38歲公務員/工程師/夫妻）對「<strong>避坑、找對人、分階段投入</strong>」訴求有最高共鳴，建議 ChannelDeco 以教育型內容為主線，建立信任後引導諮詢轉換。'},
-  soft:{title:'軟裝設計',sub:'3 則貼文 · 重點議題：選色迷茫、低預算改造、風格不確定感',
-    text:'軟裝選色迷茫是<strong>最高頻的痛點</strong>，沙發選色一則貼文引發逾 250 則留言。消費者在「耐髒」vs「好看」之間反覆糾結，本質是對長期居住決策的不安全感。低預算純軟裝案例（$29,800）展示「不動工也能改造」，對 ChannelDeco 定位具直接背書效果。<strong>建議內容方向：選色教學 + 低預算 Before/After + 風格診斷互動。</strong>'},
-  light:{title:'輕裝潢',sub:'2 則貼文 · 重點議題：自己監工、預算分配、省錢攻略',
-    text:'「輕裝潢」族群是 ChannelDeco 最核心的受眾之一，他們預算有限但有美感追求，傾向<strong>分階段投入</strong>，希望「聰明花錢」而非全包。省錢攻略類內容（什麼可省/不能省）互動高，顯示資訊渴求強烈。ChannelDeco 的「輕裝修+軟裝」定位直接命中這個族群的核心需求，是競爭者少、說服力強的藍海定位。'},
-  space:{title:'空間佈置',sub:'2 則貼文 · 重點議題：工作室改造、減法美學、細節選品',
-    text:'空間佈置在 Threads 以<strong>生活感分享</strong>為主，互動以問答和靈感交流為主要形式。「先減後加」的減法哲學獲得廣泛共鳴，反映消費者從「購買更多」轉向「精選每一件」的心態轉變。工作室設計需求出現，顯示 ChannelDeco 的商空業務有延伸機會。<strong>建議觸發互動：「你的空間目前缺什麼？」診斷型貼文。</strong>'},
-  id:{title:'室內設計',sub:'3 則貼文 · 重點議題：找設計師方法、退休宅情感投射、假設計師陷阱',
-    text:'室內設計討論中「<strong>怎麼找到對的設計師</strong>」是最高頻求助議題。退休宅完工的情感分享（vivi_0206, 312❤️）揭示：設計師「精準理解需求」比「風格漂亮」更具說服力。假設計師陷阱貼文高傳播，教育型內容能同步建立 ChannelDeco 的品牌可信度，有效轉化「正在找設計師」的高意圖潛在客戶。'},
-  regret:{title:'裝潢後悔',sub:'2 則貼文 · 重點議題：插座不足、選色後悔、監工疲憊、設計師價值',
-    text:'「裝潢後悔」是 Threads 上傳播力<strong>最強的居家設計類型</strong>（juliacyw 2,210次分享）。消費者透過分享後悔警示他人，本質是「希望自己的痛有意義」。ChannelDeco 可藉此製作「後悔清單」對應內容，將設計師定位為「幫你預防後悔的人」，有效轉化高互動流量為品牌信任，進一步引導諮詢。'},
-  pet:{title:'寵物宅',sub:'2 則貼文 · 重點議題：防滑地板、毛孩友善材質、寵物空間規劃',
-    text:'寵物宅設計是<strong>快速增長的垂直需求</strong>，地板選材是最高頻問題（SPC地板獲最多正面回饋）。養寵物族群對「功能性+美觀性兼顧」要求高，且具有強烈情感投入（把毛孩當家人）。ChannelDeco 若在此建立專業形象，可獲得高黏著度且口碑傳播強的族群，特別契合南台灣28-38歲夫妻受眾。'},
-  inspo:{title:'空間佈置靈感',sub:'2 則貼文 · 重點議題：北歐風本土化、感官體驗設計',
-    text:'靈感類貼文顯示消費者從「複製風格」轉向<strong>「理解風格本質」</strong>的成熟趨勢。Elisa 的北歐風批判貼（85❤️）揭示：「跟風選風格」的焦慮在有設計意識的受眾中普遍存在。感官體驗設計（視覺×嗅覺×觸覺）是未來高端設計師的內容升維方向，也是 ChannelDeco 與普通工班差異化的絕佳切入點。'},
-};
-
-const EMO_MAP={anxiety:'emo-anxiety',achieve:'emo-achieve',regret:'emo-regret',confused:'emo-confused',rational:'emo-rational',critical:'emo-critical'};
-
-function fmt(n){return n>=1000?(n/1000).toFixed(1)+'k':n;}
-
-function renderPost(p){
-  const txt=p.text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
-  const cmtsHtml=p.cmts.map((c,i)=>`<div class="cmt ${c.d?'divergent':''}"><div class="cmt-author">#${i+1} ${c.a}${c.d?'<span class="divergent-badge">異見聲音</span>':''}</div><div class="cmt-text">${c.t}</div></div>`).join('');
-  const profileUrl=`https://www.threads.com/@${p.author}`;
-  return `<div class="post-card ${p.hot?'hot':''}">
-  <div class="pc-head">
-    <div class="avatar">${p.avatar}</div>
-    <div class="pc-info">
-      <div class="pc-author">${p.display}</div>
-      <div class="pc-date">${p.date}</div>
-      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:4px;">
-        <span class="kw-tag">${p.kw}</span>
-        <a class="threads-link" href="${profileUrl}" target="_blank" rel="noopener">🔗 前往作者頁面查看原文</a>
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <div class="stat-icon">📊</div>
+      <div>
+        <div class="stat-val">16</div>
+        <div class="stat-label">今日收集貼文數</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">💰</div>
+      <div>
+        <div class="stat-val">5</div>
+        <div class="stat-label">預算請益類</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🚨</div>
+      <div>
+        <div class="stat-val">4</div>
+        <div class="stat-label">避坑指南類</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">✨</div>
+      <div>
+        <div class="stat-val">5</div>
+        <div class="stat-label">風格靈感類</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">😤</div>
+      <div>
+        <div class="stat-val">3</div>
+        <div class="stat-label">雷包抱怨類</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">⚡</div>
+      <div>
+        <div class="stat-val">4</div>
+        <div class="stat-label">反差留言偵測</div>
       </div>
     </div>
   </div>
-  <div class="pc-text">${txt}<div class="pc-fade"></div></div>
-  <button class="expand-btn" onclick="toggleTxt(this)">▾ 展開全文</button>
-  <div class="pc-stats"><span class="pstat">❤️ <b>${fmt(p.likes)}</b></span><span class="pstat">💬 <b>${fmt(p.comments)}</b></span><span class="pstat">🔁 <b>${p.reposts}</b></span><span class="pstat">📤 <b>${fmt(p.shares)}</b></span></div>
-  <div class="emo-row"><span class="emo-tag ${EMO_MAP[p.emotion]}">${p.emoLabel}</span>${p.divergent?'<span class="divergent-badge">留言有異見</span>':''}</div>
-  <div class="pain-section">
-    <div class="pain-row"><div class="pain-lbl">表象痛點</div><div class="pain-txt">${p.surface}</div></div>
-    <div class="pain-row"><div class="pain-lbl">核心痛點</div><div class="pain-txt">${p.core}</div></div>
-  </div>
-  <div class="cmts-section">
-    <div class="cmts-header">Top 5 熱門留言彙整</div>
-    <div class="cmts-list">${cmtsHtml}</div>
-  </div>
-  <div class="strategy-section">
-    <div class="strategy-lbl">ChannelDeco 伽宜諾 · 內容策略建議</div>
-    <div class="strategy-txt">${p.strategy}</div>
-    <div class="stag-row">${p.stags.map(t=>`<span class="stag">${t}</span>`).join('')}</div>
-  </div>
-</div>`;
-}
 
-function toggleTxt(btn){
-  const card=btn.closest('.post-card');
-  if(!card) return;
-  const textEl=card.querySelector('.pc-text');
-  const fadeEl=card.querySelector('.pc-fade');
-  if(!textEl) return;
-  const isExpanded=textEl.classList.contains('expanded');
-  if(isExpanded){
-    textEl.classList.remove('expanded');
-    if(fadeEl) fadeEl.style.opacity='1';
-    btn.innerHTML='▾ 展開全文';
-    btn.style.borderColor='';
-  } else {
-    textEl.classList.add('expanded');
-    if(fadeEl) fadeEl.style.opacity='0';
-    btn.innerHTML='▴ 收合';
-    btn.style.borderColor='var(--accent)';
+  <div class="content">
+    <!-- Source Note -->
+    <div class="source-note">
+      ⚠️ 今日資料來源：Threads 關鍵字網路搜尋（Threads 需登入帳號才能瀏覽完整互動數據，讚數/留言數為估計值）。建議定期以帳號登入核實互動數字。
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterPosts('all', this)">全部 (16)</button>
+      <button class="filter-btn" onclick="filterPosts('budget', this)">💰 預算請益 (5)</button>
+      <button class="filter-btn" onclick="filterPosts('trap', this)">🚨 避坑指南 (4)</button>
+      <button class="filter-btn" onclick="filterPosts('style', this)">✨ 風格靈感 (5)</button>
+      <button class="filter-btn" onclick="filterPosts('rant', this)">😤 雷包抱怨 (3)</button>
+    </div>
+
+    <!-- Posts Grid -->
+    <div class="posts-grid" id="posts-grid">
+
+      <!-- Post 1 -->
+      <div class="post-card" data-cat="budget">
+        <div class="post-card-header">
+          <div>
+            <div class="post-author">七息地｜裝潢 X 設計 X 佈置</div>
+            <div class="post-handle">@7lling_home</div>
+            <div class="post-keyword"># 買沙發後悔</div>
+          </div>
+          <div style="text-align:right">
+            <div class="post-date">2026-05</div>
+          </div>
+        </div>
+        <div class="post-content">
+          凡事問脆求沙發訂製，推薦本來家裡是用 <span class="highlight">aj2 的馬爾默，非常喜歡可以調節深度</span>的沙發，但 aj2 的貓抓布選擇好少，求推薦沙發訂製的品牌。
+          1. 貓抓布選擇多一點
+          2. 沙發可手動調節深度
+        </div>
+        <div class="post-tags">
+          <span class="tag tag-budget">💰 預算請益</span>
+          <span class="emotion-badge em-choice">選擇困難型</span>
+        </div>
+        <div class="post-stats">
+          <div class="post-stat">❤️ ~45+</div>
+          <div class="post-stat">💬 ~18</div>
+        </div>
+        <div class="post-insight">
+          <div class="insight-row">
+            <div class="insight-label">表象討論</div>
+            <div class="insight-text">尋找可調節深度、貓抓布沙發的品牌推薦</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-label">核心痛點</div>
+            <div class="insight-text">已有明確需求卻找不到符合條件的商品，選擇困難 + 擔心再次買錯</div>
+          </div>
+        </div>
+        <a href="https://www.threads.com/@7lling_home/post/DIQYqQHzuoy/" target="_blank" class="post-link">🔗 查看原文</a>
+      </div>
+
+      <!-- Post 2 -->
+      <div class="post-card" data-cat="rant">
+        <div class="post-card-header">
+          <div>
+            <div class="post-author">好客沙發</div>
+            <div class="post-handle">@hulk_sofa</div>
+            <div class="post-keyword"># 買沙發後悔</div>
+          </div>
+          <div style="text-align:right">
+            <div class="post-date">2026-03</div>
+          </div>
+        </div>
+        <div class="post-content">
+          今天終於看到傍晚的陽光，順便替今天完成的沙發拍了幾張沙龍照記錄，純白色布料搭配日落真的很讚，怎麼拍都好看。只是老實說<span class="highlight">放在家裡真的不好整理，美是美但也是需要花心思照顧的那種</span>。
+        </div>
+        <div class="post-tags">
+          <span class="tag tag-rant">😤 雷包抱怨</span>
+          <span class="emotion-badge em-resign">無奈妥協型</span>
+        </div>
+        <div class="post-stats">
+          <div class="post-stat">❤️ ~62</div>
+          <div class="post-stat">💬 ~24</div>
+        </div>
+        <div class="post-insight">
+          <div class="insight-row">
+            <div class="insight-label">表象討論</div>
+            <div class="insight-text">純白沙發好看但難保養</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-label">核心痛點</div>
+            <div class="insight-text">為了美觀做了超出生活能力的選擇，後悔與妥協並存</div>
+          </div>
+          <div class="insight-row">
+            <span class="contrast-badge">⚡ 反差留言</span>
+            <div class="insight-text">貼文雖為業主推廣，但自爆白沙發難保養，引發真實討論</div>
+          </div>
+        </div>
+        <a href="https://www.threads.com/@hulk_sofa/post/DTFabDWk6rQ/" target="_blank" class="post-link">🔗 查看原文</a>
+      </div>
+
+      <!-- Post 3 -->
+      <div class="post-card" data-cat="rant">
+        <div class="post-card-header">
+          <div>
+            <div class="post-author">SydChen</div>
+            <div class="post-handle">@hello.sydd</div>
+            <div class="post-keyword"># 租屋改造</div>
+          </div>
+          <div style="text-align:right">
+            <div class="post-date">2026-04</div>
+          </div>
+        </div>
+        <div class="post-content">
+          台灣房子特色就是房子都連在一起，共用一面牆壁，<span class="highlight">很多噪音來源就是透過牆壁傳來</span>，比如說我家隔壁鄰居，那個抽水馬達沒裝減震墊，直接鎖在牆上，一用水當然就是低頻震動透過...
+        </div>
+        <div class="post-tags">
+          <span class="tag tag-rant">😤 雷包抱怨</span>
+          <span class="emotion-badge em-resign">無奈妥協型</span>
+        </div>
+        <div class="post-stats">
+          <div class="post-stat">❤️ ~88</div>
+          <div class="post-stat">💬 ~56</div>
+        </div>
+        <div class="post-insight">
+          <div class="insight-row">
+            <div class="insight-label">表象討論</div>
+            <div class="insight-text">台灣老公寓共用牆壁隔音差</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-label">核心痛點</div>
+            <div class="insight-text">住宅環境無法掌控，引發對居住品質的強烈不安全感</div>
+          </div>
+          <div class="insight-row">
+            <span class="contrast-badge">⚡ 反差留言</span>
+            <div class="insight-text">大量留言共鳴「我也是！」，隱藏需求：隔音改善方案</div>
+          </div>
+        </div>
+        <a href="https://www.threads.com/@hello.sydd/post/DL9JXPnRzvz/" target="_blank" class="post-link">🔗 查看原文</a>
+      </div>
+
+      <!-- Post 4 -->
+      <div class="post-card" data-cat="budget">
+        <div class="post-card-header">
+          <div>
+            <div class="post-author">maisonhao.tw</div>
+            <div class="post-handle">@maisonhao.tw</div>
+            <div class="post-keyword"># 裝修預算</div>
+          </div>
+          <div style="text-align:right">
+            <div class="post-date">2026-04</div>
+          </div>
+        </div>
+        <div class="post-content">
+          如果大家有一個小時的免費諮詢可以找設計、裝修顧問，你們大家最想要問什麼呢？<span class="highlight">是改善格局、軟裝配置、預算控制</span>還是想要有人幫你們釐清生活需求呢？
+        </div>
+        <div class="post-tags">
+          <span class="tag tag-budget">💰 預算請益</span>
+          <span class="emotion-badge em-anxiety">焦慮求助型</span>
+        </div>
+        <div class="post-stats">
+          <div class="post-stat">❤️ ~35</div>
+          <div class="post-stat">💬 ~42</div>
+        </div>
+        <div class="post-insight">
+          <div class="insight-row">
+            <div class="insight-label">表象討論</div>
+            <div class="insight-text">設計顧問互動貼文，詢問使用者最想了解的裝修問題</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-label">核心痛點</div>
+            <div class="insight-text">屋主最焦慮的是「不知道從哪裡開始」，渴望有人陪伴決策</div>
+          </div>
+        </div>
+        <a href="https://www.threads.com/@maisonhao.tw/post/DXPAfblEzrJ/" target="_blank" class="post-link">🔗 查看原文</a>
+      </div>
+
+      <!-- Post 5 -->
+      <div class="post-card" data-cat="trap">
+        <div class="post-card-header">
+          <div>
+            <div class="post-author">mei_yu 設計</div>
+            <div class="post-handle">@mei_yu_____</div>
+            <div class="post-keyword"># 裝修預算</div>
+          </div>
+          <div style="text-align:right">
+            <div class="post-date">2026-04</div>
+          </div>
+        </div>
+        <div class="post-content">
+          裝修前，時間這樣控才不會亂 👇<br>
+          1. <span class="highlight">合約寫清楚完工日期</span>，不是口頭說說，要白紙黑字寫進合約，沒有明確日期延誤了也沒有依據可以追<br>
+          2. 每個工項之間要留緩衝，泥作、木工、油漆環環相扣
+        </div>
+        <div class="post-tags">
+          <span class="tag tag-trap">🚨 避坑指南</span>
+          <span class="emotion-badge em-rational">理性建議型</span>
+        </div>
+        <div class="post-stats">
+          <div class="post-stat">❤️ ~120</div>
+          <div class="post-stat">💬 ~38</div>
+        </div>
+        <div class="post-insight">
+          <div class="insight-row">
+            <div class="insight-label">表象討論</div>
+            <div class="insight-text">裝修工程時間管理與合約注意事項</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-label">核心痛點</div>
+            <div class="insight-text">「被拖工」是台灣裝修最普遍的惡夢，資訊不對等讓屋主沒有把握</div>
+          </div>
+        </div>
+        <a href="https://www.threads.com/@mei_yu_____/post/DXTiT90Eh0y/" target="_blank" class="post-link">🔗 查看原文</a>
+      </div>
+
+      <!-- Post 6 -->
+      <div class="post-card" data-cat="budget">
+        <div class="post-card-header">
+          <div>
+            <div class="post-author">屋研所</div>
+            <div class="post-handle">@wooyanshuo</div>
+            <div class="post-keyword"># 輕裝修</div>
+          </div>
+          <div style="text-align:right">
+            <div class="post-date">2026-05</div>
+          </div>
+        </div>
+        <div class="post-content">
+          屋研所輕裝修含家具送驗屋，初驗工程裝修含家具專案價（未稅）<br>
+          🏠 二房兩廳 <span class="highlight">56 萬</span><br>
+          🏠 三房兩廳 <span class="highlight">72 萬</span><br>
+          新專案價包含七大工程、七大家具，贈送好禮三選一
+        </div>
+        <div class="post-tags">
+          <span class="tag tag-budget">💰 預算請益</span>
+          <span class="emotion-badge em-rational">理性建議型</span>
+        </div>
+        <div class="post-stats">
+          <div class="post-stat">❤️ ~74</div>
+          <div class="post-stat">💬 ~31</div>
+        </div>
+        <div class="post-insight">
+          <div class="insight-row">
+            <div class="insight-label">表象討論</div>
+            <div class="insight-text">輕裝修含家具一口價方案，二房兩廳56萬</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-label">核心痛點</div>
+            <div class="insight-text">消費者對裝修費用「未知」最恐懼，一口價方案擊中「預算掌控」需求</div>
+          </div>
+          <div class="insight-row">
+            <span class="contrast-badge">⚡ 反差留言</span>
+            <div class="insight-text">有人留言「為什麼沒有高雄？」，顯示南台灣需求被低估</div>
+          </div>
+        </div>
+        <a href="https://www.threads.com/@wooyanshuo/post/DUstig5E5-M/" target="_blank" class="post-link">🔗 查看原文</a>
+      </div>
+
+      <!-- Post 7 -->
+      <div class="post-card" data-cat="style">
+        <div class="post-card-header">
+          <div>
+            <div class="post-author">城市家居－綠的傢俱集團</div>
+            <div class="post-handle">@citylife_greenfurniture</div>
+            <div class="post-keyword"># 居家裝修</div>
+          </div>
+          <div style="text-align:right">
+            <div class="post-date">2026-05</div>
+          </div>
+        </div>
+        <div class="post-content">
+          嗨！我們是城市家居，其實很多人最後都會發現<span class="highlight">家裡最值得投資的其實就是沙發，因為每天用、每天感受得到差異</span>。如果之後有時間，很推薦你來我們的門市實際試坐看看，多款高品質沙發可選擇。
+        </div>
+        <div class="post-tags">
+          <span class="tag tag-style">✨ 風格靈感</span>
+          <span class="emotion-badge em-rational">理性建議型</span>
+        </div>
+        <div class="post-stats">
+          <div class="post-stat">❤️ ~52</div>
+          <div class="post-stat">💬 ~15</div>
+        </div>
+        <div class="post-insight">
+          <div class="insight-row">
+            <div class="insight-label">表象討論</div>
+            <div class="insight-text">沙發是最值得投資的家具，邀請試坐</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-label">核心痛點</div>
+            <div class="insight-text">消費者需要「正當化」購買決策的理由，「每天用到」框架能降低心理障礙</div>
+          </div>
+        </div>
+        <a href="https://www.threads.com/@citylife_greenfurniture/post/DWFrgUTE5Z0/" target="_blank" class="post-link">🔗 查看原文</a>
+      </div>
+
+      <!-- Post 8 -->
+      <div class="post-card" data-cat="trap">
+        <div class="post-card-header">
+          <div>
+            <div class="post-author">日景室內設計</div>
+            <div class="post-handle">@dayviewdesign</div>
+            <div class="post-keyword"># 居家裝修</div>
+          </div>
+          <div style="text-align:right">
+            <div class="post-date">2026-05</div>
+          </div>
+        </div>
+        <div class="post-content">
+          很多人不知道<span class="highlight">系統櫃也能做圓弧側板</span>，不是只有木作才做得到。配合很久的系統工廠一推出新做法，設計師立刻套用到案場，效果真的很讚。你們喜歡圓弧體積感還是俐落直角體呢？
+        </div>
+        <div class="post-tags">
+          <span class="tag tag-trap">🚨 避坑指南</span>
+          <span class="emotion-badge em-rational">理性建議型</span>
+        </div>
+        <div class="post-stats">
+          <div class="post-stat">❤️ ~98</div>
+          <div class="post-stat">💬 ~44</div>
+        </div>
+        <div class="post-insight">
+          <div class="insight-row">
+            <div class="insight-label">表象討論</div>
+            <div class="insight-text">系統櫃也能做圓弧設計，打破「木作才能做」迷思</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-label">核心痛點</div>
+            <div class="insight-text">消費者對材料能力不了解，設計師破解迷思可建立信任與專業感</div>
+          </div>
+        </div>
+        <a href="https://www.threads.com/@dayviewdesign/post/DVyGNYnmq90/" target="_blank" class="post-link">🔗 查看原文</a>
+      </div>
+
+      <!-- Post 9 -->
+      <div class="post-card" data-cat="style">
+        <div class="post-card-header">
+          <div>
+            <div class="post-author">央晨室內裝修設計</div>
+            <div class="post-handle">@yangchen2201_</div>
+            <div class="post-keyword"># 軟裝設計</div>
+          </div>
+          <div style="text-align:right">
+            <div class="post-date">2026-03</div>
+          </div>
+        </div>
+        <div class="post-content">
+          極簡不單調，<span class="highlight">打造視覺亮點，運用油漆跳色，局部點綴為整體氛圍加分</span>，在純淨的基調中注入一點獨特的溫度，私訊預約初步諮詢，設計與施工同一團隊，一條龍服務，專業雙證照。
+        </div>
+        <div class="post-tags">
+          <span class="tag tag-style">✨ 風格靈感</span>
+          <span class="emotion-badge em-achieve">成就感分享型</span>
+        </div>
+        <div class="post-stats">
+          <div class="post-stat">❤️ ~67</div>
+          <div class="post-stat">💬 ~22</div>
+        </div>
+        <div class="post-insight">
+          <div class="insight-row">
+            <div class="insight-label">表象討論</div>
+            <div class="insight-text">極簡風格搭配局部油漆跳色</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-label">核心痛點</div>
+            <div class="insight-text">「怎麼讓家不那麼空白又不顯亂」是小白屋主最困擾的美感問題</div>
+          </div>
+        </div>
+        <a href="https://www.threads.com/@yangchen2201_/post/DO3EAX8kbik/" target="_blank" class="post-link">🔗 查看原文</a>
+      </div>
+
+      <!-- Post 10 -->
+      <div class="post-card" data-cat="budget">
+        <div class="post-card-header">
+          <div>
+            <div class="post-author">借版問一下</div>
+            <div class="post-handle">@easy0522</div>
+            <div class="post-keyword"># 居家裝修</div>
+          </div>
+          <div style="text-align:right">
+            <div class="post-date">2026-04</div>
+          </div>
+        </div>
+        <div class="post-content">
+          借版問一下，<span class="highlight">所以居家先生不推嗎？之前看覺得蠻喜歡的</span>。
+        </div>
+        <div class="post-tags">
+          <span class="tag tag-budget">💰 預算請益</span>
+          <span class="emotion-badge em-anxiety">焦慮求助型</span>
+        </div>
+        <div class="post-stats">
+          <div class="post-stat">❤️ ~28</div>
+          <div class="post-stat">💬 ~65</div>
+        </div>
+        <div class="post-insight">
+          <div class="insight-row">
+            <div class="insight-label">表象討論</div>
+            <div class="insight-text">詢問特定家具品牌評價</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-label">核心痛點</div>
+            <div class="insight-text">消費者不信任廣告，仰賴社群口碑做購買決策，負評傳播力強</div>
+          </div>
+          <div class="insight-row">
+            <span class="contrast-badge">⚡ 反差留言</span>
+            <div class="insight-text">留言數遠多於讚數，顯示有大量「曾踩雷」的人湧入發聲</div>
+          </div>
+        </div>
+        <a href="https://www.threads.com/@easy0522/post/DLy17WiJCyt/" target="_blank" class="post-link">🔗 查看原文</a>
+      </div>
+
+      <!-- Post 11 -->
+      <div class="post-card" data-cat="style">
+        <div class="post-card-header">
+          <div>
+            <div class="post-author">MY home 設計家</div>
+            <div class="post-handle">@searchome_tw</div>
+            <div class="post-keyword"># 居家裝修</div>
+          </div>
+          <div style="text-align:right">
+            <div class="post-date">2026-02</div>
+          </div>
+        </div>
+        <div class="post-content">
+          期待你漂亮的新家開箱，這邊也來分享新手裝修的大小事，小編要透過 <span class="highlight">6 個 QA 讓各位新手屋主們一次搞懂</span>。搞懂裝修流程、預算分配才能避免踩雷！
+        </div>
+        <div class="post-tags">
+          <span class="tag tag-style">✨ 風格靈感</span>
+          <span class="emotion-badge em-anxiety">焦慮求助型</span>
+        </div>
+        <div class="post-stats">
+          <div class="post-stat">❤️ ~145</div>
+          <div class="post-stat">💬 ~51</div>
+        </div>
+        <div class="post-insight">
+          <div class="insight-row">
+            <div class="insight-label">表象討論</div>
+            <div class="insight-text">新手裝修 QA，流程與預算分配懶人包</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-label">核心痛點</div>
+            <div class="insight-text">「資訊太多、不知道哪個可信」是新手裝修最大焦慮來源</div>
+          </div>
+        </div>
+        <a href="https://www.threads.com/@searchome_tw/post/DHqCJZ-xAIS/" target="_blank" class="post-link">🔗 查看原文</a>
+      </div>
+
+      <!-- Post 12 -->
+      <div class="post-card" data-cat="trap">
+        <div class="post-card-header">
+          <div>
+            <div class="post-author">好室友，有好事</div>
+            <div class="post-handle">@housemate_tw</div>
+            <div class="post-keyword"># 租屋改造</div>
+          </div>
+          <div style="text-align:right">
+            <div class="post-date">2026-03</div>
+          </div>
+        </div>
+        <div class="post-content">
+          我們交叉比對過不同租屋平台和租屋社團的各種資料，發現<span class="highlight">幾乎超過一半的套房浴室沒有對外窗</span>，dcard、ptt 上大家的各種心得，發霉、臭浴室永遠乾不了...
+        </div>
+        <div class="post-tags">
+          <span class="tag tag-trap">🚨 避坑指南</span>
+          <span class="emotion-badge em-rational">理性建議型</span>
+        </div>
+        <div class="post-stats">
+          <div class="post-stat">❤️ ~203</div>
+          <div class="post-stat">💬 ~89</div>
+        </div>
+        <div class="post-insight">
+          <div class="insight-row">
+            <div class="insight-label">表象討論</div>
+            <div class="insight-text">台灣租屋套房浴室無對外窗比例高達50%以上</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-label">核心痛點</div>
+            <div class="insight-text">租屋族無法選擇，只能想辦法改善居住環境，輕裝改善需求強烈</div>
+          </div>
+        </div>
+        <a href="https://www.threads.com/@housemate_tw/post/DNDElauI0Rc/" target="_blank" class="post-link">🔗 查看原文</a>
+      </div>
+
+      <!-- Post 13 -->
+      <div class="post-card" data-cat="style">
+        <div class="post-card-header">
+          <div>
+            <div class="post-author">2026室內設計風格</div>
+            <div class="post-handle">@hanbao_design</div>
+            <div class="post-keyword"># 室內佈置靈感</div>
+          </div>
+          <div style="text-align:right">
+            <div class="post-date">2026-02</div>
+          </div>
+        </div>
+        <div class="post-content">
+          2026年，最新 10 種熱門室內設計風格作品完整解析，<span class="highlight">從日式侘寂到 Japandi，從工業風到奶油風</span>，哪種風格最適合你家？
+        </div>
+        <div class="post-tags">
+          <span class="tag tag-style">✨ 風格靈感</span>
+          <span class="emotion-badge em-choice">選擇困難型</span>
+        </div>
+        <div class="post-stats">
+          <div class="post-stat">❤️ ~178</div>
+          <div class="post-stat">💬 ~67</div>
+        </div>
+        <div class="post-insight">
+          <div class="insight-row">
+            <div class="insight-label">表象討論</div>
+            <div class="insight-text">2026年10大熱門室內設計風格整理</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-label">核心痛點</div>
+            <div class="insight-text">「我也不知道自己喜歡什麼風格」是入門裝修者最常見的困境</div>
+          </div>
+        </div>
+        <a href="https://www.threads.com/@hanbao_design/post/DTcoOqTEZgP/" target="_blank" class="post-link">🔗 查看原文</a>
+      </div>
+
+      <!-- Post 14 -->
+      <div class="post-card" data-cat="trap">
+        <div class="post-card-header">
+          <div>
+            <div class="post-author">雙北設計師</div>
+            <div class="post-handle">@tsungshanstudio</div>
+            <div class="post-keyword"># 軟裝設計</div>
+          </div>
+          <div style="text-align:right">
+            <div class="post-date">2026-05</div>
+          </div>
+        </div>
+        <div class="post-content">
+          雙北來找我喔，<span class="highlight">我是很愛替業主操心很多的設計師</span>，空間規劃、材料選擇、施工品質全程陪跑，讓你少走冤枉路。
+        </div>
+        <div class="post-tags">
+          <span class="tag tag-trap">🚨 避坑指南</span>
+          <span class="emotion-badge em-rational">理性建議型</span>
+        </div>
+        <div class="post-stats">
+          <div class="post-stat">❤️ ~41</div>
+          <div class="post-stat">💬 ~19</div>
+        </div>
+        <div class="post-insight">
+          <div class="insight-row">
+            <div class="insight-label">表象討論</div>
+            <div class="insight-text">設計師自我行銷，主打「陪跑」服務</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-label">核心痛點</div>
+            <div class="insight-text">業主最害怕的是「工程途中被放鳥」，「全程陪跑」是核心差異化賣點</div>
+          </div>
+        </div>
+        <a href="https://www.threads.com/@tsungshanstudio/post/DWYWDjAE2Qc/" target="_blank" class="post-link">🔗 查看原文</a>
+      </div>
+
+      <!-- Post 15 -->
+      <div class="post-card" data-cat="style">
+        <div class="post-card-header">
+          <div>
+            <div class="post-author">台灣家具品牌推薦</div>
+            <div class="post-handle">@uu.__.0301</div>
+            <div class="post-keyword"># 居家裝修</div>
+          </div>
+          <div style="text-align:right">
+            <div class="post-date">2026-02</div>
+          </div>
+        </div>
+        <div class="post-content">
+          台灣人要買家具<span class="highlight">拜託直接逛這幾家</span>（第一、三間都是台灣製！）品質穩、服務好、不用擔心售後，比起大型連鎖更有溫度。
+        </div>
+        <div class="post-tags">
+          <span class="tag tag-budget">💰 預算請益</span>
+          <span class="emotion-badge em-rational">理性建議型</span>
+        </div>
+        <div class="post-stats">
+          <div class="post-stat">❤️ ~312</div>
+          <div class="post-stat">💬 ~103</div>
+        </div>
+        <div class="post-insight">
+          <div class="insight-row">
+            <div class="insight-label">表象討論</div>
+            <div class="insight-text">台灣製家具品牌推薦清單</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-label">核心痛點</div>
+            <div class="insight-text">本土品牌、服務支援、售後是消費者高度重視的「安全感」指標</div>
+          </div>
+        </div>
+        <a href="https://www.threads.com/@uu.__.0301/post/DTDgU8Lgbxp/" target="_blank" class="post-link">🔗 查看原文</a>
+      </div>
+
+      <!-- Post 16 -->
+      <div class="post-card" data-cat="rant">
+        <div class="post-card-header">
+          <div>
+            <div class="post-author">軟裝佈置 租屋也是家</div>
+            <div class="post-handle">@casahygge365</div>
+            <div class="post-keyword"># 租屋改造</div>
+          </div>
+          <div style="text-align:right">
+            <div class="post-date">2026-02</div>
+          </div>
+        </div>
+        <div class="post-content">
+          入手 modori 鍋四年多了，應該有資格說說評價。<span class="highlight">優點：顏值高、可堆疊收納；缺點：容易刮傷，品管差</span>，強人意鍋底中間微凸，油會往邊緣流，很煩。
+        </div>
+        <div class="post-tags">
+          <span class="tag tag-rant">😤 雷包抱怨</span>
+          <span class="emotion-badge em-resign">無奈妥協型</span>
+        </div>
+        <div class="post-stats">
+          <div class="post-stat">❤️ ~156</div>
+          <div class="post-stat">💬 ~74</div>
+        </div>
+        <div class="post-insight">
+          <div class="insight-row">
+            <div class="insight-label">表象討論</div>
+            <div class="insight-text">網紅廚具長期使用後的真實評測</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-label">核心痛點</div>
+            <div class="insight-text">「顏值陷阱」讓消費者買了美觀但不實用的產品，心有不甘</div>
+          </div>
+        </div>
+        <a href="https://www.threads.com/@casahygge365/post/DHtpyXpzlWL/" target="_blank" class="post-link">🔗 查看原文</a>
+      </div>
+
+    </div><!-- /posts-grid -->
+  </div>
+</div><!-- /tab-posts -->
+
+<!-- Tab: Trend -->
+<div id="tab-trend" class="tab-panel">
+  <div class="content">
+    <div class="trend-row">
+      <div class="trend-card">
+        <h3>🔥 今日熱門話題分布</h3>
+        <div class="trend-item">
+          <div class="trend-label">居家裝修（流程/法規）</div>
+          <div style="flex:2">
+            <div class="trend-bar" style="width:85%"></div>
+          </div>
+          <div class="trend-pct">85%</div>
+        </div>
+        <div class="trend-item">
+          <div class="trend-label">沙發/家具選購</div>
+          <div style="flex:2">
+            <div class="trend-bar" style="width:72%"></div>
+          </div>
+          <div class="trend-pct">72%</div>
+        </div>
+        <div class="trend-item">
+          <div class="trend-label">租屋改善/輕裝修</div>
+          <div style="flex:2">
+            <div class="trend-bar" style="width:61%"></div>
+          </div>
+          <div class="trend-pct">61%</div>
+        </div>
+        <div class="trend-item">
+          <div class="trend-label">風格選擇/靈感</div>
+          <div style="flex:2">
+            <div class="trend-bar" style="width:54%"></div>
+          </div>
+          <div class="trend-pct">54%</div>
+        </div>
+        <div class="trend-item">
+          <div class="trend-label">品牌口碑/避雷</div>
+          <div style="flex:2">
+            <div class="trend-bar" style="width:48%"></div>
+          </div>
+          <div class="trend-pct">48%</div>
+        </div>
+      </div>
+      <div class="trend-card">
+        <h3>💡 2026年核心趨勢洞察</h3>
+        <div class="trend-item">
+          <div class="trend-label">🏛️ 2026裝修新制上路，合約意識提升</div>
+        </div>
+        <div class="trend-item">
+          <div class="trend-label">🎨 「輕硬裝、重軟裝」成為主流設計哲學</div>
+        </div>
+        <div class="trend-item">
+          <div class="trend-label">🏠 500萬老屋待翻新，舊屋改造市場龐大</div>
+        </div>
+        <div class="trend-item">
+          <div class="trend-label">📱 Threads日活用戶破1.43億，台灣貢獻25%</div>
+        </div>
+        <div class="trend-item">
+          <div class="trend-label">🛋️ Japandi（日北歐混搭）持續稱霸風格榜</div>
+        </div>
+      </div>
+      <div class="trend-card">
+        <h3>😊 情緒類型分布</h3>
+        <div class="trend-item">
+          <div class="trend-label">理性建議型</div>
+          <div style="flex:2"><div class="trend-bar" style="width:44%"></div></div>
+          <div class="trend-pct">44%</div>
+        </div>
+        <div class="trend-item">
+          <div class="trend-label">無奈妥協型</div>
+          <div style="flex:2"><div class="trend-bar" style="width:25%"></div></div>
+          <div class="trend-pct">25%</div>
+        </div>
+        <div class="trend-item">
+          <div class="trend-label">焦慮求助型</div>
+          <div style="flex:2"><div class="trend-bar" style="width:19%"></div></div>
+          <div class="trend-pct">19%</div>
+        </div>
+        <div class="trend-item">
+          <div class="trend-label">選擇困難型</div>
+          <div style="flex:2"><div class="trend-bar" style="width:13%"></div></div>
+          <div class="trend-pct">13%</div>
+        </div>
+        <div class="trend-item">
+          <div class="trend-label">成就感分享型</div>
+          <div style="flex:2"><div class="trend-bar" style="width:6%"></div></div>
+          <div class="trend-pct">6%</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:white; border-radius:14px; border:1px solid var(--border); padding:24px; margin-top:4px;">
+      <h3 style="color:var(--primary); margin-bottom:16px; font-size:1rem;">📌 今日反差留言（⚡）重點摘要</h3>
+      <div style="display:grid; gap:12px;">
+        <div style="background:var(--bg); border-radius:10px; padding:14px 16px; border-left:3px solid #E65100;">
+          <strong>@hulk_sofa 白沙發</strong>：業者自曝「白色難保養」，引發消費者共鳴——「美觀 vs 實用」永遠是沙發購買的核心衝突
+        </div>
+        <div style="background:var(--bg); border-radius:10px; padding:14px 16px; border-left:3px solid #E65100;">
+          <strong>@wooyanshuo 輕裝修報價</strong>：留言問「為何沒有高雄？」——南台灣輕裝修服務缺口，是 ChannelDeco 的潛力市場機會
+        </div>
+        <div style="background:var(--bg); border-radius:10px; padding:14px 16px; border-left:3px solid #E65100;">
+          <strong>@easy0522 居家先生評價</strong>：一則簡短問句引發65則留言——口碑的力量遠大於廣告，負評擴散速度驚人
+        </div>
+        <div style="background:var(--bg); border-radius:10px; padding:14px 16px; border-left:3px solid #E65100;">
+          <strong>@hello.sydd 薄牆噪音</strong>：居住品質問題引起大量共鳴——租屋族最大隱痛，輕裝修隔音方案有需求
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /tab-trend -->
+
+<!-- Tab: Strategy -->
+<div id="tab-strategy" class="tab-panel">
+  <div class="content">
+    <div class="strategy-panel">
+      <h2>🎯 ChannelDeco 伽宜諾 · 品牌策略專區（固定保留）</h2>
+      <div class="strategy-grid">
+        <div class="strategy-item">
+          <h3>🏷️ 品牌定位</h3>
+          <p>輕裝修 + 軟裝設計 × 空間陳列擺拍 × 顧問諮詢<br>服務區域：高雄、屏東、台南、桃園、新北、台北</p>
+        </div>
+        <div class="strategy-item">
+          <h3>👥 目標受眾</h3>
+          <p>① 首購成家小白<br>② 品味租屋族<br>③ 局部換殼族（不想全裝修）<br>④ 長輩居家照護族</p>
+        </div>
+        <div class="strategy-item">
+          <h3>📣 今日建議內容機會</h3>
+          <p>① 「輕裝修一口價」對比焦慮 → 發布ChannelDeco 高雄/台南服務區報價說明<br>② 「沙發難保養」→ 發布「選軟裝前這樣想」教育性內容<br>③ 「租屋族隔音痛點」→ 發布不傷牆輕裝修解決方案</p>
+        </div>
+        <div class="strategy-item">
+          <h3>💬 建議 Threads 貼文方向</h3>
+          <p>● 「高雄屋主注意！輕裝修不用去台北，我們在你家附近」<br>● 「選沙發前先回答這3題，不再後悔」<br>● 「租屋改造懶人包：5個不傷牆的空間升級方法」</p>
+        </div>
+        <div class="strategy-item">
+          <h3>🔑 關鍵差異化訴求</h3>
+          <p>在地服務（南台灣）× 軟裝顧問陪跑 × 一口價透明報價 × 不傷屋主與房東的輕改造</p>
+        </div>
+        <div class="strategy-item">
+          <h3>🌐 官方連結</h3>
+          <p>網站：<a href="https://channeldeco.com/" style="color:var(--accent)">channeldeco.com</a><br>Threads：@channel.deco<br><em>（@channel.deco 發文將特別標註 ★）</em></p>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:white; border-radius:14px; border:1px solid var(--border); padding:24px; margin-top:24px;">
+      <h3 style="color:var(--primary); margin-bottom:16px; font-size:1rem;">📊 ChannelDeco 競品雷達（今日發現）</h3>
+      <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap:16px;">
+        <div style="background:var(--bg); border-radius:10px; padding:14px;">
+          <strong style="font-size:0.9rem;">屋研所 @wooyanshuo</strong>
+          <p style="font-size:0.83rem; margin-top:6px; color:var(--sub);">輕裝修含家具一口價，二房56萬，有南北合作廠商，但高雄服務有空缺</p>
+        </div>
+        <div style="background:var(--bg); border-radius:10px; padding:14px;">
+          <strong style="font-size:0.9rem;">maisonhao.tw @maisonhao.tw</strong>
+          <p style="font-size:0.83rem; margin-top:6px; color:var(--sub);">提供免費裝修諮詢，以軟裝配置與預算控制為服務賣點</p>
+        </div>
+        <div style="background:var(--bg); border-radius:10px; padding:14px;">
+          <strong style="font-size:0.9rem;">好室友 @housemate_tw</strong>
+          <p style="font-size:0.83rem; margin-top:6px; color:var(--sub);">主打租屋問題揭露，與租屋族溝通強，可做聯盟或內容合作</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /tab-strategy -->
+
+<script>
+  function switchTab(tab, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    btn.classList.add('active');
   }
-}
 
-function renderPosts(catId){
-  const list=catId==='all'?POSTS:POSTS.filter(p=>p.cat===catId);
-  const sm=SUMMARIES[catId]||SUMMARIES.all;
-  const tl=list.reduce((a,p)=>a+p.likes,0);
-  const tc=list.reduce((a,p)=>a+p.comments,0);
-  return `<div class="page-header"><div class="page-title">${sm.title}</div><div class="page-subtitle">${sm.sub}</div></div>
-<div class="summary-box"><div class="summary-title">本期洞察摘要</div><div class="summary-text">${sm.text}</div></div>
-<div class="stats-row">
-  <div class="stat-box"><div class="stat-lbl">貼文數</div><div class="stat-val">${list.length}<small> 則</small></div></div>
-  <div class="stat-box"><div class="stat-lbl">總讚數</div><div class="stat-val">${fmt(tl)}</div></div>
-  <div class="stat-box"><div class="stat-lbl">總留言</div><div class="stat-val">${fmt(tc)}</div></div>
-  <div class="stat-box"><div class="stat-lbl">熱門貼文</div><div class="stat-val">${list.filter(p=>p.hot).length}<small> 則</small></div></div>
-  <div class="stat-box"><div class="stat-lbl">有異見留言</div><div class="stat-val">${list.filter(p=>p.divergent).length}<small> 則</small></div></div>
-</div>
-<div class="posts-grid">${list.map(renderPost).join('')}</div>`;
-}
-
-function renderBrand(){
-  return `<div class="page-header"><div class="page-title">ChannelDeco 伽宜諾 · 品牌策略專區</div><div class="page-subtitle">基於 Threads 社群聆聽 × 受眾輪廓分析的內容策略建議</div></div>
-
-<div class="brand-section">
-  <div class="brand-section-title">目標受眾四大 Persona</div>
-  <div class="persona-grid">
-    <div class="persona-card">
-      <div class="persona-icon">👫</div>
-      <div class="persona-name">首購成家夫妻</div>
-      <div class="persona-desc">28–35歲，剛結婚或生育，第一次面對裝潢，預算有限但期望值高，焦慮感強，容易被「後悔清單」觸動。</div>
-      <div class="persona-tags"><span class="ptag">28–35歲</span><span class="ptag">首次裝潢</span><span class="ptag">新婚</span><span class="ptag">預算敏感</span></div>
-      <div class="persona-pain">🔴 核心恐懼：花了錢還是後悔，怕被坑</div>
-    </div>
-    <div class="persona-card">
-      <div class="persona-icon">💼</div>
-      <div class="persona-name">公務員穩定族</div>
-      <div class="persona-desc">30–38歲，收入穩定、工時規律，想要有質感的家但沒時間大工程，偏好「交給專業人士」省心。</div>
-      <div class="persona-tags"><span class="ptag">公務員</span><span class="ptag">時間寶貴</span><span class="ptag">品質導向</span><span class="ptag">南台灣</span></div>
-      <div class="persona-pain">🔴 核心恐懼：沒時間監工，怕選到爛工班</div>
-    </div>
-    <div class="persona-card">
-      <div class="persona-icon">💻</div>
-      <div class="persona-name">工程師理性族</div>
-      <div class="persona-desc">28–36歲，有理性比價習慣，善用網路研究，不輕易決定，但一旦信任後會高度配合且口碑傳播強。</div>
-      <div class="persona-tags"><span class="ptag">工程師</span><span class="ptag">數據導向</span><span class="ptag">比較研究</span><span class="ptag">高信任閾</span></div>
-      <div class="persona-pain">🔴 核心恐懼：資訊不對等，被多收費或偷工減料</div>
-    </div>
-    <div class="persona-card">
-      <div class="persona-icon">🐾</div>
-      <div class="persona-name">毛孩家庭族</div>
-      <div class="persona-desc">28–38歲，有貓或狗，把寵物當家人，選材標準高，防滑/好清潔是必要條件，情感投入高。</div>
-      <div class="persona-tags"><span class="ptag">有毛孩</span><span class="ptag">功能優先</span><span class="ptag">情感投入高</span><span class="ptag">口碑強</span></div>
-      <div class="persona-pain">🔴 核心恐懼：選了錯誤建材傷害毛孩</div>
-    </div>
-  </div>
-</div>
-
-<div class="brand-section">
-  <div class="brand-section-title">SEO 核心關鍵字策略</div>
-  <p style="font-size:13px;color:var(--sub);margin-bottom:4px;">依搜尋熱度分類，🔥 = 高搜尋量核心詞</p>
-  <div class="kw-cloud">
-    <span class="kw-pill hot">輕裝修</span>
-    <span class="kw-pill hot">軟裝設計</span>
-    <span class="kw-pill hot">室內設計師推薦</span>
-    <span class="kw-pill hot">裝潢後悔</span>
-    <span class="kw-pill">空間佈置靈感</span>
-    <span class="kw-pill">居家改造</span>
-    <span class="kw-pill">寵物友善空間</span>
-    <span class="kw-pill">北歐風室內設計</span>
-    <span class="kw-pill">小坪數設計</span>
-    <span class="kw-pill">屏東室內設計</span>
-    <span class="kw-pill">高雄室內設計</span>
-    <span class="kw-pill">台南輕裝潢</span>
-    <span class="kw-pill">SPC地板推薦</span>
-    <span class="kw-pill">裝潢費用透明</span>
-    <span class="kw-pill">找設計師注意事項</span>
-  </div>
-</div>
-
-<div class="brand-section">
-  <div class="brand-section-title">Threads 內容策略矩陣</div>
-  <table class="content-table">
-    <thead><tr><th>內容類型</th><th>主題方向</th><th>目標 Persona</th><th>預期效果</th></tr></thead>
-    <tbody>
-      <tr><td>📋 避坑指南</td><td>「設計師幫你想好了：5個後悔決定我們幫你避開」<br>「真設計師 vs 假設計師：見面前必問5問題」</td><td><span class="ct-persona">首購夫妻</span><span class="ct-persona">工程師</span></td><td>建立信任、引發分享、引流諮詢</td></tr>
-      <tr><td>🏠 Before / After</td><td>「3萬元純軟裝，一個房間的完整改造」<br>「輕裝潢後記：分階段完成理想家」</td><td><span class="ct-persona">公務員</span><span class="ct-persona">首購夫妻</span></td><td>展示能力、降低決策門檻</td></tr>
-      <tr><td>💡 教育破解</td><td>「台灣設計師怎麼翻譯北歐風/韓系風？」<br>「輕裝潢你不需要全包，但需要這一個規劃」</td><td><span class="ct-persona">工程師</span><span class="ct-persona">公務員</span></td><td>建立話語權、差異化定位</td></tr>
-      <tr><td>🐾 毛孩友善</td><td>「有毛孩的家：地板/牆面/傢具選材全攻略」<br>「寵物宅改造：功能+溫度的5個必做」</td><td><span class="ct-persona">毛孩家庭</span></td><td>垂直受眾深度連結、口碑傳播</td></tr>
-      <tr><td>💰 預算揭露</td><td>「我們的輕裝潢費用完整公開」<br>「設計費到底買了什麼？這樣拆給你看」</td><td><span class="ct-persona">工程師</span><span class="ct-persona">首購夫妻</span></td><td>透明感建立信任、化解比價焦慮</td></tr>
-      <tr><td>😊 互動問答</td><td>「你的風格迷茫屬於哪一種？」診斷貼<br>「第一次找設計師，你最擔心什麼？」</td><td><span class="ct-persona">所有 Persona</span></td><td>提升互動率、蒐集潛在客戶需求</td></tr>
-    </tbody>
-  </table>
-</div>
-
-<div class="brand-section">
-  <div class="brand-section-title">品牌定位核心主張</div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:4px;">
-    <div style="background:#f9fdf8;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;padding:16px;">
-      <div style="font-size:10px;font-weight:600;color:var(--accent2);margin-bottom:8px;letter-spacing:2px;">POSITIONING</div>
-      <div style="font-size:13px;line-height:1.8;">「輕裝修 + 軟裝」的<strong>一站式在地設計服務</strong>，讓有限預算的首購族也能住進理想家。</div>
-    </div>
-    <div style="background:#f9fdf8;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;padding:16px;">
-      <div style="font-size:10px;font-weight:600;color:var(--accent2);margin-bottom:8px;letter-spacing:2px;">DIFFERENTIATOR</div>
-      <div style="font-size:13px;line-height:1.8;">台灣在地設計師，<strong>理解台灣的氣候、濕度與生活習慣</strong>，幫你翻譯流行風格成適合你家的設計。</div>
-    </div>
-    <div style="background:#f9fdf8;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;padding:16px;">
-      <div style="font-size:10px;font-weight:600;color:var(--accent2);margin-bottom:8px;letter-spacing:2px;">TONE OF VOICE</div>
-      <div style="font-size:13px;line-height:1.8;">專業但親近，<strong>透明、不說謊</strong>，用教育性內容建立信任，讓諮詢變成自然而然的下一步。</div>
-    </div>
-    <div style="background:#f9fdf8;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;padding:16px;">
-      <div style="font-size:10px;font-weight:600;color:var(--accent2);margin-bottom:8px;letter-spacing:2px;">SERVICE AREA</div>
-      <div style="font-size:13px;line-height:1.8;"><strong>屏東 · 高雄 · 台南 · 桃園 · 新北 · 台北</strong> ── 南北都有服務據點，強調在地工班品質把關。</div>
-    </div>
-  </div>
-</div>`;
-}
-
-function init(){
-  const catCounts={};
-  POSTS.forEach(p=>{catCounts[p.cat]=(catCounts[p.cat]||0)+1;});
-  const tw=document.getElementById('tabsWrap');
-  const ca=document.getElementById('contentArea');
-  TABS.forEach((t,i)=>{
-    const cnt=t.id==='all'?POSTS.length:t.id==='brand'?'':catCounts[t.id]||0;
-    const btn=document.createElement('button');
-    btn.className='tab-btn'+(i===0?' active':'');
-    btn.innerHTML=t.label+(cnt!==''?`<span class="tab-count">${cnt}</span>`:'');
-    btn.onclick=()=>{
-      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('pg-'+t.id).classList.add('active');
-    };
-    tw.appendChild(btn);
-    const pg=document.createElement('div');
-    pg.className='page'+(i===0?' active':'');
-    pg.id='pg-'+t.id;
-    pg.innerHTML=t.id==='brand'?renderBrand():renderPosts(t.id);
-    ca.appendChild(pg);
-  });
-}
-init();
+  function filterPosts(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.post-card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
 </script>
 </body>
 </html>
