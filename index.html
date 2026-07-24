@@ -45,6 +45,36 @@
   .post-content .trunc{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
   .post-badges{display:flex;flex-wrap:wrap;gap:5px}
   .badge{font-size:11px;padding:3px 9px;border-radius:10px;font-weight:600;background:#F3F4F6;color:var(--text-light)}
+  .badge.vscore{font-weight:700;border:1px solid transparent}
+  .badge.vscore.v-hi{background:linear-gradient(135deg,#FF6B6B,#F72585);color:#fff}
+  .badge.vscore.v-mid{background:linear-gradient(135deg,#FF9F5A,#F59E0B);color:#fff}
+  .badge.vscore.v-ok{background:#FDECD1;color:#B45309;border-color:#F3D9AE}
+  .badge.vscore.v-low{background:#F1F1EF;color:#999}
+  .cluster-health{background:var(--card);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow);margin-bottom:24px;border-left:4px solid var(--primary)}
+  .cluster-health h3{font-size:15px;color:var(--primary);margin-bottom:10px}
+  .ch-row{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.7;padding:6px 0;border-bottom:1px dashed var(--border)}
+  .ch-row:last-child{border-bottom:none}
+  .ch-tag{flex-shrink:0;font-size:11px;font-weight:700;padding:2px 8px;border-radius:8px;white-space:nowrap}
+  .ch-tag.safe{background:#DCFCE7;color:#166534}
+  .ch-tag.warn{background:#FEF3C7;color:#92400E}
+  .ch-tag.risk{background:#FEE2E2;color:#991B1B}
+  .authority-section{margin:26px 0}
+  .auth-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .auth-card{background:var(--card);border-radius:12px;padding:14px;box-shadow:var(--shadow);border:1px solid var(--border)}
+  .auth-card .ac-name{font-weight:700;color:var(--primary);font-size:13.5px}
+  .auth-card .ac-role{font-size:11px;color:var(--accent);font-weight:700;margin:4px 0 6px}
+  .auth-card .ac-note{font-size:12px;line-height:1.6;color:var(--text-light)}
+  .auth-card .ac-freq{float:right;font-size:11px;background:#F3F4F6;padding:1px 7px;border-radius:8px;color:var(--text-light);font-weight:700}
+  .anchor-section{margin:26px 0}
+  .anchor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .anchor-card{background:linear-gradient(180deg,#FFFFFF,#FAF7F2);border-radius:14px;padding:16px;box-shadow:var(--shadow);border-top:4px solid var(--accent)}
+  .anchor-card .an-goal{font-size:11px;font-weight:700;color:#fff;background:var(--primary-light);display:inline-block;padding:2px 9px;border-radius:8px;margin-bottom:8px}
+  .anchor-card .an-hook{font-size:14px;font-weight:700;line-height:1.5;margin-bottom:8px;color:var(--text)}
+  .anchor-card .an-body{font-size:12px;line-height:1.7;color:var(--text-light);margin-bottom:8px}
+  .anchor-card .an-why{font-size:11.5px;line-height:1.6;background:#F8FAF9;border-radius:8px;padding:8px 10px;border-left:3px solid var(--primary-light)}
+  @media(max-width:1100px){.auth-grid,.anchor-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:700px){.auth-grid,.anchor-grid{grid-template-columns:1fr}}
+
   .post-stats{display:flex;gap:12px;font-size:12px;color:var(--text-light);padding-top:8px;border-top:1px solid var(--border)}
   .stat .val{font-weight:700;color:var(--text)}
   .post-link a{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--primary);text-decoration:none;font-weight:600;padding:4px 10px;border:1.5px solid var(--primary);border-radius:8px;transition:all .2s}
@@ -106,6 +136,14 @@
     <div class="ht"><div class="hn">1,738</div><div class="hl">❤️ 讚數</div><div class="htt">「台灣越來越多人靠軟裝與生活品味營造居家美感」@pay_linn</div></div>
   </div>
 
+  <div class="cluster-health">
+    <h3>🧬 語意集群健康度檢查（Theo 演算法建議）</h3>
+    <div class="ch-row"><span class="ch-tag safe">✅ 集群核心</span><span>輕裝修、軟裝設計、居家佈置、空間陳列擺拍、租屋軟裝改造、收納規劃、寵物宅設計——這是 ChannelDeco 帳號應該持續、穩定發文的語意集群範圍，演算法會依此判斷帳號屬性並持續推播給相同興趣受眾</span></div>
+    <div class="ch-row"><span class="ch-tag warn">⚠️ 集群邊緣</span><span>智慧家庭設備、療癒生活風格、居家美感/心理健康類內容（如本週 @scarlettliving.co 高互動案例）——可以發，但務必扣回「居家空間」角度，避免發展成獨立的生活風格帳號稀釋原本集群</span></div>
+    <div class="ch-row"><span class="ch-tag risk">❌ 集群風險（本週觀察）</span><span>「空間佈置」關鍵字近期被婚禮顧問／花藝展覽業者大量佔用；「寵物宅」關鍵字則混入寵物友善餐廳／旅宿踩點與租屋物件廣告——這些內容語意上不屬於居家軟裝集群，即使關鍵字重疊，ChannelDeco 也不應轉發或模仿，否則演算法可能將帳號誤判進入錯誤集群，稀釋既有推播對象的精準度</span></div>
+    <div class="ch-row"><span class="ch-tag safe">📌 本週集群一致性</span><span>本次新增 11 則貼文皆落在核心集群關鍵字內（軟裝設計、輕裝潢、空間佈置、室內設計、寵物宅、空間佈置靈感），集群純度良好，可放心作為選題參考</span></div>
+  </div>
+
   <div class="section-title">📋 貼文分析</div>
   <div class="posts-grid" id="postsGrid">
 
@@ -114,7 +152,7 @@
     <div class="post-card featured" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@houj.khh</div><div class="post-date">2026-3-25 · 最會過生活的家大賽</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">我自行宣布第一屆《Threads史上最會過生活的家》正式開始🏡✨我們不比豪宅，不比裝潢費，只比一件事——「誰最會把日子過成自己喜歡的樣子」</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge">🔥本週最高互動</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge">🔥本週最高互動</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 66</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">20,000</span></div><div class="stat">💬 <span class="val">2,716</span></div><div class="stat">🔁 <span class="val">2,447</span></div><div class="stat">📤 <span class="val">8,381</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@houj.khh/post/DWT4ZA6GdCB" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>全站互動最高的UGC活動證明「輕裝潢／生活感」比「豪宅／高預算裝潢費」更能引發共鳴與參與意願，最高讚留言（1.5萬讚）僅以「哎呀沒什麼啦」的謙遜姿態展現貓咪陪伴的日常幸福感，顯示「情感連結」勝過「炫耀式裝潢」</div><div><strong>ChannelDeco商機：</strong>可仿效發起「曬出你的ChannelDeco輕裝潢角落」社群活動，強調「把日子過成喜歡的樣子」而非強調預算與工程規模，貼近品牌「輕裝修＋軟裝」核心定位並帶動UGC擴散</div><div>⚡ 反差留言：全站最高讚留言完全未提及裝潢或預算，僅分享貓咪日常與生活片刻，顯示消費者對「家」的情感投射遠比裝潢本身更值得經營內容素材</div></div>
@@ -133,7 +171,7 @@
     <div class="post-card featured" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@scarlettliving.co</div><div class="post-date">2026-6-19 · 美感的療癒作用</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">最近聽podcast聽到一句很有感的話：長期接觸設計、藝術、美的事物其實和規律運動一樣，對身心都有某種「抗氧化作用」。突然有點理解為什麼有些人一忙就想去看展、逛選物店、整理空間</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge">🔥本週高互動</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge">🔥本週高互動</span><span class="badge vscore v-ok">🚀 病毒訊號 53</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">11,000</span></div><div class="stat">💬 <span class="val">245</span></div><div class="stat">🔁 <span class="val">555</span></div><div class="stat">📤 <span class="val">1,025</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@scarlettliving.co/post/DZxOqKQAK_f" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>高互動證明「美感即心理健康」的論述極具共鳴，大量非設計背景網友留言分享逛展、看美術館的療癒經驗，顯示居家美感佈置的價值已從「好看」延伸至「情緒修復」的心理需求層次</div><div><strong>ChannelDeco商機：</strong>可將軟裝服務的訴求從「好看」升級為「療癒生活狀態」的情緒價值主張，針對「品味租屋族」與「首購成家小白」等目標受眾強化「美感投資即自我照顧」的品牌敘事</div></div>
@@ -152,7 +190,7 @@
     <div class="post-card" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@__chen.zh</div><div class="post-date">2024-10-30 · 媽媽的軟裝迷思</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">和老媽討論裝修風格拿這些圖，媽：窮人才通通用軟裝買傢俱。不是欸PH5吊燈USM櫃子Togo沙發，媽媽這個我真的買不起耶，不想買奢侈品包，只想在房間擺七盞燈，新家工程自己房間自己出錢</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 51</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">5,092</span></div><div class="stat">💬 <span class="val">109</span></div><div class="stat">🔁 <span class="val">189</span></div><div class="stat">📤 <span class="val">554</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@__chen.zh/post/DBv4GiRy7qI" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>上一輩對「軟裝」仍存有「省錢／將就」的刻板印象，與年輕世代視軟裝為品味展現、甚至比硬裝更具設計感的認知產生世代落差，凸顯軟裝需要更多「這不是將就，是選擇」的教育型溝通</div><div><strong>ChannelDeco商機：</strong>可製作「軟裝迷思破解」系列內容回應長輩世代疑慮，強調軟裝的「保值、可帶走、風格彈性」等硬裝無法取代的優勢，鎖定與長輩溝通卡關的首購族群</div></div>
@@ -171,7 +209,7 @@
     <div class="post-card" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@pay_linn</div><div class="post-date">2024-9-20 · 軟裝vs硬裝的世代轉變</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">感覺台灣越來越多不太靠裝潢，而是靠軟裝與生活品味營造出居家美感</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 52</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">1,738</span></div><div class="stat">💬 <span class="val">164</span></div><div class="stat">🔁 <span class="val">20</span></div><div class="stat">📤 <span class="val">165</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@pay_linn/post/DAIzPFmTnym" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>高房價擠壓裝潢預算，留言區普遍認同「軟裝取代硬裝」已成趨勢，小宅族群更傾向用可帶走、可替換的軟裝取代固定木作，但也有聲音指出軟裝仍需「先收納整理」才能發揮效果</div><div><strong>ChannelDeco商機：</strong>驗證軟裝在高房價環境下的市場需求正在成長，可強化「軟裝即投資」的品牌訊息（保值、可搬遷），並針對小宅族群推出「先收納後佈置」的顧問流程作為差異化服務</div></div>
@@ -190,7 +228,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@maggie123141</div><div class="post-date">2026-5-27 · 台中70萬15坪案例</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">謝謝客人願意讓我們分享這麼美的案子❤️❤️❤️總預算70內～～～有興趣歡迎跟我們了解</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 61</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">1,176</span></div><div class="stat">💬 <span class="val">77</span></div><div class="stat">🔁 <span class="val">39</span></div><div class="stat">📤 <span class="val">1,479</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@maggie123141/post/DY14nI8kqec" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「70萬做出這樣質感」的低預算高完成度案例分享，直接觸發「這樣70？那我的設計師真的是…」的比價焦慮，顯示消費者高度關注「透明總價」與「同價位對比」</div><div><strong>ChannelDeco商機：</strong>可比照此案例分享格式（總價、坪數、風格一次到位），並在留言主動附上聯絡方式與服務地區，測試「案例曬圖＋直接留客」的低成本導流模式；1,479次分享顯示低預算高質感案例極具傳播力</div></div>
@@ -209,7 +247,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@likkk0999</div><div class="post-date">2025-12-18 · 系統櫃vs軟裝抉擇</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">昨天跟一位貴婦討論裝潢，她提醒我系統櫃不要做太多，甚至建議都軟裝，但我想說我都買房不是租屋了，都軟裝好像有點可惜？客廳的玄關、電器櫃應該還是建議要做系統櫃嗎？</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 55</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">853</span></div><div class="stat">💬 <span class="val">199</span></div><div class="stat">🔁 <span class="val">22</span></div><div class="stat">📤 <span class="val">234</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@likkk0999/post/DSY94y1iS5I" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「系統櫃做多少、軟裝留多少」是購屋族裝修前最常見的決策焦慮，高讚留言普遍建議「先規劃好動線與收納需求的硬裝，其餘保留軟裝彈性」，顯示消費者需要的不是二選一答案，而是「軟硬裝比例」的專業判斷框架</div><div><strong>ChannelDeco商機：</strong>完全對應ChannelDeco「輕裝修＋軟裝設計」的服務定位，可將此類留言整理成「軟硬裝比例建議指南」作為前期諮詢的標準教育內容，降低客戶決策焦慮並建立專業信任</div></div>
@@ -228,7 +266,7 @@
     <div class="post-card" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@_blue.utsuroi</div><div class="post-date">2026-6-4 · 租屋佈置求助</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">想佈置租屋處，有沒有推薦的軟裝家具🙏或是一些裝飾小東東，我有很多書、玩具，不知道怎麼收納比較好⋯⋯🥲</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 47</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">402</span></div><div class="stat">💬 <span class="val">46</span></div><div class="stat">🔁 <span class="val">25</span></div><div class="stat">📤 <span class="val">144</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@_blue.utsuroi/post/DZK1hi5khzb" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>租屋族在「不能大改動」的限制下對軟裝佈置與收納規劃感到茫然，逛遍IKEA、無印良品仍「沒有頭緒從哪開始」，顯示即使商品選擇充足，消費者仍缺乏「整體搭配」的專業指引</div><div><strong>ChannelDeco商機：</strong>精準對應「品味租屋族」目標受眾，可推出「租屋軟裝快速上手」小型顧問服務或線上諮詢方案，切入預算有限但渴望專業建議的租屋市場缺口</div></div>
@@ -247,7 +285,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@goldialin</div><div class="post-date">本週 · 設計師資源被索取爭議</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">我是室內設計師，朋友，為什麼你覺得可以跟我要我的水電或是其他廠商的聯絡資訊啊，頭好痛</div></div>
-      <div class="post-badges"><span class="badge">無奈妥協型</span></div>
+      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 50</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">1,318</span></div><div class="stat">💬 <span class="val">132</span></div><div class="stat">🔁 <span class="val">10</span></div><div class="stat">📤 <span class="val">139</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@goldialin/post/Da7wTq9mruJ" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>設計師長期累積的工班資源被視為「理所當然可分享」的人情壓力，反映業界對「專業資源」與「人情義理」界線模糊的普遍困擾，也間接說明「找到穩定配合工班」是設計服務商重要的隱性成本</div><div><strong>ChannelDeco商機：</strong>可作為內部經營借鏡——妥善建立與工班的合作默契與保密協議；對外則可強調「自有穩定配合團隊」作為服務品質保證的信任素材，區隔市場上臨時拼湊工班的服務商</div></div>
@@ -266,7 +304,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@alice_s_p</div><div class="post-date">本週 · 對主流裝潢風格審美疲勞</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">看了一輪室內設計，為何一定要滿滿的系統櫃、滿滿的天花板、滿滿的線燈，不是奶油風就是侘寂風，冰冷的裝潢感，有沒有宋式美學～少即是美，恰如其分的設計</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 55</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">203</span></div><div class="stat">💬 <span class="val">72</span></div><div class="stat">🔁 <span class="val">1</span></div><div class="stat">📤 <span class="val">25</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@alice_s_p/post/Da7vcU8E7FN" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>對「奶油風/侘寂風」同質化設計感到審美疲勞，渴望「留白、恰如其分」的風格選項，但留言區也提醒「收納需求」是多數業主無法犧牲的現實限制，顯示風格與機能的拉扯是室內設計的核心矛盾</div><div><strong>ChannelDeco商機：</strong>可留意「風格疲勞」的市場信號，發展介於「極簡留白」與「機能收納」之間的中庸風格方案，作為與市場主流奶油風/侘寂風做出區隔的差異化選項</div></div>
@@ -285,7 +323,7 @@
     <div class="post-card" data-kw="寵物宅">
       <div class="post-header"><div><div class="post-author">@misslucy_and_mia</div><div class="post-date">2026-2-14 · 貓咪陽台隱形鐵窗實例</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">隱形鐵窗很推薦。增加貓咪的領地和探索空間，順便曬太陽玩耍看小鳥看車車的，裝了之後一勞永逸，不用擔心陽台開開關關他們溜出去會有意外什麼的</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 46</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">877</span></div><div class="stat">💬 <span class="val">17</span></div><div class="stat">🔁 <span class="val">10</span></div><div class="stat">📤 <span class="val">279</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@misslucy_and_mia/post/DUvcFEWk46H" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>養貓族群對「陽台安全防護」有具體且高度細節化的需求（費用、施工時間、逃生疑慮、落塵處理等），顯示寵物宅設計不僅是美觀規劃，更牽涉安全工程層面的專業知識</div><div><strong>ChannelDeco商機：</strong>可將「貓咪陽台安全防護」納入寵物宅服務的標準諮詢項目，並整理常見Q&A（費用行情、逃生應變、清潔維護）作為專業內容資產，強化寵物宅服務的專業深度而非僅停留在美感佈置</div></div>
@@ -304,7 +342,7 @@
     <div class="post-card" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@journey_target_freedom</div><div class="post-date">2026-3-8 · 租屋美化求靈感</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">想把租來的房間變得舒服又高級，但又不能添置太多家具……🥹大家平時會用什麼方法或App美化空間、改造房間的小細節呢？</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 57</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">472</span></div><div class="stat">💬 <span class="val">61</span></div><div class="stat">🔁 <span class="val">48</span></div><div class="stat">📤 <span class="val">179</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@journey_target_freedom/post/DVm9W5-Ejzg" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>租屋族渴望「低成本、可帶走」的空間美化方案，留言區高度共識指向燈光、掛畫、植栽等「軟性點綴」最具性價比，顯示租屋軟裝市場對「小預算、高效果」的內容與服務有明確需求</div><div><strong>ChannelDeco商機：</strong>可製作「零裝修軟裝美化」入門指南或平價方案包，鎖定租屋族與首購前的過渡期客群，作為未來正式服務的導流內容與品牌初次接觸點</div></div>
@@ -325,7 +363,7 @@
     <div class="post-card featured" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@t.o__home</div><div class="post-date">2026-5-31 · 軟裝佈置日常分享</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">可以看我們的軟裝佈置～！我們每天都會發一些軟裝佈置的空間～暫時不營利，純分享～希望能給您的靈感～～～</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge">🔥本週最高互動</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge">🔥本週最高互動</span><span class="badge vscore v-ok">🚀 病毒訊號 51</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">6,531</span></div><div class="stat">💬 <span class="val">57</span></div><div class="stat">🔁 <span class="val">150</span></div><div class="stat">📤 <span class="val">1,111</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@t.o__home/post/DY_XodVmes-" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>帳號以「暫不營利、純分享」姿態經營軟裝靈感內容即累積6千多讚高互動，但留言區大量詢問「哪裡買」顯示強烈購買意圖被暫時擱置——軟裝陳列圖文本身就是強力導購入口</div><div><strong>ChannelDeco商機：</strong>驗證「純分享軟裝陳列圖」即使不營利也能吸引高互動，且粉絲主動詢問單品來源——ChannelDeco可比照經營風格化陳列圖文內容，並適時導入「歡迎詢問服務」轉換路徑</div></div>
@@ -344,7 +382,7 @@
     <div class="post-card featured" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@ericktwyo</div><div class="post-date">2026-7-10 · 自製沙發丈量工具</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">為了新家沙發要210還是190，我跟老婆各執一詞吵了三天，後來我乾脆做了一個網頁工具，把家具照真實尺寸拖曳擺放，結果210的沙發走道只剩48cm。做都做了就開放給大家用：roomfit.app 免費、免下載、還能印1:50比例圖給木工</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge">🔥本週高互動</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge">🔥本週高互動</span><span class="badge vscore v-hi">🚀🚀🚀 病毒訊號 77</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">5,270</span></div><div class="stat">💬 <span class="val">310</span></div><div class="stat">🔁 <span class="val">782</span></div><div class="stat">📤 <span class="val">8,905</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@ericktwyo/post/DamTb3FEXiR" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>夫妻對家具尺寸認知落差是裝潢常見摩擦點，凸顯「視覺化家具丈量」工具的剛性需求，也反映屋主渴望能自主溝通設計想法而非全然依賴設計師</div><div><strong>ChannelDeco商機：</strong>DIY規劃工具興起（本帖及留言區至少2款異業工具）顯示部分客群傾向自己動手規劃初步格局，ChannelDeco可在諮詢流程中主動使用視覺化溝通工具建立差異化，或提供「軟裝配置模擬」作為導流誘因</div><div>⚡ 反差留言：連設計師本人（@smile_anny64）都留言稱讚這是「神物」，顯示同業並不視其為威脅而是溝通輔助工具——反映「工具輔助＋真人設計」混合模式漸成共識</div></div>
@@ -363,7 +401,7 @@
     <div class="post-card featured" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@smarthome_mira</div><div class="post-date">2026-4-2 · 裝潢後悔票選（避雷樓）</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">真的很好奇！在裝潢之後大家最後悔的設計是什麼？想蓋個避雷樓！！！！（有人覺得裝潢真的是一場理想與現實的修羅場嗎…🫠）</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge">🔥本週高互動</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge">🔥本週高互動</span><span class="badge vscore v-hi">🚀🚀🚀 病毒訊號 84</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">4,386</span></div><div class="stat">💬 <span class="val">1,186</span></div><div class="stat">🔁 <span class="val">706</span></div><div class="stat">📤 <span class="val">6,406</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@smarthome_mira/post/DWoOYoxEsU7" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>全網最高讚留言「後悔讓親戚做裝潢」（1,577讚）點出「人情裝潢」的普遍地雷——親友介紹缺乏契約與專業把關反而風險更高；其餘留言集中在插座數量不足、除濕系統、地板選材等具體遺憾</div><div><strong>ChannelDeco商機：</strong>「不找親戚朋友、找專業團隊」是強烈的市場信任訴求，可直接以此帖留言清單（插座預留、除濕、地板選材）製作「避雷檢查表」型內容，強調專業契約保障優於人情介紹</div><div>⚡ 反差留言：建材品牌 Benjamin Moore 官方帳號也在留言業配「後悔沒全室用班傑明」，顯示大型建材品牌同樣鎖定此類高流量避雷文操作異業曝光</div></div>
@@ -382,7 +420,7 @@
     <div class="post-card featured" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@hxxhai_</div><div class="post-date">2025-5-13 · 設計師侵權糾紛</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">設計師未經屋主同意也無告知，就私自帶攝影團隊進入案場拍攝、任意移動購買的軟裝當道具拍攝，種種跡象都指出了專業和尊重上的問題，故事最後更新：她還惡人先告狀，我們要上法院了</div></div>
-      <div class="post-badges"><span class="badge">無奈妥協型</span></div>
+      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 53</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">4,123</span></div><div class="stat">💬 <span class="val">126</span></div><div class="stat">🔁 <span class="val">64</span></div><div class="stat">📤 <span class="val">827</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@hxxhai_" target="_blank">🔗 原文連結（個人頁）</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>屋主控訴設計師未經同意帶攝影團隊拍攝並移動購買的軟裝道具、甚至走上法律途徑，反映消費者對「軟裝物品所有權與隱私」的高度敏感與信任危機</div><div><strong>ChannelDeco商機：</strong>強烈負面案例警示——服務過程務必尊重屋主物品與隱私，任何拍攝／宣傳需求需事先取得書面同意，避免類似糾紛；同時可作為「我們如何保障客戶權益」的信任內容素材</div></div>
@@ -394,7 +432,7 @@
     <div class="post-card" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@xxoo1112_</div><div class="post-date">2026-4-29 · 買房小白找軟裝陳列</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">和女友從大學畢業就一起奮鬥，存錢買了一間房準備結婚，終於準備交屋了！身邊朋友買房現在都以軟裝佈置為主，省錢又有美感，自己弄一定會浪費錢又四不像，想問大家有推薦很有美感的空間陳列設計公司嗎，給買房小白一些建議</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge">🎯高轉換意圖</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge">🎯高轉換意圖</span><span class="badge vscore v-ok">🚀 病毒訊號 51</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">3,319</span></div><div class="stat">💬 <span class="val">66</span></div><div class="stat">🔁 <span class="val">88</span></div><div class="stat">📤 <span class="val">776</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@xxoo1112_" target="_blank">🔗 原文連結（個人頁）</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>新婚小夫妻交屋在即，明確表態「軟裝佈置取代重裝潢」為省錢兼具美感的首選方案，但擔心自己弄「浪費錢又四不像」，渴望專業陳列設計公司協助</div><div><strong>ChannelDeco商機：</strong>🔴 高度吻合目標受眾「首購成家小白」——明確表達需求且預算意識強，是ChannelDeco主力服務型態的教科書級案例，建議優先留言接觸</div></div>
@@ -406,7 +444,7 @@
     <div class="post-card" data-kw="寵物宅">
       <div class="post-header"><div><div class="post-author">@17.17.y</div><div class="post-date">2026-5-28 · 寵物友善宜蘭飯店開箱</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">帶寶貝們來住宜蘭飯店 一泊四食 飽到天靈蓋🥹 狗年事已高 為了她們很少出國旅遊了 平常她們在家也很無聊 去哪都想帶上她們 意外找到這家飯店 超寵物友善🩵</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 62</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">2,729</span></div><div class="stat">💬 <span class="val">104</span></div><div class="stat">🔁 <span class="val">86</span></div><div class="stat">📤 <span class="val">2,382</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@17.17.y/post/DY4xCepE7ZE" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>高齡毛孩主人渴望「寵物友善」旅宿/空間，願意為友善程度付費（一泊四食14,800元仍認為值得），顯示寵物友善設計具備溢價空間</div><div><strong>ChannelDeco商機：</strong>住宅寵物宅設計可借鏡商業寵物友善空間的細節思維（動線、清潔、材質選擇），對應目標受眾中「長輩居家照護族」與養寵首購族的交集需求</div></div>
@@ -425,7 +463,7 @@
     <div class="post-card" data-kw="寵物宅">
       <div class="post-header"><div><div class="post-author">@kai_ad_yann</div><div class="post-date">2026-1-11 · 貓宅實木客製作品</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">這不是寵物用品，是為貓打造的實木作品。木工師傅親自丈量、定位、安裝，每一塊實木、每一個高度，都是為了讓貓咪能安全地跳、安心地待。家，是人和貓一起住得舒服的地方</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-low">病毒訊號 38</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">80</span></div><div class="stat">💬 <span class="val">3</span></div><div class="stat">🔁 <span class="val">1</span></div><div class="stat">📤 <span class="val">55</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@kai_ad_yann" target="_blank">🔗 原文連結（個人頁）</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>木工職人強調「為貓打造的實木作品」需精準丈量安裝，顯示寵物宅之設計深度已從家飾延伸至客製化木作</div><div><strong>ChannelDeco商機：</strong>可發展「貓道/貓跳台系統化設計」作為軟裝加值服務項目，區隔市售制式貓爬架</div></div>
@@ -437,7 +475,7 @@
     <div class="post-card" data-kw="寵物宅">
       <div class="post-header"><div><div class="post-author">@asdf6469z</div><div class="post-date">2026-5-27 · 預售屋寵物公設</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">第一次看到預售屋介紹公設有寵物宅，可以讓毛小孩直接在大樓洗澡，而且還有專業的洗澡設備，好像真有這麼一回事，應該是全台首創了吧，養狗養貓的會想要入住嗎?</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-low">病毒訊號 31</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">13</span></div><div class="stat">💬 <span class="val">13</span></div><div class="stat">🔁 <span class="val">3</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@asdf6469z" target="_blank">🔗 原文連結（個人頁）</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>預售屋公設出現「寵物洗澡設備」引發討論「全台首創」，顯示建商已開始將寵物友善設計納入公設賣點，養寵家庭對此類設施具高關注度</div><div><strong>ChannelDeco商機：</strong>可留意新建案公設寵物宅趨勢，作為軟裝陳列合作對象（新成屋交屋時的樣品屋佈置或住戶客製服務）</div></div>
@@ -449,7 +487,7 @@
     <div class="post-card" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@cheche_ou2000</div><div class="post-date">2026-6-11 · 最後悔＆最滿意設計徵集</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">房子快交屋了，想知道大家裝潢「最後悔&最滿意的設計」😍</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 72</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">2,725</span></div><div class="stat">💬 <span class="val">646</span></div><div class="stat">🔁 <span class="val">555</span></div><div class="stat">📤 <span class="val">3,300</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@cheche_ou2000" target="_blank">🔗 原文連結（個人頁）</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>即將交屋屋主同時徵求「後悔」與「滿意」設計清單，顯示決策前的資訊蒐集焦慮橫跨正負面經驗</div><div><strong>ChannelDeco商機：</strong>可同時整理正反兩面案例作為顧問諮詢素材，展現全面專業度而非僅談優點</div></div>
@@ -461,7 +499,7 @@
     <div class="post-card" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@kinglu0520</div><div class="post-date">2025-5-13 · 裝潢日記#13避坑清單</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">🏠 裝潢容易後悔的事，你中幾個？最近看到一些「裝潢容易後悔的事」，整理記錄下來一一檢視。對於找熟人裝潢、沒有乾溼分離、吊燈積灰、開放式櫃體、沒有預留嬰兒床位置特別有感</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 66</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">1,610</span></div><div class="stat">💬 <span class="val">112</span></div><div class="stat">🔁 <span class="val">255</span></div><div class="stat">📤 <span class="val">3,871</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@kinglu0520" target="_blank">🔗 原文連結（個人頁）</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>整理「找熟人裝潢、無乾溼分離、吊燈積灰、開放櫃體、無預留嬰兒床位」等具體後悔清單，反映裝修族渴望「前人經驗清單」以降低決策風險</div><div><strong>ChannelDeco商機：</strong>可製作類似格式的「ChannelDeco版裝潢避坑清單」系列內容，強化專業顧問形象</div></div>
@@ -473,7 +511,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@mmmuiui__</div><div class="post-date">本週 · 室內設計助理職缺爆料</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">室內設計助理職位，要熟AutoCAD、Revit、SketchUp等等繪圖軟體，要畫平面、立面、3D模型、大樣圖，要製圖開自己車到案場，做簡報算成本報價，薪水一個月$30,000-$40,000之間？？？</div></div>
-      <div class="post-badges"><span class="badge">無奈妥協型</span></div>
+      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 54</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">873</span></div><div class="stat">💬 <span class="val">115</span></div><div class="stat">🔁 <span class="val">15</span></div><div class="stat">📤 <span class="val">269</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@mmmuiui__" target="_blank">🔗 原文連結（個人頁）</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>業界從業人員爆料低薪高工時（月薪3-4萬需身兼繪圖、跑案場、報價），反映室內設計產業人才荒與勞動條件爭議，可能影響服務品質與交付穩定度</div><div><strong>ChannelDeco商機：</strong>作為服務提供方，可留意同業人力成本結構，避免落入同樣壓榨爭議，並可用「合理薪資＝穩定團隊＝服務品質」作為品牌信任敘事</div></div>
@@ -485,7 +523,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@feeling_sunyata</div><div class="post-date">本週 · 你家最美的地方UGC活動</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">《你家最美的地方》最近買房了，正在看各種裝潢分享，也想在這裡蓋一樓「家裡最美、最得意的裝潢擺設」，脆友們用力分享自己的家吧！！！！</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 62</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">930</span></div><div class="stat">💬 <span class="val">253</span></div><div class="stat">🔁 <span class="val">82</span></div><div class="stat">📤 <span class="val">572</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@feeling_sunyata" target="_blank">🔗 原文連結（個人頁）</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>買房族熱衷曬「家裡最美、最得意的裝潢擺設」，顯示居家成就感分享是強社群黏著度的內容形式</div><div><strong>ChannelDeco商機：</strong>可仿效發起「曬出你的ChannelDeco角落」UGC活動，帶動舊客戶自發分享提升口碑擴散</div></div>
@@ -497,7 +535,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@musenza.tw</div><div class="post-date">2026-5-18 · 25萬奶油木質感全屋方案</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">25萬，這樣的奶油木質感全屋誰不心動🤍 包含4米電視櫃、餐邊櫃、中島、衣櫃全部含在內，做到好、裝到好。這套就是堅持輕硬裝，重軟裝，沒有複雜造型，反而更顯大、更耐看</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 69</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">752</span></div><div class="stat">💬 <span class="val">67</span></div><div class="stat">🔁 <span class="val">41</span></div><div class="stat">📤 <span class="val">1,283</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@musenza.tw/post/DYemwjWoGnb" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>低預算全屋系統櫃套餐廣受歡迎，但大量「留自己看」洗版留言顯示部分互動可能為演算法操作行為，需留意真實詢問度</div><div><strong>ChannelDeco商機：</strong>「輕硬裝、重軟裝」訴求與ChannelDeco定位完全一致，可參考此帖「總價透明＋清單化」呈現方式包裝自家報價</div><div>⚡ 反差留言：異業家具工廠iliz.furniture在留言區主動業配自家沙發產品，顯示軟裝供應鏈業者也在關注此類貼文找合作對象，ChannelDeco亦可佈局類似異業聯名</div></div>
@@ -516,7 +554,7 @@
     <div class="post-card featured" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@bightk46401</div><div class="post-date">2026-6-27 · 低預算統包師傅推薦</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">感謝裝潢師傅又幫我們完成了一間房，裝潢好一週立刻順利出租🫶🏻如果預算有限但也喜歡簡約質感，我真心大推這位統包師傅🥰全室天花/收納櫃體/電視牆/油漆/水電加起來不用20萬，有興趣可以私訊我</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 65</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">694</span></div><div class="stat">💬 <span class="val">381</span></div><div class="stat">🔁 <span class="val">24</span></div><div class="stat">📤 <span class="val">478</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@bightk46401/post/DaDlrxfCQAU" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>屋主藉由「私訊才給師傅資訊」製造飢餓行銷，短時間湧入大量私訊（自稱3-400則），顯示「低價統包師傅推薦」需求極度旺盛，特別是出租宅輕裝潢</div><div><strong>ChannelDeco商機：</strong>明確市場信號——「20萬內全室輕裝潢」是強烈搜尋需求，且透過「私訊詢問」轉換效率高；唯獨限定「中南部師傅」，桃園/新北/台北需求未被滿足，ChannelDeco可在這些地區主打同類低預算輕裝潢方案</div><div>⚡ 反差留言：多則留言詢問「台北有嗎」未獲滿足（如@hey_yijane），顯示北部同類低價服務供給缺口</div></div>
@@ -535,7 +573,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@brian.cheng03</div><div class="post-date">2026-3-14 · 新竹竹東求統包</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">廣大的脆友們！求新竹裝潢救星🥹預計2026.06月交屋，目前正在找統包或設計師。地點新竹縣竹東鎮，室內實坪約26坪，預算70-75萬（不含家具家電），風格無印風，預算有限希望把錢花在刀口上</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 60</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">124</span></div><div class="stat">💬 <span class="val">116</span></div><div class="stat">🔁 <span class="val">1</span></div><div class="stat">📤 <span class="val">121</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@brian.cheng03" target="_blank">🔗 原文連結（個人頁）</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>預售屋交屋在即但預算有限，對統包/設計師的「報價透明、CP值高」需求殷切，且主動附上完工照片參考需求</div><div><strong>ChannelDeco商機：</strong>雖非核心服務區，但反映「預算緊縮的新婚/首購族」共通焦慮，可作為文案素材參考（如何在有限預算內做對優先順序）</div></div>
@@ -547,7 +585,7 @@
     <div class="post-card" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@2.20_j</div><div class="post-date">2025-12-1 · 軟裝線上課踩雷</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">想問問大家：你們買過最雷的線上課是什麼😅 8月購買了Nina高效軟裝設計課，身為軟裝師本來超期待，但實際上遇到的狀況真的…好雷，也歡迎大家無私分享線上課程的坑，想看看是不是只有我遇到🤣</div></div>
-      <div class="post-badges"><span class="badge">無奈妥協型</span></div>
+      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 68</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">758</span></div><div class="stat">💬 <span class="val">244</span></div><div class="stat">🔁 <span class="val">53</span></div><div class="stat">📤 <span class="val">330</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@2.20_j/post/DRtNgb9ifa3" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>軟裝從業者/新手在缺乏監管認證的市場中，面臨「課程叫賣話術 vs 實際專業落差」的信任風險，反映軟裝教育市場缺乏標準化認證的痛點</div><div><strong>ChannelDeco商機：</strong>顯示軟裝證照/課程市場魚龍混雜，消費者渴望「有實績、透明」的專業服務——ChannelDeco可透過公開真實案例與流程建立信任差異化，避免被歸類為「速成話術」型業者</div><div>⚡ 反差留言：@xian_tw分享另一堂5000美金網課詐騙經驗（106讚，全串最高），比原PO的軟裝課吐槽更炸——顯示Threads上「課程雷」是普遍焦慮，不僅限軟裝領域</div></div>
@@ -566,7 +604,7 @@
     <div class="post-card" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@gtry5656</div><div class="post-date">2025-10-25 · Cozy軟裝大賽</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">我自行宣布，第一屆《threads史上最Cozy室內軟裝》大賽正式開始，選手如下：</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 67</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">2,883</span></div><div class="stat">💬 <span class="val">378</span></div><div class="stat">🔁 <span class="val">522</span></div><div class="stat">📤 <span class="val">2,202</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@gtry5656" target="_blank">🔗 原文連結（個人頁）</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>透過「大賽」形式邀請網友曬軟裝成果，反映軟裝愛好者渴望被看見、被肯定審美的社群心理</div><div><strong>ChannelDeco商機：</strong>高互動的UGC形式（曬家大賽）可作為品牌經營靈感，未來可發起「ChannelDeco風格票選」增加案例曝光與互動</div></div>
@@ -578,7 +616,7 @@
     <div class="post-card" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@hellotody</div><div class="post-date">2024-12-25 · 軟裝品味論述</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">軟裝設計。在所有我看過的「好品味」住宅，沒有一個主人會稱自己為軟裝師。而出來開課教軟裝設計的，倒是沒見過幾位品味真的獨到的。要讓房子有質感，事實上只需要質感好的傢俱，不需要匠氣的擺設和花俏的配色</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 39</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">507</span></div><div class="stat">💬 <span class="val">19</span></div><div class="stat">🔁 <span class="val">5</span></div><div class="stat">📤 <span class="val">52</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@hellotody" target="_blank">🔗 原文連結（個人頁）</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>業內對「軟裝師」職稱氾濫、品味與財力關係的犀利評論，反映消費者對軟裝專業真偽的辨別焦慮</div><div><strong>ChannelDeco商機：</strong>呼應「以作品說話而非話術」的市場期待，ChannelDeco可強化真實完工案例展示，弱化行銷話術包裝</div></div>
@@ -590,7 +628,7 @@
     <div class="post-card" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@mr_raven0522</div><div class="post-date">2026-3-1 · 無印良品鋼製書架牆面改造</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">不用鑽牆，也能有一面好看的牆！無印良品推出的鋼製書架隔板，搭配3M無痕掛扣，將掛扣黏貼在隔板背面固定於牆面，不鑽孔就能完成安裝，可擺放充電式小燈、香氛蠟燭，打造屬於自己的展示角落</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 59</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">2,762</span></div><div class="stat">💬 <span class="val">60</span></div><div class="stat">🔁 <span class="val">165</span></div><div class="stat">📤 <span class="val">2,216</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@mr_raven0522" target="_blank">🔗 原文連結（個人頁）</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>租屋族/不敢在牆面鑽孔的族群，渴望「免鑽牆」的軟裝美化技巧，顯示軟裝改造內容天生具備高分享值</div><div><strong>ChannelDeco商機：</strong>「免鑽牆軟裝技巧」系列內容具備病毒傳播潛力，特別適合鎖定「品味租屋族」目標受眾</div></div>
@@ -602,7 +640,7 @@
     <div class="post-card" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@only_aries25</div><div class="post-date">2025-11-5 · 迷因：台灣人的裝潢自嘲</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">外國網友問：如何佈置這個空間？台灣網友表示：13萬</div></div>
-      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge">📤全站最高分享數</span></div>
+      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge">📤全站最高分享數</span><span class="badge vscore v-ok">🚀 病毒訊號 58</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">1,321</span></div><div class="stat">💬 <span class="val">7,484</span></div><div class="stat">📤 <span class="val">35,000</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@only_aries25" target="_blank">🔗 原文連結（個人頁）</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>全網最高分享數的迷因短哏，精準命中「台灣裝潢與軟裝離不開砸錢」的集體無奈感/自嘲，顯示金錢焦慮已成為裝修話題最大公約數的幽默素材</div><div><strong>ChannelDeco商機：</strong>顯示輕鬆/自嘲式內容比正經知識文更具病毒傳播力，ChannelDeco可嘗試幽默類短哏行銷（例如「用13萬能做到什麼」系列）以擴大觸及</div></div>
@@ -614,7 +652,7 @@
     <div class="post-card" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@avocadoartlab</div><div class="post-date">2025-5-30 · 商業空間藝術品採購</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">幫客戶徵求公共空間佈置藝術品，整形醫院內部佈置用，預計購入50幅，每幅預算1-2萬內。有興趣且價格符合的脆友可推文Po自己的作品，業主會自行挑選</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 64</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">1,214</span></div><div class="stat">💬 <span class="val">677</span></div><div class="stat">🔁 <span class="val">51</span></div><div class="stat">📤 <span class="val">376</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@avocadoartlab" target="_blank">🔗 原文連結（個人頁）</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>醫美/整形機構願砸重本（50幅、每幅1-2萬）採購藝術品做空間佈置，顯示商業空間軟裝陳列是被低估的B2B市場</div><div><strong>ChannelDeco商機：</strong>可拓展「商業空間軟裝陳列」服務線，鎖定診所、店面等B2B客戶，非僅限住宅市場</div></div>
@@ -631,7 +669,7 @@
     <div class="post-card" data-kw="寵物宅">
       <div class="post-header"><div><div class="post-author">@happystudio2009</div><div class="post-date">2026-7-12 · 寵物宅獲獎</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">《共生貓宅 Symbiosis Cat House》入選 KUKAN DESIGN AWARD 2026 Longlist。我們希望寵物宅不只是機能的加入，而是讓動線、尺度、材質與日常習慣自然共生，讓空間同時回應人的生活，也照顧貓的自由與安全感</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-low">病毒訊號 8</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">5</span></div><div class="stat">💬 <span class="val">0</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@happystudio2009/post/DapyqAdD0Pp" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>台灣設計工作室以「人貓共生」概念獲日本設計獎項肯定，顯示寵物宅正從「加裝貓跳台」的機能思維升級為「動線、尺度、材質整體共生」的設計論述</div><div><strong>ChannelDeco商機：</strong>寵物宅專業化趨勢明確——ChannelDeco可將「寵物友善軟裝」發展為論述型內容（材質耐抓、動線安全、人寵共享尺度），對應目標受眾中的養寵首購族，與獲獎級論述接軌但以輕裝修價位切入</div></div>
@@ -643,7 +681,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@jellyfish.894285</div><div class="post-date">2026-7-11 · 找設計師血淚教訓</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">⚠️如果你是第一次找室內設計師，以下是我的血淚建議：1.設計費最好分階段付費不要一次付清 2.丈量要收費的你要確定他值得 3.注意回答問題有沒有避重就輕 4.溝通是否讓你感覺被尊重跟理解 5.工程費用絕對可以比價</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 58</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">173</span></div><div class="stat">💬 <span class="val">119</span></div><div class="stat">🔁 <span class="val">15</span></div><div class="stat">📤 <span class="val">144</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@jellyfish.894285/post/Dao9zs-mt73" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>消費者被不良設計師傷害後整理出的自保清單，核心是「資訊不對等下的信任焦慮」——付費節點、丈量收費、溝通尊重感都是踩過坑才學會的教訓</div><div><strong>ChannelDeco商機：</strong>「分階段收費、免費初次諮詢、透明報價」正是此帖消費者最渴望的服務設計——ChannelDeco可正面以「我們的收費流程長這樣」內容回應此類血淚文的信任缺口</div><div>⚡ 留言區設計師大舉反攻：@w24922110（36讚）「丈量收費是成本為什麼不該收？」、@ess.easonliu（31讚）「你就是想貪小便宜」——消費者與從業者對「丈量該不該免費」立場激烈對立，雙方最高讚留言都來自設計師陣營，罕見地形成輿論反轉</div></div>
@@ -662,7 +700,7 @@
     <div class="post-card featured" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@romi.2020610 <span style="color:var(--accent)">⭐官方已留言</span></div><div class="post-date">2026-7-11 · 找奶油風設計師</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">最近開始找室內設計師了！想找擅長 奶油風＋現代簡約 的設計師，希望作品有質感、耐看，不是網美風那種🥹 有沒有大家真的很推的設計師？歡迎直接分享作品或完工案例，我想多比較幾家</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge">⭐ @channel.deco 已留言</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge">⭐ @channel.deco 已留言</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 63</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">180</span></div><div class="stat">💬 <span class="val">125</span></div><div class="stat">🔁 <span class="val">8</span></div><div class="stat">📤 <span class="val">105</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@romi.2020610/post/DamyaeVHSaX" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「不要網美風、要耐看有質感」反映消費者對過度風格化案例的疲乏，比起風格名詞更在意長期居住的耐看度，且主動要求看真實完工案例以避雷</div><div><strong>ChannelDeco商機：</strong>⭐ 官方帳號已於本帖留言「嗨👋我們是Channel Deco 擅長『輕裝修+軟裝設計』可以跟我們聊聊你所喜歡的奶油簡約風格的樣貌」——建議後續以奶油風完工照追蹤互動提高轉換；此帖125則留言幾乎全為同業自薦，突圍關鍵是作品圖而非文字</div></div>
@@ -681,7 +719,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@yellowred21</div><div class="post-date">2026-7-11 · 中島美家開箱</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">中島美家。在家享受房貸之餘，趁颱風天整理前陣子拍攝的照片。前前後後花了好多時間精力跟設計師討論，最後的成品跟質感真的很棒。幾乎收藏品跟雜物都先收起來，所以才會看起來東西這麼少，這就是減法的美嗎</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 56</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">1,983</span></div><div class="stat">💬 <span class="val">81</span></div><div class="stat">🔁 <span class="val">75</span></div><div class="stat">📤 <span class="val">987</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@yellowred21/post/Dam3npOoHwk" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>高質感完工開箱引發大量「地毯哪買、吊燈什麼牌子、櫃子哪來的」單品詢問——消費者對美宅的渴望具體落在「可購買的軟裝單品」上，而屋主自豪感來自與設計師長期溝通的成果</div><div><strong>ChannelDeco商機：</strong>留言區證實「軟裝單品清單」是高互動內容格式（瑪黑地毯、IKEA STOCKHOLM櫃、Panasonic吊燈被逐一問出）——ChannelDeco可製作「完工案例＋單品來源清單」系列內容，同時呼應屋主「颱風天曬家」的日常敘事感</div></div>
@@ -700,7 +738,7 @@
     <div class="post-card" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@lazypigjustwanttosleep</div><div class="post-date">2026-7-11 · 畸零空間求助</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">最近在裝潢新家，想問一下脆上面各位大神，這個空間大家都怎麼利用或設計呢？高度很低又窄，實在是不知道怎麼利用🙇🏻‍♀️</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 33</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">14</span></div><div class="stat">💬 <span class="val">16</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@lazypigjustwanttosleep/post/DapRlfZj9Fu" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>裝潢中屋主面對低矮窄長的畸零空間束手無策，正是「格局天生缺陷需要專業收納／陳列解法」的典型求助情境</div><div><strong>ChannelDeco商機：</strong>畸零空間活用是輕裝修＋軟裝的擅長題型（訂製抽屜、折疊桌板、遮簾收納），可產出「畸零角落改造前後」系列內容；此類求助帖互動門檻低、留言即曝光</div><div>⚡ 反差留言：最高讚留言竟是「我進來看50嵐的」——貼文照片背景疑似有手搖飲，歪樓留言蓋過正經建議，顯示Threads裝修求助帖的娛樂化互動特性，品牌留言需在幽默與專業間取得平衡</div></div>
@@ -719,7 +757,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@keulloi.zip</div><div class="post-date">2026-7-10 · 高雄10坪小宅</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">10坪迷你小宅是不是超難裝潢，填單諮詢的時候看到裝潢預算只有百萬選項，都只能默默關掉。好想知道同樣是迷你宅的脆友，預算抓40-50萬夠不夠以及推薦必做的裝潢！座標｜高雄 屋齡｜預售屋 偏好風格｜法式復古、奶油風、日式無印風</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge">📍高雄</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge">📍高雄</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 63</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">113</span></div><div class="stat">💬 <span class="val">119</span></div><div class="stat">🔁 <span class="val">1</span></div><div class="stat">📤 <span class="val">62</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@keulloi.zip/post/Daj6VT2GOPi" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>小坪數＋小預算屋主被市場的「百萬起跳」諮詢表單勸退，感覺被主流裝修市場排除在外——「預算歧視感」是小宅族最深的挫折</div><div><strong>ChannelDeco商機：</strong>🔴 高優先接觸目標：高雄預售屋、40-50萬預算、奶油/無印風偏好——與ChannelDeco「輕裝修+軟裝」定位及核心服務區完美重疊。屋主在留言區積極回覆每個自薦者並主動追問案例，轉換意圖極高，建議盡快留言佈局附上小宅案例</div></div>
@@ -738,7 +776,7 @@
     <div class="post-card" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@cynthiachu701</div><div class="post-date">2026-7-9 · 想學軟裝</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">最近開始對軟裝產生興趣，不是想走設計師這條路，而是希望培養自己的美感，學會如何運用家具、燈光、色彩與材質，打造出舒服又有質感的生活空間。想請教大家，有沒有推薦的軟裝實體課程？希望課程內容有系統、能實際操作</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 30</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">28</span></div><div class="stat">💬 <span class="val">17</span></div><div class="stat">🔁 <span class="val">1</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@cynthiachu701/post/DahcRepkaFe" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>一般消費者想「為自己的家」學軟裝美感而非轉職，但市面課程兩極——業者導向的開課廣告與「坊間課程都是自定義」的勸退聲並存，學習路徑不明</div><div><strong>ChannelDeco商機：</strong>「素人軟裝美感教學」是內容藍海——ChannelDeco可推出居家風格講座或輕量工作坊（留言區@stella_5727同類講座獲最高讚可為證），把教育內容作為顧問服務的前端漏斗，收攏「想自己動手但需要方法」的族群</div></div>
@@ -757,7 +795,7 @@
     <div class="post-card" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@michelle__hsuan</div><div class="post-date">2026-7-1 · 木地板抉擇</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">想問！關於地板。我本來一直都很確定裝潢要鋪木地板（超耐磨），但家人說鋪了10年後熱脹冷縮一定會有縫，到時候家具都在也不好重鋪處理，一直勸我不要鋪。想問大家鋪了木地板有後悔嗎？真的不喜歡建商磁磚地板🫠</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 53</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">227</span></div><div class="stat">💬 <span class="val">96</span></div><div class="stat">🔁 <span class="val">4</span></div><div class="stat">📤 <span class="val">98</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@michelle__hsuan/post/DaQLoPJAZEw" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>屋主自己的美感偏好（木地板溫潤感）與家人的實用主義警告（10年開縫）拉鋸——裝修決策常是「家庭內部協商」而非個人選擇，需要第三方專業背書來化解僵局</div><div><strong>ChannelDeco商機：</strong>地材選擇是輕裝修的核心決策點，可產出「SPC/超耐磨/海島型實木比較」衛教內容（留言區@charme_flooring同類型比較文獲56讚可為證），以中立比較者姿態建立專業信任，同時回應「不喜歡建商磁磚但怕踩雷」的普遍心聲</div></div>
@@ -776,7 +814,7 @@
     <div class="post-card" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@home.with.yiyu</div><div class="post-date">2026-6-20 · 電視尺寸後悔</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">認真問，有沒有人當初買 65 吋電視覺得已經夠大了，結果入住後看了兩天開始後悔：當初為什麼不直接上 75 吋？</div></div>
-      <div class="post-badges"><span class="badge">無奈妥協型</span></div>
+      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 56</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">406</span></div><div class="stat">💬 <span class="val">143</span></div><div class="stat">🔁 <span class="val">1</span></div><div class="stat">📤 <span class="val">188</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@home.with.yiyu/post/DZxkow1AZPd" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「當初應該買大一號」是入住後最普遍的輕後悔——電視、沙發等大型單品尺寸與空間比例的判斷，是屋主自行採購最容易失手的環節</div><div><strong>ChannelDeco商機：</strong>「觀看距離×牆面寬度×空間比例」的尺寸建議正是軟裝顧問價值所在，可做「單品尺寸怎麼抓」系列輕知識內容；留言區雷射電視/投影機業者活躍導流，證實此題型有商業轉換力</div></div>
@@ -795,7 +833,7 @@
     <div class="post-card" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@wangjing.design</div><div class="post-date">2026-6-9 · 老屋翻修清單</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">認真研究老屋翻修超過30年，我整理出5個最多人後悔沒做的事：①防水做兩道 ②管線全換不要省 ③隔音棉塞進輕隔間 ④排油煙機排管走向要確認 ⑤驗收前自己拿手電筒照每個角落。屋主懂得越多，住起來越舒服</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 63</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">1,508</span></div><div class="stat">💬 <span class="val">53</span></div><div class="stat">🔁 <span class="val">174</span></div><div class="stat">📤 <span class="val">908</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@wangjing.design/post/DZXYqZ0FDg7" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「後悔沒做的事」比「後悔做的事」更刺痛——防水、管線、隔音都是藏在牆裡看不見的工程，屋主事後才知道被省工。此帖174轉發/908分享顯示「避坑清單」是最強的收藏型內容</div><div><strong>ChannelDeco商機：</strong>連續串文（7則）教學格式值得借鏡——每則聚焦一個坑、結尾拋問題引互動。ChannelDeco可產出「輕裝修避坑清單」同格式系列，以「懂得越多住得越舒服」的賦權敘事取代恐嚇行銷</div><div>⚡ 留言區出現屋主直接@meta.ai要求AI幫忙摘要重點的新互動型態——長文貼文的資訊消化已開始被AI代勞，內容創作者需讓重點更前置</div></div>
@@ -814,7 +852,7 @@
     <div class="post-card" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@linabycat</div><div class="post-date">2026-5-29 · 台南徵軟裝優化</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">想徵求一間願意接「小坪數空間美化」的設計工作室🙏 不是豪宅、不是大工程。需求：小坪數空間規劃、色調與氛圍設計、文青／溫暖／耐看感。補充：不拆裝潢、不動水電、不換地板天花板、不重新做櫃體，以「氛圍升級」為主，著重門面、燈光、植栽、牆面裝飾</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge">📍台南</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge">📍台南</span><span class="badge vscore v-ok">🚀 病毒訊號 44</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">40</span></div><div class="stat">💬 <span class="val">46</span></div><div class="stat">📤 <span class="val">12</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@linabycat/post/DY5zJi7kigg" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「不動硬裝、只要氛圍升級」的純軟裝需求在市場上找不到明確服務入口——屋主必須自己詳細定義需求（燈光、植栽、牆面裝飾）並強調「不想當奧客」，反映純軟裝案主擔心被設計公司嫌案子太小</div><div><strong>ChannelDeco商機：</strong>🔴 這正是ChannelDeco的訂單原型：台南（服務區內）＋純軟裝氛圍升級＋預算誠實溝通。此類「小案子被市場忽視」的怨言正是「軟裝設計、空間陳列」服務的最佳切入敘事——「沒有案子太小，只有空間沒被好好對待」</div></div>
@@ -833,7 +871,7 @@
     <div class="post-card" data-kw="寵物宅">
       <div class="post-header"><div><div class="post-author">@asdf6469z</div><div class="post-date">2026-5-27 · 寵物公設宅</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">第一次看到預售屋介紹公設有寵物宅，可以讓毛小孩直接在大樓洗澡，而且還有專業的洗澡設備。好像真有這麼一回事，應該是全台首創了吧。養狗養貓的會想要入住嗎?</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 31</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">13</span></div><div class="stat">💬 <span class="val">13</span></div><div class="stat">🔁 <span class="val">3</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@asdf6469z/post/DY1g_r2k7Nq" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>建商開始把「寵物公設」當賣點（大樓寵物洗澡間），留言普遍正面——養寵家庭對居住空間的寵物機能期待已從「可養」升級為「好養」</div><div><strong>ChannelDeco商機：</strong>寵物機能已成新建案行銷語言，室內端的「寵物友善軟裝」（耐抓材質、寵物動線、清潔便利設計）將是下一波需求；可搭配此趨勢產出「入住寵物宅前的室內軟裝準備」內容承接建案話題流量</div></div>
@@ -852,7 +890,7 @@
     <div class="post-card" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@howard0412</div><div class="post-date">2026-5-20 · B2B佈置徵求</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">我們是專業精油品牌公司，將於今年7月舉辦全新精油品牌發表會，現正尋找台北、台中、高雄具質感與美感的花藝／空間佈置工作室合作。主要需求為「精油產品展示桌花藝佈置」，希望整體風格能呈現天然、有機、療癒、高級質感的品牌氛圍，期待建立長期合作關係</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge">📍高雄/台北/台中</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge">📍高雄/台北/台中</span><span class="badge vscore v-low">病毒訊號 32</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">50</span></div><div class="stat">💬 <span class="val">35</span></div><div class="stat">📤 <span class="val">17</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@howard0412/post/DYj9WNYE3Xy" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>品牌方在Threads直接公開徵求「空間佈置／陳列」商業合作，顯示B2B佈置需求（發表會、展示桌陳列）正透過社群而非傳統發包管道媒合</div><div><strong>ChannelDeco商機：</strong>🔴 ChannelDeco的「空間陳列擺拍」服務正對應此類需求，且高雄場次在核心服務區——雖已過7月活動期，但此帖證明Threads是B2B陳列案源渠道，建議定期搜尋「佈置合作」「陳列徵求」關鍵字並準備商業空間作品集以便快速自薦</div></div>
@@ -871,7 +909,7 @@
     <div class="post-card" data-kw="寵物宅">
       <div class="post-header"><div><div class="post-author">@guo_05.05</div><div class="post-date">2026-5-19 · 寵物空間分享</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">為了狗勾把房子用成寵物民宿，朋友們出國都把狗狗拿來寄放😂 舒服自在快樂還有冷氣吹</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-low">病毒訊號 29</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">287</span></div><div class="stat">💬 <span class="val">19</span></div><div class="stat">📤 <span class="val">27</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@guo_05.05/post/DYgqpsvEWou" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>把家打造成「寵物優先」空間的曬圖獲得高共鳴，留言充滿「住的比我還舒服」「想當狗的安親班同學」的羨慕——寵物空間的情感價值敘事比機能敘事更能引發互動</div><div><strong>ChannelDeco商機：</strong>寵物宅內容的高互動密碼是「毛孩過得好」的情感畫面而非設計專業術語；ChannelDeco寵物友善案例的社群呈現應以寵物生活場景照為主視覺、設計說明為輔</div></div>
@@ -890,7 +928,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@musenza.tw</div><div class="post-date">2026-5-18 · 系統櫃全屋方案</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">25萬，這樣的奶油木質感全屋誰不心動🤍 包含4米滿牆電視櫃、餐邊櫃、櫥櫃＋中島、5米衣櫃，全部含在內、做到好裝到好。這套就是堅持「輕硬裝，重軟裝」，沒有複雜造型，反而更顯大、更耐看</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge">業者內容</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge">業者內容</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 69</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">751</span></div><div class="stat">💬 <span class="val">67</span></div><div class="stat">🔁 <span class="val">41</span></div><div class="stat">📤 <span class="val">1,281</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@musenza.tw/post/DYemwjWoGnb" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>競品觀察——系統櫃業者用「25萬全屋、輕硬裝重軟裝」話術獲1,281次分享，「明確總價＋具體內容清單」的透明報價格式極度有效，大量「留自己看」留言代表收藏型潛在客戶</div><div><strong>ChannelDeco商機：</strong>⚡「輕硬裝，重軟裝」口號與ChannelDeco理念高度重疊，且已被市場驗證有效——建議發展自己的「透明價格包套」內容格式（例：OO萬軟裝提案包含哪些），搶佔同一心智但以「設計顧問」差異於「工廠直營」</div></div>
@@ -909,7 +947,7 @@
     <div class="post-card" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@xxoo1112_</div><div class="post-date">2026-4-29 · 買房小白求陳列公司</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">和女友從大學畢業就一起奮鬥，存錢買了一間房準備結婚，終於在今年準備交屋了！身邊朋友買房現在都以軟裝佈置為主，省錢又有美感。想佈置成現代風，覺得還是要找專業的來佈置設計，自己弄一定會浪費錢又四不像......想問大家有推薦很有美感的空間陳列設計公司嗎</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 59</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">3,319</span></div><div class="stat">💬 <span class="val">65</span></div><div class="stat">🔁 <span class="val">88</span></div><div class="stat">📤 <span class="val">774</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@xxoo1112_/post/DXs42ijEXj0" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>首購成家族的標準心路：房貸壓力下「以軟裝佈置為主省錢又有美感」已是同儕共識，但擔心自己弄「浪費錢又四不像」——「空間陳列設計公司」正在成為消費者主動搜尋的服務類別名稱</div><div><strong>ChannelDeco商機：</strong>🔴 3,319讚的超高互動證實「軟裝佈置取代重裝潢」需求已成主流敘事，且屋主最終真的透過推薦選定陳列公司（置頂留言宣布選定「常嵎空間」）——完全是ChannelDeco「首購成家小白」目標客群的教科書案例，此類帖必須第一時間留言佈局</div><div>⚡ 最高讚留言（313讚）竟是「首先，你要把小紅書先關起來，上面的資訊美感比較破碎」——社群對小紅書式範例的反感成為共識，「在地化、生活化」的台灣案例更受信任</div></div>
@@ -928,7 +966,7 @@
     <div class="post-card" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@interior.design_w</div><div class="post-date">2026-3-28 · 設計師的家開放</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">自己的工作室品牌要開張了，如果開放設計師的家給需要諮詢的客人參觀討論，不知道在找設計公司的大家有沒有興趣呢～～除了室內設計，還有廚具、訂製櫃體軟裝、地毯、進口傢俱</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge">業者內容</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge">業者內容</span><span class="badge vscore v-ok">🚀 病毒訊號 54</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">5,808</span></div><div class="stat">💬 <span class="val">189</span></div><div class="stat">🔁 <span class="val">180</span></div><div class="stat">📤 <span class="val">1,248</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@interior.design_w/post/DWa-neekqEO" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「開放設計師自己的家當展示間」獲5,808讚，證實消費者對「渲染圖看膩了、想看真實生活空間」的強烈渴望——設計師願意曝光自宅本身就是信任訊號</div><div><strong>ChannelDeco商機：</strong>「真實空間體驗」是比作品集更強的信任建立工具——ChannelDeco可評估「工作室實景開放日」或「完工客戶家實訪（徵得同意）」的內容／活動形式，把「看得到摸得到」變成軟裝服務的體驗差異化</div></div>
@@ -947,7 +985,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@pikachill_rookie</div><div class="post-date">2026-2-1 · 統包報價疑慮</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">不懂就問脆，因不想花大錢找設計師，現在找統包輕裝潢，只是發現即使找統包現在也不便宜。全室兩房一廳室內不到15坪，基本天花板跟油漆、一面特殊漆電視牆、玄關跟更衣室系統櫃兩座，目前統包報價65萬，這樣算是合理的價格嗎？</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 35</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">72</span></div><div class="stat">💬 <span class="val">61</span></div><div class="stat">📤 <span class="val">41</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@pikachill_rookie/post/DUNdLQ2D8Vv" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「連統包都不便宜」的價格震撼＋「無法判斷報價合理性」的資訊焦慮——屋主只能拿工項清單上網求驗證，反映市場缺乏可信的價格判讀依據</div><div><strong>ChannelDeco商機：</strong>留言區最有價值回覆（@hayyy.intd）指出「無法用項目判斷價錢，要看材料等級與施工方式」——ChannelDeco可產出「看懂報價單」系列衛教內容，以「教你問對問題」的顧問姿態切入輕裝潢比價焦慮市場</div></div>
@@ -966,7 +1004,7 @@
     <div class="post-card featured" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@robert.19870329 <span style="color:var(--accent)">⭐官方已留言</span></div><div class="post-date">2025-8-2 · 高雄求薦（回顧）</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">請問高雄有推薦的設計師或店家嗎？我有一個房間要重新設計，不會有太多的木工裝潢，大概就是家具和電燈之類重新配置。1.室內設計師 2.軟裝設計師 3.空間規劃師</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge">📍高雄</span><span class="badge">⭐ @channel.deco 已留言</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge">📍高雄</span><span class="badge">⭐ @channel.deco 已留言</span><span class="badge vscore v-low">病毒訊號 39</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">23</span></div><div class="stat">💬 <span class="val">18</span></div><div class="stat">🔁 <span class="val">1</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@robert.19870329/post/DM1wOftJ5eE" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>屋主分不清「室內設計師／軟裝設計師／空間規劃師」三種角色差異，只知道自己「不要木工、只要家具燈光重配置」——服務類別認知混亂是純軟裝客戶的入門障礙</div><div><strong>ChannelDeco商機：</strong>⭐ 官方帳號已留言「我們是高雄的軟裝設計工作室🙋‍♂️歡迎聊聊」且被脆友@woodworking_wating主動推薦——此帖在「軟裝設計」搜尋結果持續曝光（發文近一年後仍在前排），官方留言是長尾流量資產；建議補充「三種角色差在哪」衛教內容承接同類困惑</div></div>
@@ -989,7 +1027,7 @@
     <div class="post-card" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@tricia_8234477</div><div class="post-date">2026-7-4 · 產業氛圍反思</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">最近看到一些留言，忍不住想分享一個想法。不管是設計師、木工、工班還是脆友，發文提問很多時候是真的想尋求建議，一句酸言酸語往往會讓願意發問的人失去勇氣</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 30</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">51</span></div><div class="stat">💬 <span class="val">22</span></div><div class="stat">🔁 <span class="val">1</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@tricia_8234477/post/DaVu8P8E4fr" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>裝潢求助帖常吸引酸民冷嘲熱諷而非建設性回饋，讓真正想解決問題的屋主與工班卻步，反映裝潢社群的討論品質與信任基礎正被侵蝕</div><div><strong>ChannelDeco商機：</strong>留言區大量工班/設計師現身呼應「相互尊重才能長久合作」，顯示裝潢產業自身也渴望更健康的溝通文化——ChannelDeco可用「先聽再說、透明溝通」的服務風格作為差異化訴求，正面對應消費者對裝潢業信任赤字的疑慮</div><div>⚡ @artisan_lion與多位工班留言呼籲「大家都在悶熱環境下工作」「惡性低價競爭下更需要團結」，顯示本則貼文意外揭露裝潢供應鏈內部的職業辛酸與同業互助心聲，而非單純消費者視角</div></div>
@@ -1008,7 +1046,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@editor_belle335</div><div class="post-date">2026-7-4 · 瓜家裝修日記</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">設計師老公問我一個廁所怎麼可以Po這麼多次，啊就很多人在問浴缸尺寸「OVO BK106B」，之前朋友和設計師都說要泡就去飯店泡，但我頓悟這個家如果要有一個讓我放鬆休息的地方，第一個還是想到浴缸</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-low">病毒訊號 31</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">32</span></div><div class="stat">💬 <span class="val">2</span></div><div class="stat">🔁 <span class="val">1</span></div><div class="stat">📤 <span class="val">11</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@editor_belle335/post/DaVg3KvGeh4" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「該不該做浴缸」是許多屋主在坪效與享受之間的兩難，常被「去飯店泡就好」的效率至上建議勸退，忽略了在家放鬆空間的情緒價值</div><div><strong>ChannelDeco商機：</strong>屋主鉅細靡遺記錄浴缸尺寸、使用情境（跟女兒共浴、獨自漂浮練習閉氣）顯示消費者渴望「生活情境化」而非規格化的軟裝建議——ChannelDeco可用情境故事行銷取代單純坪數/建材資訊，貼近「輕裝潢+軟裝」訴求的生活提案角色</div></div>
@@ -1024,7 +1062,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@y.h_____c</div><div class="post-date">2026-7-4 · 油漆糾紛</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">油漆過色、裝潢油漆修補都不會讓妳家建商給的爛牆面變平順變漂亮，如果預算有限就不要完工後靠杯油漆做的差，每個想省錢的到最後都在靠杯油漆</div></div>
-      <div class="post-badges"><span class="badge">無奈妥協型</span></div>
+      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-low">病毒訊號 25</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">31</span></div><div class="stat">💬 <span class="val">8</span></div><div class="stat">🔁 <span class="val">14</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@y.h_____c/post/DaVablmkyyt" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>屋主省下油漆「透批」（全室批土）預算後，入住看到嵌燈打光下的牆面瑕疵才責怪油漆師傅，凸顯消費者對建材工序與最終視覺效果的因果關係缺乏認知</div><div><strong>ChannelDeco商機：</strong>此類「省小錢卻不知道犧牲什麼」的資訊落差，正是ChannelDeco可透過透明化報價說明（如附加「透批 vs 不透批」效果對比圖）主動教育客戶、預先降低完工後糾紛的機會點</div><div>⚡ @e9081222反諷「幾千萬的房子不要求建商，去要求幾萬工錢的油漆」，與屋主端「省預算後又要求高品質」的心態形成強烈反差，突顯裝潢預算分配認知落差是普遍存在的產業痛點</div></div>
@@ -1042,7 +1080,7 @@
     <div class="post-card featured" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@missbibible</div><div class="post-date">2026-7-1 · 9萬次瀏覽</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">最近在準備油漆選色階段了，一直在猶豫全室得利1501還是豪灰，燈預計搭配4000k，但豪灰會不會有點偏黃？請問沒有全室豪灰可以參考😌</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 71</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">512</span></div><div class="stat">💬 <span class="val">120</span></div><div class="stat">🔁 <span class="val">35</span></div><div class="stat">📤 <span class="val">737</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@missbibible/post/DaPHYLugUIV" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>油漆色號（得利1501 vs 豪灰）與燈光色溫（4000k）的搭配效果難以單憑色卡想像，屋主必須仰賴他人實際完工案例才能安心下決定</div><div><strong>ChannelDeco商機：</strong>屋主最終選擇「全室豪灰」並主動回來更新結果，顯示色彩決策內容具備完整的「提問→蒐證→決策→回饋」互動漏斗——ChannelDeco可規劃「色號情境對照」系列內容，並鼓勵客戶完工後回饋案例，複製此高互動模式</div><div>⚡ @littlew_corner單則留言即獲1,535讚（全場最高），詳細說明「豪灰在陽光/陰天下的視覺差異」比原PO本人的貼文互動量還高，顯示「有憑有據的實測心得」比「求助提問」更具傳播力，適合作為ChannelDeco軟裝色彩建議的內容形式參考</div></div>
@@ -1061,7 +1099,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@rs.__222</div><div class="post-date">2026-7-1 · 孝親老屋翻修</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">想看大家透天老屋成功翻修的案例，好多設計公司不知道該怎麼選🥹 18坪45年以上三層透天，想改造個讓爸媽住得舒適</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 45</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">66</span></div><div class="stat">💬 <span class="val">69</span></div><div class="stat">🔁 <span class="val">17</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@rs.__222/post/DaQLFD7j69D" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>為長輩翻修45年老屋，屋主最擔心的不是風格美感，而是結構安全、防水抓漏、管線老化與長輩行動不便的動線規劃，是典型「長輩居家照護族」的裝潢決策焦慮</div><div><strong>ChannelDeco商機：</strong>此貼文精準命中ChannelDeco「長輩居家照護族」目標受眾——多則留言強調「先問生活作息、上下樓是否方便」優先於風格討論，ChannelDeco可發展「孝親宅安全動線健檢」作為差異化服務切角，與純風格導向的競品區隔</div><div>⚡ @liaushukai提醒「網路丟廣告接案的盡量別碰，品質好的設計公司不會有時間在網路丟廣告」，與同串多則設計公司主動留言自薦形成微妙反差，點出消費者對「留言自薦」廠商的信任門檻正在提高</div></div>
@@ -1080,7 +1118,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@eatea_ttoday</div><div class="post-date">2026-7-3 · 台中主臥求薦</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">想請問台中有推薦的裝潢公司嗎？想輕裝潢主臥的櫃子跟餐邊櫃，但不知道從何問起🥺</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 37</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">42</span></div><div class="stat">💬 <span class="val">72</span></div><div class="stat">🔁 <span class="val">9</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@eatea_ttoday/post/DaT9ea4kiZq" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>局部輕裝潢（僅主臥櫃體＋餐邊櫃）需求的屋主同樣面臨「不知道從何問起」的資訊焦慮，即使需求範圍小，仍需要大量廠商比較才敢下決定</div><div><strong>ChannelDeco商機：</strong>原PO對每則推薦都積極追問聯絡方式，顯示局部輕裝潢/系統櫃需求同樣具備高轉換意圖，且台中海線一帶已有同業（淳木室內設計）主打「純系統櫃、自己拆單」服務，ChannelDeco若拓展台中市場需留意此類單品服務的競爭定位</div></div>
@@ -1099,7 +1137,7 @@
     <div class="post-card featured" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@arbormooz</div><div class="post-date">2026-7-1 · 台南老件傢俱</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">前陣子在台南逛了兩家老件傢俱，如果有到台南都很值得特別安排去挖寶——老件人（空間超大氛圍讚）與北歐巨匠（老件傢俱為主，較多知名款式）</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 46</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">189</span></div><div class="stat">💬 <span class="val">4</span></div><div class="stat">🔁 <span class="val">12</span></div><div class="stat">📤 <span class="val">307</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@arbormooz/post/DaNr1CSEsVL" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>想打造「有故事感」軟裝風格的消費者，缺乏可信賴的老件家具/古董傢俱選物店資訊，只能靠社群口碑推薦逐一探店</div><div><strong>ChannelDeco商機：</strong>「挖寶型」選物內容具長尾參考價值（307次分享），可作為ChannelDeco軟裝陳列服務中「老件混搭」風格提案的素材來源，並考慮與優質選物店建立異業合作關係</div><div>⚡ @xinnix_yu提醒「之前有人PO文在老件人買到假貨」，與原PO的正面推薦形成直接反差，凸顯老件家具市場因真偽難辨、資訊不透明，消費者風險意識正在提升——若ChannelDeco涉入老件選物服務，「來源保證」將是關鍵信任建立點</div></div>
@@ -1115,7 +1153,7 @@
     <div class="post-card" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@seanfffffff</div><div class="post-date">2026-6-30 · 和室改造求靈感</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">有人的家也有榻榻米的房間或和室嗎，想看看大家都怎麼佈置🍃 家裡和室目前當倉庫使用，想往侘寂的感覺、寧靜安心的空間去佈置</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 7</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">-</span></div><div class="stat">💬 <span class="val">-</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@seanfffffff/post/DaNOaHPEXpz" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>和室/榻榻米空間常在裝潢後淪為「倉庫」閒置角落，屋主渴望重新賦予機能與美感，卻缺乏侘寂風軟裝佈置的具體參考案例</div><div><strong>ChannelDeco商機：</strong>「閒置和室活化」是常見卻少被專門討論的軟裝陳列題材，屋主已自行嘗試屏風、落地燈、地毯營造氛圍，顯示只差臨門一腳的專業佈局建議——可作為ChannelDeco軟裝服務的一個垂直內容題材</div></div>
@@ -1130,7 +1168,7 @@
     <div class="post-card" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@youngioo</div><div class="post-date">2026-7-4 · 好感空間展</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">EXPERIENCE LIFE｜好感空間展 最近為了新家開始看起家具與軟裝，算一算那些讓人心動的物件價錢，加總起來都快要追上新家的房價</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 23</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">7</span></div><div class="stat">💬 <span class="val">2</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@youngioo/post/DaU-XqVkUHN" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>軟裝家具展覽讓消費者發現「軟裝總價可能逼近房價」的預算震撼，反映軟裝規劃若缺乏事先預算規劃容易失控超支</div><div><strong>ChannelDeco商機：</strong>此類展覽心得凸顯軟裝市場消費者存在「先逛展被種草、後驚覺預算超標」的普遍模式——ChannelDeco可主打「依總預算反推軟裝選物」的顧問式服務，避免消費者陷入先選品後估價的預算失控循環</div></div>
@@ -1145,7 +1183,7 @@
     <div class="post-card" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@itsjames_js</div><div class="post-date">2026-7-3 · 工程人第二曲線</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">工程做到最後，最可惜的不是施工，而是最後一哩路的利潤留給了別人。系統櫃、木作、水電都完成了，當業主問「家具怎麼配？」很多工程人不知道怎麼搭</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 7</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">-</span></div><div class="stat">💬 <span class="val">0</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@itsjames_js/post/DaU2Upqlcfh" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>傳統工程/統包業者完成硬裝工程後，普遍不具備軟裝搭配能力，導致案子「做到80分」，流失家具/軟裝整合的服務利潤與業主滿意度</div><div><strong>ChannelDeco商機：</strong>此則B2B軟體廣告雖非消費者發文，但直接點出「軟裝整合」是統包工班的能力缺口——驗證ChannelDeco「輕裝潢+軟裝設計」一條龍服務模式正是市場稀缺的完整解方，可作為與純統包競品的差異化訴求佐證</div></div>
@@ -1160,7 +1198,7 @@
     <div class="post-card" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@chenxin_luke</div><div class="post-date">2026-7-3 · 插座規劃清單</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">裝潢最容易遺忘的5個插座位置，住進去之後全靠延長線救急：床頭兩側、窗邊落地窗旁、馬桶旁、更衣室內、中島或餐桌旁</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 42</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">11</span></div><div class="stat">💬 <span class="val">1</span></div><div class="stat">🔁 <span class="val">2</span></div><div class="stat">📤 <span class="val">32</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@chenxin_luke/post/DaVF8j4E4lf" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>插座規劃是裝潢中最容易被忽略、卻在入住後天天造成困擾的細節，屋主往往要等到「拉延長線」才驚覺當初漏留</div><div><strong>ChannelDeco商機：</strong>此類「編號條列式」知識型內容格式（#裝潢避雷）具高分享價值（32次），ChannelDeco可產出類似的「輕裝潢前必check清單」系列作為SEO/社群內容資產，同時強化「細節規劃到位」的專業形象</div></div>
@@ -1175,7 +1213,7 @@
     <div class="post-card" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@shansen_artdesign</div><div class="post-date">2026-7-3 · 生活型態反思</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">裝潢施工前可以存網美圖，但拜託不要只存網美圖。很多裝潢後悔真的不一定是風格選錯，而是一開始太少想「自己平常到底怎麼生活」</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 20</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">6</span></div><div class="stat">💬 <span class="val">1</span></div><div class="stat">🔁 <span class="val">2</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@shansen_artdesign/post/DaTFIeqExCF" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>消費者裝潢前參考大量網美圖建立風格想像，卻忽略自身真實生活習慣（愛煎魚、東西多、包包亂丟），導致美觀與實際居住體驗脫節</div><div><strong>ChannelDeco商機：</strong>此則反思直指「風格諮詢」應從生活習慣盤點開始而非直接套用網紅風格模板——與ChannelDeco強調實用機能的軟裝服務理念高度契合，可作為前期諮詢流程設計的參考（先問生活習慣，再談風格）</div></div>
@@ -1206,7 +1244,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@wiwi_uu0902</div><div class="post-date">2026-7-5 · 驗屋開箱驚訝</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">有沒有人跟我一樣驗屋一開箱超驚訝😂😂😂怎麼這麼小！！可以曬一下你們家的小坪數裝潢嗎🥹不限風格！也可以推薦林口桃園有合作過真的不錯的輕裝潢</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 31</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">129</span></div><div class="stat">💬 <span class="val">39</span></div><div class="stat">🔁 <span class="val">36</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@wiwi_uu0902" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>驗屋後才驚覺實際坪數比預期小，對小坪數裝潢／輕裝潢方案與林口桃園在地廠商同時感到迫切需求，屬「交屋衝擊期」典型焦慮</div><div><strong>ChannelDeco商機：</strong>36次分享顯示「小坪數驗屋驚喜/驚嚇」主題極具共鳴傳播力，ChannelDeco服務涵蓋桃園、新北，可考慮製作「小宅輕裝潢實例」系列內容並於此類貼文留言接觸</div></div>
@@ -1218,7 +1256,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@_nn_lawyer</div><div class="post-date">2026-7-5 · 台積電股利買房</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">三年前做過最正確的決定，就是all in台積電，用股利股息慢慢繳工程款，新房子即將完工！徵求台北市室內設計師推薦、自薦，希望能找到擅長規劃收納空間的設計魔術師</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-low">病毒訊號 36</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">166</span></div><div class="stat">💬 <span class="val">81</span></div><div class="stat">🔁 <span class="val">25</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@_nn_lawyer" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>財務規劃成功、即將交屋的屋主雖財力充裕，卻仍對「收納規劃能力強」的設計師人選毫無頭緒，顯示即使預算充足，找對設計師仍是普遍痛點</div><div><strong>ChannelDeco商機：</strong>台北市40坪（權狀）中大坪數案件，若ChannelDeco拓展台北市場，此類「財力穩健、重視收納機能」客群是精準且轉換率高的目標受眾</div></div>
@@ -1230,7 +1268,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@sjr_0227</div><div class="post-date">2026-7-1 · 高雄30坪求薦</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">高雄有推薦的室內設計師嗎～室內坪數大約30+，我想要積極細節控的那種😍</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 50</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">147</span></div><div class="stat">💬 <span class="val">112</span></div><div class="stat">🔁 <span class="val">5</span></div><div class="stat">📤 <span class="val">45</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@sjr_0227" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>中大坪數（30坪+）屋主明確要求「積極、細節控」的設計師特質，反映消費者對設計師服務態度與細心程度的重視不亞於作品風格</div><div><strong>ChannelDeco商機：</strong>高雄為ChannelDeco核心服務區，此帖112則留言熱度高，適合在留言中以「細節導向服務流程」（如逐項清單確認、現場多次丈量）回應此需求痛點</div></div>
@@ -1242,7 +1280,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@colleen_wei</div><div class="post-date">2026-6-28 · 玄關靈感徵集</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">求大家曬一下你們家的玄關或前陽台，不管豪宅、小宅、新成屋、老屋都想看！最近想找靈感，拜託讓我參考一下</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 49</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">148</span></div><div class="stat">💬 <span class="val">54</span></div><div class="stat">🔁 <span class="val">11</span></div><div class="stat">📤 <span class="val">68</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@colleen_wei" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>玄關/前陽台這類「入口第一印象」空間缺乏明確設計方向，屋主需要大量真實案例才能建立佈置想像</div><div><strong>ChannelDeco商機：</strong>68次分享顯示玄關佈置話題極具內容傳播力，可作為ChannelDeco軟裝陳列服務的高曝光內容題材，例如製作「玄關風格圖鑑」系列</div></div>
@@ -1254,7 +1292,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@free_can_</div><div class="post-date">2026-6-27 · 高雄交屋誠徵</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">房屋預計下週交屋，誠徵統包或工班，高雄兩房，輕裝潢不用設計師，希望9月完工，可先傳些作品參考</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 49</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">51</span></div><div class="stat">💬 <span class="val">58</span></div><div class="stat">🔁 <span class="val">1</span></div><div class="stat">📤 <span class="val">18</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@free_can_" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>交屋倒數階段急需「不用設計師、只要統包工班」的輕裝潢團隊，且已設定明確完工期限（9月），顯示時間壓力下的高轉換意圖</div><div><strong>ChannelDeco商機：</strong>高雄為ChannelDeco核心服務區，此類「無設計師需求、純工程執行」詢問可作為切入純輕裝潢服務包（區別於全案軟裝服務）的市場測試對象</div></div>
@@ -1266,7 +1304,7 @@
     <div class="post-card" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@lany_lanyday</div><div class="post-date">2026-6-22 · 冷氣孔洞美化</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">最近搬到了新的房間，空間整體很不錯，只有這個原本窗型冷氣的洞讓我有點頭痛，想請問有沒有什麼方法可以把它修飾掉或是美化？</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 31</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">53</span></div><div class="stat">💬 <span class="val">27</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@lany_lanyday" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>搬入新居後遺留的窗型冷氣孔洞成為視覺瑕疵，屋主缺乏「修補/美化舊有硬體缺陷」的軟裝知識與方案</div><div><strong>ChannelDeco商機：</strong>此類「小面積瑕疵修飾」需求正是輕量軟裝服務的入門款切角，可規劃「屋況小缺陷軟裝急救」系列內容吸引預算有限但有明確痛點的客群</div></div>
@@ -1278,7 +1316,7 @@
     <div class="post-card" data-kw="寵物宅">
       <div class="post-header"><div><div class="post-author">@ruilei_hong</div><div class="post-date">2026-6-22 · 貓派狗派對比</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">去年在同一棟大樓做了兩戶格局一樣的作品，但業主的需求和喜好截然不同，一戶養了兩隻貓，另外一戶則是養了四隻狗🐶 大家看得出來哪個是貓派哪個是狗派嗎？</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 46</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">217</span></div><div class="stat">💬 <span class="val">39</span></div><div class="stat">🔁 <span class="val">3</span></div><div class="stat">📤 <span class="val">79</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@ruilei_hong" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>同一格局針對「貓派」「狗派」屋主需要截然不同的動線與材質規劃，凸顯寵物宅裝潢並非單一公式，而需依飼養寵物種類客製化設計</div><div><strong>ChannelDeco商機：</strong>79次分享驗證「貓狗宅前後對比」內容形式吸睛度高，可作為ChannelDeco寵物宅軟裝服務案例展示的內容範本，同時強化「依寵物習性客製動線」的專業差異化訴求</div></div>
@@ -1290,7 +1328,7 @@
     <div class="post-card" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@lomiruve</div><div class="post-date">2026-6-19 · 電器櫃定位卡關</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">我看著這兩張圖一個月了，我還是不知道電器櫃可以擺哪裡，陽台門邊的位置窄到不行，存了很多別人家裡佈置的照片想要有靈感，靈感來了靈感又去了。燒腦咧～～～</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-low">病毒訊號 34</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">69</span></div><div class="stat">💬 <span class="val">51</span></div><div class="stat">🔁 <span class="val">19</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@lomiruve" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>單一家電（電器櫃/蒸氣烤箱）擺放位置的決策困難長達一個月未解，即使蒐集大量他人佈置照片參考仍無法對應到自家格局限制，反映「參考圖片」與「實際空間限制」之間的落差是常見軟裝痛點</div><div><strong>ChannelDeco商機：</strong>此類「單品定位卡關」需求顯示消費者需要的不是更多靈感圖片，而是「依實際格局現場評估」的專業服務——可推出「軟裝單品定位諮詢」輕量服務，解決類似卡關但不需全案設計的客群需求</div></div>
@@ -1302,7 +1340,7 @@
     <div class="post-card" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@joyevnne</div><div class="post-date">2026-6-10 · 客變設計</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">想聽聽脆友客變建議，小宅需要室內設計嗎？還是軟裝設計就行？或是掏寶設計呢？太多方向捉摸不定，因為單面採光想著怎麼才有通透感！</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 41</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">13</span></div><div class="stat">💬 <span class="val">18</span></div><div class="stat">🔁 <span class="val">3</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@joyevnne/post/DZZSuTEEYld" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>小宅單面採光屋主在「室內設計/軟裝/淘寶設計」三種路徑間猶豫不決，反映市場對三者定位與價格帶的認知模糊</div><div><strong>ChannelDeco商機：</strong>留言中@niceshotse點出「不知道生活型態與習慣，建議往往不適當」的制式建議侷限——ChannelDeco可以「先訪談生活習慣再給方案」的顧問式流程作為差異化訴求，直接對應此類決策焦慮</div></div>
@@ -1321,7 +1359,7 @@
     <div class="post-card" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@linda45649</div><div class="post-date">2026-6-12 · 玄關展示牆</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">從裝潢前到現在入住三個月，還在苦惱入門玄關直面的大白牆要怎麼設計，想展示出國搜集的水晶球、專輯，還需要放上一張穿鞋椅凳（已放棄和AI溝通）</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-low">病毒訊號 32</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">4</span></div><div class="stat">💬 <span class="val">11</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@linda45649" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>入住三個月仍對玄關展示牆佈置猶豫不決，且明確提及「已放棄和AI溝通」，顯示AI生圖工具在面對「多元素混搭、個人收藏展示」需求時仍有其侷限，消費者渴望真人設計師的空間感判斷</div><div><strong>ChannelDeco商機：</strong>此則貼文雖然互動數不高，但「AI工具已無法滿足、轉而尋求人工建議」的心態轉折極具代表性——凸顯ChannelDeco真人軟裝顧問服務在AI浪潮下仍具不可取代的價值定位</div></div>
@@ -1333,7 +1371,7 @@
     <div class="post-card featured" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@lee.house.daily.tw</div><div class="post-date">2026-6-7 · 入住一年回顧</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">入住滿一年🏠 來分享一下裝潢裡目前心中的最好跟最壞。大儲藏櫃門片、臥室床頭背板還在觀察中，班傑明油漆再貴都會閉著眼選。沒有完美的裝潢，但有越住越喜歡的家🌸</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 53</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">410</span></div><div class="stat">💬 <span class="val">44</span></div><div class="stat">🔁 <span class="val">16</span></div><div class="stat">📤 <span class="val">339</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@lee.house.daily.tw" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>入住滿一年後理性盤點裝潢優缺點，發現「後悔」往往不是無法挽回的大錯，而是需要長期觀察的細節（如門片變形疑慮、床頭背板積灰），顯示消費者對裝潢的評價需要時間才能沉澱</div><div><strong>ChannelDeco商機：</strong>339次分享的高傳播力驗證「一年後回顧」內容形式的吸引力，可規劃「軟裝一年後回訪」系列內容，展示服務案例的長期使用滿意度作為信任背書</div></div>
@@ -1345,7 +1383,7 @@
     <div class="post-card featured" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@_aboutdaily_</div><div class="post-date">2026-5-21 · 裝潢心理壓力</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">想問裝潢到心理壓力大到快無法承受是正常的嗎，從二月裝潢至今，設計師幾乎每週都有事情讓我很頭痛，累到問自己我為什麼要買這房子來折磨自己，最後訴諸「你愛怎麼搞我的房子就怎麼搞」</div></div>
-      <div class="post-badges"><span class="badge">無奈妥協型</span></div>
+      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 64</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">544</span></div><div class="stat">💬 <span class="val">269</span></div><div class="stat">🔁 <span class="val">4</span></div><div class="stat">📤 <span class="val">443</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@_aboutdaily_" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>裝潢過程中與設計師溝通問題頻繁發生，導致屋主心理壓力瀕臨崩潰，最終選擇「放棄堅持、隨對方處置」的無奈妥協，是裝潢糾紛中較少被談論的心理健康面向</div><div><strong>ChannelDeco商機：</strong>443次分享與269則留言顯示「裝潢期間心理壓力」是極具共鳴的痛點，ChannelDeco可用「透明溝通、進度共享」的服務流程設計正面回應此類信任危機，並可考慮製作「如何與設計師健康溝通」的衛教型內容建立差異化專業形象</div><div>⚡ 反差留言：多則留言指出「找設計師/統包就是圖個心安，結果自己還要天天監工」，顯示消費者對「花錢卻沒省心」的落差感最為不滿，正是ChannelDeco可主打「真正省心」服務承諾的切入點</div></div>
@@ -1364,7 +1402,7 @@
     <div class="post-card" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@smarthome_yee</div><div class="post-date">2026-4-5 · 血汗教訓</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">裝潢最燒錢的不是家具，而是你那「以為很有質感」的無用美感。過來人的血淚告白：插座位置、燈光迴路層次、廚房抽屜收納、地板顏色、預留未來管線，這5個隱形細節決定入住一年後會不會後悔</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 48</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">180</span></div><div class="stat">💬 <span class="val">12</span></div><div class="stat">🔁 <span class="val">12</span></div><div class="stat">📤 <span class="val">230</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@smarthome_yee" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>以「改造老屋經驗」歸納5個容易被忽略、卻是入住後滿意度關鍵的隱形細節，指出消費者常見迷思——追求風格美感勝過機能規劃</div><div><strong>ChannelDeco商機：</strong>230次分享的知識型「編號清單」內容格式高度適合複製作為SEO/社群內容資產，強化「機能優先於美感」的專業顧問形象，可與既有「插座規劃清單」內容（@chenxin_luke）形成系列化知識庫</div></div>
@@ -1376,7 +1414,7 @@
     <div class="post-card" data-kw="寵物宅">
       <div class="post-header"><div><div class="post-author">@asdf6469z</div><div class="post-date">2026-5-27 · 預售屋寵物公設</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">第一次看到預售屋介紹公設有寵物宅，可以讓毛小孩直接在大樓洗澡，而且還有專業的洗澡設備，應該是全台首創了吧，養狗養貓的會想要入住嗎?</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-low">病毒訊號 31</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">13</span></div><div class="stat">💬 <span class="val">13</span></div><div class="stat">🔁 <span class="val">3</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@asdf6469z" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>預售屋以「寵物宅公設」（大樓級寵物洗澡設備）作為賣點，反映寵物飼主對「社區級寵物友善硬體」的興趣正在提升，但消費者仍在觀望是否值得作為購屋決策因素</div><div><strong>ChannelDeco商機：</strong>可佐證「寵物宅」是新興且尚未飽和的市場區隔，ChannelDeco可延伸至「戶內版寵物洗澡站/清潔動線」軟裝設計服務，鎖定未購買公設型社區的既有屋主</div></div>
@@ -1388,7 +1426,7 @@
     <div class="post-card" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@sasa831025</div><div class="post-date">2026-6-3 · 軟裝設計師求薦</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">不知道有沒有專門幫忙配軟裝的設計師，自己買真的各種選擇障礙😌</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 41</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">14</span></div><div class="stat">💬 <span class="val">17</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@sasa831025/post/DZIITtYD5pr" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>軟裝配置對消費者而言充滿「選擇障礙」，缺乏系統性採購指引，只能自行摸索</div><div><strong>ChannelDeco商機：</strong>貼文下方湧入至少6家軟裝/系統櫃/家具業者自薦留言，顯示軟裝諮詢需求是紅海但尚未有絕對領導品牌——強化差異化留言內容（如附上案例圖或明確服務流程）可提高轉換率</div><div>⭐ <strong>@channel.deco 官方帳號已在此貼文留言</strong>「歡迎跟我們聊聊！」，是既有留言行銷策略的延續案例</div></div>
@@ -1407,7 +1445,7 @@
     <div class="post-card" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@andy20419</div><div class="post-date">2026-2-13 · AI佈置工具</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">要安排新家的佈置，一時找不到適合的平台，想放常見家居元素、方便移動做規劃，用磁磚算長度、不同空間自動合併…於是直接Gemini尻了一個，還真的能用😆 AI真的太可怕了</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 49</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">342</span></div><div class="stat">💬 <span class="val">26</span></div><div class="stat">🔁 <span class="val">12</span></div><div class="stat">📤 <span class="val">247</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@andy20419" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>消費者為了「排列家具、規劃空間佈置」缺乏好用工具，只能自行開發AI輔助方案，反映市面軟裝規劃工具的可用性缺口</div><div><strong>ChannelDeco商機：</strong>247次分享顯示「AI輔助軟裝規劃」話題極具傳播力，ChannelDeco可考慮將AI視覺化工具導入顧問流程（如提案前用AI生成初版配置圖），作為科技感/效率化服務的差異化亮點</div></div>
@@ -1419,7 +1457,7 @@
     <div class="post-card featured" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@sansuo_home</div><div class="post-date">2026-3-21 · 入住一年Home Tour</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">入住一年，終於拍下這個 Home Tour。這個小家沒有請設計師，也沒有一步到位的裝修，只做了油漆、木地板和廚房櫃，其他都是住進來之後再慢慢用軟裝一點一點佈置</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 50</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">657</span></div><div class="stat">💬 <span class="val">57</span></div><div class="stat">🔁 <span class="val">18</span></div><div class="stat">📤 <span class="val">273</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@sansuo_home" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>屋主選擇「不請設計師、僅做基礎硬裝、其餘靠軟裝慢慢堆疊」的DIY路線，展現對「先住進去感受生活、再逐步佈置」漸進式裝修哲學的高度認同與成就感</div><div><strong>ChannelDeco商機：</strong>273次分享驗證「先硬裝後軟裝、分階段佈置」模式深受共鳴，與ChannelDeco「輕裝修+軟裝設計」服務主張完全吻合——可用此類真實案例作為「不用一次到位、分期規劃軟裝」的服務理念佐證素材</div></div>
@@ -1435,7 +1473,7 @@
     <div class="post-card featured" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@bightk46401</div><div class="post-date">2026-6-27 · 出租輕裝潢</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">低預算統包出租輕裝潢方案，一天收到3,400則訊息詢問，#只開放中南部朋友</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 63</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">642</span></div><div class="stat">💬 <span class="val">343</span></div><div class="stat">🔁 <span class="val">21</span></div><div class="stat">📤 <span class="val">413</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@bightk46401/post/DaDlrxfCQAU" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「低預算統包出租輕裝潢」需求量遠超預期——單日湧入3,400則詢問訊息，反映出租族／房東對「低成本快速翻新」服務存在巨大且未被滿足的市場缺口</div><div><strong>ChannelDeco商機：</strong>此帖驗證了「輕裝潢」服務的市場需求強度極高，且作者刻意限縮服務範圍在中南部——ChannelDeco可考慮針對高雄/屏東/台南既有服務區的房東／包租客群，推出「出租宅輕裝潢方案包」搶占此需求缺口</div><div>⚡ 巨量詢問本身即是最強的市場訊號——「低預算統包」目前是供給最稀缺的服務定位</div></div>
@@ -1454,7 +1492,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@chiaowen.22</div><div class="post-date">2026-6-27 · 桃園預售屋</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">桃園｜預售屋15坪兩房一廳，預算50萬，求設計師/統包推薦</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 63</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">157</span></div><div class="stat">💬 <span class="val">134</span></div><div class="stat">🔁 <span class="val">4</span></div><div class="stat">📤 <span class="val">83</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@chiaowen.22/post/DaC4K7ckzDp" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>桃園小坪數預售屋首購族以50萬有限預算求裝潢推薦，是典型「低預算+小坪數」雙重限制下的裝潢規劃焦慮</div><div><strong>ChannelDeco商機：</strong>ChannelDeco服務涵蓋桃園，50萬預算區間與輕裝潢服務高度吻合，可直接於此類精準需求帖留言提供諮詢</div><div>⚡ @7719en留言雖僅2讚，但內容警示「裝潢蟑螂」詐騙包商案例（台中特利空間設計／王建森），屬消費者保護性質的重要警示——即使讚數低也應優先看見，凸顯「熱門留言≠最有價值留言」的篩選盲點</div></div>
@@ -1473,7 +1511,7 @@
     <div class="post-card featured" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@buf_050_</div><div class="post-date">2026-6-23 · 首購房貸焦慮</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">房貸人生開始，首購族裝潢焦慮，想做白色奶油風但預算有限，求設計師推薦</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 62</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">247</span></div><div class="stat">💬 <span class="val">176</span></div><div class="stat">🔁 <span class="val">1</span></div><div class="stat">📤 <span class="val">73</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@buf_050_/post/DZ4TEcOlFy8" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>首購族剛開始背房貸即面臨裝潢決策焦慮——「想要奶油風美感」與「預算有限」的拉扯，是新世代首購族最典型的雙重壓力</div><div><strong>ChannelDeco商機：</strong>「房貸+裝潢」雙重財務壓力下的首購族，正是「輕裝潢+軟裝設計」服務的核心客群——可主打「用軟裝完成奶油風美感，不需大動土木裝潢」的訴求降低決策門檻</div><div>⚡ 留言區@dayviewdesign再次出現（與@zeroone_life高雄帖重複），確認此為高雄裝潢類貼文的常駐留言競品，建議持續觀察其留言行銷手法</div></div>
@@ -1492,7 +1530,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@claudecode9527</div><div class="post-date">2026-6-22 · 裝潢預算辯論</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">年輕人到底該不該花大錢裝潢？年收500-600萬，預售3000萬27坪新房，設計師報價250-300萬，該花嗎</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 61</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">233</span></div><div class="stat">💬 <span class="val">225</span></div><div class="stat">🔁 <span class="val">1</span></div><div class="stat">📤 <span class="val">150</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@claudecode9527/post/DZ2XYkoCXoo" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>高收入族群面對「裝潢預算該占房價多少比例」的選擇困難，凸顯即使財力充裕，裝潢決策仍因資訊不透明而充滿不確定感</div><div><strong>ChannelDeco商機：</strong>此類「裝潢預算合理性」辯論帖觸及消費者對「設計師報價是否合理」的根本疑慮——ChannelDeco可藉透明化報價結構的內容行銷建立信任差異化</div><div>⚡ @slurpee11聲稱「設計師報10萬時會灌水報15萬，已經算客氣」，直指業界報價灌水疑慮；@russ.chen隨即留言反駁此說法缺乏依據——形成業界報價透明度的正反對立留言，是值得品牌正面回應的信任議題</div></div>
@@ -1511,7 +1549,7 @@
     <div class="post-card" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@rhino.5532077</div><div class="post-date">2026-6-20 · 交屋軟裝求建議</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">交屋在即，想請大家給點軟裝建議，新手屋主完全沒方向😅</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 39</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">63</span></div><div class="stat">💬 <span class="val">14</span></div><div class="stat">🔁 <span class="val">2</span></div><div class="stat">📤 <span class="val">19</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@rhino.5532077/post/DZzcgjkAW1r" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>交屋在即卻對軟裝佈置毫無方向，留言區迅速被各地廠商自我推薦留言佔據，顯示新手屋主在尋找軟裝服務時面臨「資訊紛雜難判斷」的困境</div><div><strong>ChannelDeco商機：</strong>此類「交屋倒數求建議」貼文是軟裝服務最精準的潛客來源，但留言區充斥未經篩選的廠商推銷——ChannelDeco可採取「先給建議、後談合作」的留言策略建立信任差異化</div></div>
@@ -1530,7 +1568,7 @@
     <div class="post-card" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@alittleheng</div><div class="post-date">2026-6-17 · 6坪套房</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">分享自己的6坪小宅套房設計成果，從空間規劃到軟裝佈置全紀錄</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 48</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">571</span></div><div class="stat">💬 <span class="val">91</span></div><div class="stat">🔁 <span class="val">4</span></div><div class="stat">📤 <span class="val">62</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@alittleheng/post/DZrc0tAEhJP" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>極小坪數（6坪）套房如何兼顧機能與美感，是小宅族普遍面臨的空間規劃難題，本帖以實際成果分享回應此焦慮</div><div><strong>ChannelDeco商機：</strong>小坪數案例極具說服力，可作為「以軟裝陳列放大小宅視覺空間感」的服務案例素材，精準吸引租屋族與小宅首購族</div></div>
@@ -1549,7 +1587,7 @@
     <div class="post-card" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@sunny___0319</div><div class="post-date">2026-6-15 · 新家軟裝小物</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">新家軟裝小物推薦清單，從擺飾到收納分享一次到位</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 51</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">371</span></div><div class="stat">💬 <span class="val">85</span></div><div class="stat">🔁 <span class="val">15</span></div><div class="stat">📤 <span class="val">170</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@sunny___0319/post/DZl-ftSE2Mi" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>軟裝小物選購資訊零散，消費者需要「整理過的推薦清單」才能有效率地完成空間佈置，留言區同樣湧入多家軟裝小物品牌自我推薦</div><div><strong>ChannelDeco商機：</strong>可定期發布「軟裝小物清單」系列內容並標註合作品牌；此類帖留言是軟裝小物廠商的兵家必爭之地，ChannelDeco可考慮與優質軟裝小物品牌異業合作</div></div>
@@ -1568,7 +1606,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@lilrockelvin</div><div class="post-date">2026-6-12 · 桃園統包求推薦</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">桃園/新北求推薦統包＋畫圖規劃，預算60萬，有推薦的廠商嗎</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 42</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">59</span></div><div class="stat">💬 <span class="val">48</span></div><div class="stat">🔁 <span class="val">13</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@lilrockelvin/post/DZdFIqxEqKR" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>桃園/新北屋主以60萬預算求統包＋規劃服務，留言區出現對「目前60萬預算是否仍足夠」的疑慮，反映物價上漲對裝潢預算規劃的實際衝擊</div><div><strong>ChannelDeco商機：</strong>ChannelDeco服務範圍涵蓋桃園/新北，此類精準求薦帖是直接接觸客戶的機會，預算區間60萬與「輕裝潢+軟裝」服務定位吻合</div><div>⚡ @davinqoo提醒60萬預算「在目前行情下可能已經不夠用」，與多數廠商樂觀報價形成反差——點出消費者在「廠商推銷」與「真實行情」之間的資訊落差，正是ChannelDeco可用「透明報價諮詢」建立信任的切角</div></div>
@@ -1587,7 +1625,7 @@
     <div class="post-card featured" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@t.o__home</div><div class="post-date">2026-5-31 · 軟裝靈感帳號</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">持續分享每日軟裝佈置靈感，暫時不營利純分享，為未來懶骨頭/沙發產品上市預熱</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 51</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">6,530</span></div><div class="stat">💬 <span class="val">58</span></div><div class="stat">🔁 <span class="val">152</span></div><div class="stat">📤 <span class="val">1,100</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@t.o__home/post/DY_XodVmes-" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>此帳號長期以「純分享、暫不營利」姿態累積信任與追蹤，本則貼文互動量（6,530❤️）遠高於該帳號其他貼文，顯示「持續輸出美感內容」的長尾經營策略正進入收割期，可能為後續產品（懶骨頭/沙發）上市鋪墊</div><div><strong>ChannelDeco商機：</strong>此為觀察「軟裝內容帳號如何養粉後轉商業」的最佳範本——ChannelDeco若規劃自有產品線，可參考「先分享後上市」的信任建立路徑，而非一開始就主打銷售</div></div>
@@ -1606,7 +1644,7 @@
     <div class="post-card" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@00debe00</div><div class="post-date">2026-5-21 · 13坪小宅完工</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">即將完工，分享我的小宅——13坪的1+1房空間規劃全紀錄</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 47</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">934</span></div><div class="stat">💬 <span class="val">106</span></div><div class="stat">🔁 <span class="val">1</span></div><div class="stat">📤 <span class="val">19</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@00debe00/post/DYlfD40nb3A" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>極限坪數（13坪）的1+1房如何規劃出舒適生活機能，是小宅市場持續存在的高關注話題，完工分享帖證明「小宅也能住得好」具備強烈說服力</div><div><strong>ChannelDeco商機：</strong>13坪極小宅案例極具示範效益，適合作為「小宅軟裝陳列」服務的標竿案例素材，吸引同坪數區間的租屋／首購族群</div></div>
@@ -1625,7 +1663,7 @@
     <div class="post-card" data-kw="寵物宅">
       <div class="post-header"><div><div class="post-author">@leapyeardesign</div><div class="post-date">2026-5-14 · 寵物地材辯論</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">11年經驗設計師分享波龍地毯作為寵物友善地材的選擇理由，回應網友質疑</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 56</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">382</span></div><div class="stat">💬 <span class="val">66</span></div><div class="stat">🔁 <span class="val">12</span></div><div class="stat">📤 <span class="val">327</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@leapyeardesign/post/DYUypJ3j5nC" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>寵物友善地材選擇存在「美感／舒適」與「實際好清潔耐用」之間的權衡爭議，消費者意見分歧顯示市場缺乏專業中立的材質建議</div><div><strong>ChannelDeco商機：</strong>寵物地材選擇是寵物宅軟裝服務的具體切入點，可整理「不同寵物地材優缺點比較」作為專業內容，建立中立顧問形象而非單押某種材質</div><div>⚡ @drhuang1967追問波龍地毯的排便清潔便利性，@may_asakura誠實回覆地毯紋路容易卡污、考驗清潔——在眾多正面背書留言中提供了平衡視角，顯示「誠實揭露缺點」反而能建立更高信任度</div></div>
@@ -1644,7 +1682,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@zeroone_life</div><div class="post-date">2026-4-13 · 高雄裝潢求推薦</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">高雄裝潢求推薦，預算70萬，有沒有口碑好的設計師或統包</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 67</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">164</span></div><div class="stat">💬 <span class="val">152</span></div><div class="stat">🔁 <span class="val">3</span></div><div class="stat">📤 <span class="val">124</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@zeroone_life/post/DXCaa4Ik-L9" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>高雄屋主以70萬預算求推薦裝潢廠商，留言區瞬間湧入大量高雄本地競品自我推薦，顯示高雄裝潢市場競爭激烈、消費者選擇困難</div><div><strong>ChannelDeco商機：</strong>留言中@jiamu_design直言「我60就可以搞定」，反映高雄市場價格競爭壓力大——ChannelDeco若主打高雄市場，須強化「輕裝潢+軟裝設計」差異化定位，避免單純比價競爭</div><div>⚡ 留言區出現的@dayviewdesign同時也出現在本週@buf_050_的帖文留言區，確認其為高雄裝潢求薦帖的常駐留言競品，建議列入觀察名單</div></div>
@@ -1663,7 +1701,7 @@
     <div class="post-card featured" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@jxconcepts</div><div class="post-date">2026-3-22 · AI軟裝工具</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">推出AI軟裝模擬工具，上傳空間照片即可一鍵生成多種軟裝佈置風格效果圖，讓使用者動手佈置前先預覽成果</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 58</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">110</span></div><div class="stat">💬 <span class="val">167</span></div><div class="stat">🔁 <span class="val">17</span></div><div class="stat">📤 <span class="val">72</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@jxconcepts/post/DWMJsNEEtb-" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>AI生成軟裝效果圖降低了「想像佈置成果」的門檻，但167則留言多為「有興趣」式低互動詢問，顯示工具好奇度高、實際付費轉換意願仍待驗證</div><div><strong>ChannelDeco商機：</strong>可參考「上傳照片快速預覽」的低門檻體驗設計顧問諮詢第一步（如免費風格小測驗），降低決策焦慮並導流到真人顧問服務</div></div>
@@ -1682,7 +1720,7 @@
     <div class="post-card featured" data-kw="寵物宅">
       <div class="post-header"><div><div class="post-author">@chong.dingg</div><div class="post-date">2026-3-17 · 養狗裝潢心得</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">養了狗之後，我的裝潢美學直接降為零——分享養狗後裝潢風格大轉變的真實心得</div></div>
-      <div class="post-badges"><span class="badge">無奈妥協型</span></div>
+      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 56</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">1,614</span></div><div class="stat">💬 <span class="val">248</span></div><div class="stat">🔁 <span class="val">22</span></div><div class="stat">📤 <span class="val">280</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@chong.dingg/post/DV98DzoE-Nh" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「裝潢美感」與「養寵物的現實」之間的長期拉扯——許多屋主裝潢前精心規劃美學，養寵物後卻不得不大幅妥協，凸顯寵物宅裝潢需要「事前規劃」而非「事後妥協」的服務缺口</div><div><strong>ChannelDeco商機：</strong>高互動（1,614❤️）顯示寵物宅族群對此話題高度共鳴——ChannelDeco可主打「寵物友善＋美感兼顧」的軟裝設計方案，從源頭規劃避免「養了才後悔」的妥協心態</div><div>⚡ 留言中@goodmorningalfie分享台中嶺東達譽設計的具體寵物宅設計案例（墊高25cm電視櫃、貓狗洞、無門檻浴室改造），雖讚數不高卻提供了真實可落地的設計細節，比熱門留言更具參考價值</div></div>
@@ -1701,7 +1739,7 @@
     <div class="post-card featured" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@only_aries25</div><div class="post-date">2025-11-5 · 迷因熱門舊文回顧（293萬瀏覽）</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">外國網友問如何佈置這個空間？台灣網友表示...（迷因式幽默回應集錦）</div></div>
-      <div class="post-badges"><span class="badge">無奈妥協型</span></div>
+      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 66</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">1,325</span></div><div class="stat">💬 <span class="val">7,494</span></div><div class="stat">🔁 <span class="val">35,000</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@only_aries25/post/DQp6hs3EkwO" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>此為8個月前的舊文，但因高度病毒式擴散（293萬瀏覽）本週仍在「空間佈置」關鍵字搜尋中名列前茅——以幽默反映台灣住宅「畸零空間／不規則格局」的普遍無奈現實，是少數能引爆全網共鳴的長青型內容</div><div><strong>ChannelDeco商機：</strong>此帖證明「自嘲式幽默」處理畸零空間話題具備極強傳播力，可作為品牌內容企劃參考範本；惟須留意此為舊文回流而非本週新發布內容，建議列為「長青參考素材」而非即時商機</div></div>
@@ -1723,7 +1761,7 @@
     <div class="post-card featured" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@o.oy66</div><div class="post-date">2026-5-31 · 首購成家</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">從存頭期款到現在，終於把夢想中的家完成了🏠 我們因為預算不高，沒有追求豪宅感，只想要一個下班回家能放鬆、一起窩著看劇聊天的家❤️ 18坪60萬對我們夫妻來說真的不容易，但好險在有限的預算設計師還是幫我們做到了~真的很感謝小蔡從討論初期就一直幫我們節省預算</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 51</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">2,479</span></div><div class="stat">💬 <span class="val">59</span></div><div class="stat">🔁 <span class="val">27</span></div><div class="stat">📤 <span class="val">598</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@o.oy66/post/DZAIUbTGhqK" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>從存頭期款到完成裝潢的漫長歷程，預算控制與設計公司溝通是首購族的關鍵焦慮點，「在有限預算內做到夢想」引發強烈共鳴</div><div>⚡ ray_baybay_0101直接詢問「茶几的價格跟購買連結」——顯示家具軟裝單品在裝潢分享文中具有高詢問轉換潛力；love118123留言「跟我家的格局一模一樣」的巧合互動，也帶動陌生人之間的熟悉感連結</div></div>
@@ -1742,7 +1780,7 @@
     <div class="post-card featured" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@lizhu170</div><div class="post-date">2026-6-6 · 裝潢日記</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">設計師把我心中想要的風格做出來了🏡 會給很衷心的建議，不會推你做不必要的東西，而且在符合預算下，覺得整體服務也已經超過該價值了🤍👍🏼（第一次裝潢，謝謝朋友的推薦❣️）#其實很亂的家</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 66</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">2,417</span></div><div class="stat">💬 <span class="val">123</span></div><div class="stat">🔁 <span class="val">70</span></div><div class="stat">📤 <span class="val">1,515</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@lizhu170/post/DZPHdj8kSLU" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>第一次裝潢最怕遇到亂推銷不必要項目的設計師，「找到對頻、願意誠實建議」的設計師是稀缺且珍貴的體驗，引爆首購族集體共鳴</div><div>⚡ sining3153與atymi.o兩個品牌帳號皆在熱門留言區自我推銷（思寧家居、ATYMI室內設計AI管理系統）——同類競品已主動在高互動貼文留言區「截流」曝光，建議ChannelDeco也應佈局類似留言行銷動作</div></div>
@@ -1762,7 +1800,7 @@
     <div class="post-card featured" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@juliacyw</div><div class="post-date">2025-12-6 · 73萬次瀏覽</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">大家裝潢最後悔的是什麼？我先來～選裝大金冷氣！</div></div>
-      <div class="post-badges"><span class="badge">無奈妥協型</span></div>
+      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 71</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">2,002</span></div><div class="stat">💬 <span class="val">539</span></div><div class="stat">🔁 <span class="val">66</span></div><div class="stat">📤 <span class="val">2,219</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@juliacyw/post/DR7MwTTk1Ua" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>裝潢設備選擇（如冷氣品牌）資訊不對等，使用後才發現異味、耗電等問題，集體共鳴形成「避雷」串聯效應（73萬次瀏覽）</div><div>⚡ jingyuf留言「千萬不要找認識的人做裝潢設計」獲高讚（318），點破「人情裝潢比較放心」的常見迷思，與市場普遍認知形成強烈反差</div></div>
@@ -1781,7 +1819,7 @@
     <div class="post-card" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@ray.buray</div><div class="post-date">2026-5-18 · 23萬次瀏覽</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">老婆說要裝吊扇（我家是大樓實內24）可以麻煩大家幫我勸勸她嗎...其他的我決定happy wife happy life</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 68</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">506</span></div><div class="stat">💬 <span class="val">408</span></div><div class="stat">🔁 <span class="val">14</span></div><div class="stat">📤 <span class="val">456</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@ray.buray/post/DYd_MogD5VU" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>居家設備選擇（吊扇）牽涉美感、機能、清潔保養與健康疑慮等多重考量，缺乏專業判斷依據時容易陷入決策僵局甚至演變成家庭角力</div><div><strong>ChannelDeco商機：</strong>「該不該裝＿＿」的決策困境正是顧問諮詢服務切入點——專業評估屋高、通風、生活習慣後給出有依據的建議，能有效減少「網路公投式」焦慮決策</div><div>⚡ 留言呈現強烈正反兩派對立——sandyperalta__（808❤️全屋都裝、絕不後悔）vs kt.love_me（284❤️強烈反對並列舉近視/過敏疑慮），證明「客製化專業建議」遠比「網路公投」更有價值</div></div>
@@ -1800,7 +1838,7 @@
     <div class="post-card" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@gm._.dreamhouse</div><div class="post-date">2026-6-7</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">獨立買房子，成為高級大人的瞬間✨...軟土深掘的人很多，會吵才有糖吃🍬...</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 35</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">434</span></div><div class="stat">💬 <span class="val">7</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@gm._.dreamhouse/post/DZR-kfimkj5" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>與代銷、銀行、建商、工務、設計師交涉時，過度善良容易被「軟土深掘」，必須建立自己的原則底線才能避免日後懊悔</div><div><strong>ChannelDeco商機：</strong>可定位自己為「不會軟土深掘、值得信賴的合作夥伴」——以透明溝通、不過度推銷的服務風格，正面對應消費者對裝潢產業普遍的信任赤字</div><div>⚡ atymi.o（ATYMI室內設計AI管理系統品牌帳號）再度出現在本則留言區自我推銷——與@lizhu170貼文中是「同一帳號」重複出沒，顯示該品牌正系統性地在裝潢相關熱門貼文留言區佈局曝光，值得參考其留言行銷打法</div></div>
@@ -1820,7 +1858,7 @@
     <div class="post-card featured" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@yian.zz</div><div class="post-date">2026-3-28 · 11萬次瀏覽</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">我用仿磁磚貼，把廚房原本的烤漆玻璃改成了窯變磚的外觀，加上@switch_papa 的piko開關插座，成果實在美翻了，總共花不到1000元😍</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 59</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">1,373</span></div><div class="stat">💬 <span class="val">52</span></div><div class="stat">🔁 <span class="val">54</span></div><div class="stat">📤 <span class="val">1,173</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@yian.zz/post/DWbp2IEASt2" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>小資族想提升居家質感，卻擔心預算與「會不會破壞牆面」等DIY風險疑慮</div><div><strong>ChannelDeco商機：</strong>留言區幾乎全是「求連結／求購買資訊」，顯示「低成本軟裝改造」教學內容能高度帶動消費詢問——是品牌切入軟裝/陳列服務內容行銷的絕佳範本</div><div>⚡ 有讀者提出「瓷磚貼撕下來會不會傷害牆壁」疑慮，作者誠實回覆「貼在油漆牆面會」——消費者對DIY軟裝「可逆性／安全性」的擔憂，正是專業服務可以被信賴解決之處</div></div>
@@ -1839,7 +1877,7 @@
     <div class="post-card" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@maggie.liu_</div><div class="post-date">2025-5-31 · 2.8萬次瀏覽</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">⋯不裝潢、全靠軟裝打造🕰️ 我弟弟的中古風高質感房間 .ᐟ.ᐟ 你們會幫他打幾分？</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 49</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">243</span></div><div class="stat">💬 <span class="val">35</span></div><div class="stat">🔁 <span class="val">1</span></div><div class="stat">📤 <span class="val">143</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@maggie.liu_/post/DKUc_vAScRg" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>不想花大錢硬裝翻修，但仍想透過軟裝家具家飾打造高質感空間——示範「軟裝可以取代硬裝」的可能性，正是ChannelDeco的核心服務命題</div><div><strong>ChannelDeco商機：</strong>幾乎每則留言都在詢問特定家具品項（搖搖椅、餐邊櫃、落地燈、窗簾）購買連結，創作者必須一一私訊回覆——正是「空間陳列擺拍」服務可標準化導流的痛點範例</div><div>⚡ wang_chen_long留言「我喜歡那張搖搖椅。可惜一直沒動力買下去」道出許多人「心動但不會行動」的心理門檻——光靠軟裝佈置「種草」還不夠，需要更直接的購買引導與信任背書</div></div>
@@ -1859,7 +1897,7 @@
     <div class="post-card featured" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@musenza.tw</div><div class="post-date">2026-5-18 · 6萬次瀏覽</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">25萬，這樣的奶油木質感全屋誰不心動🤍 包含4米滿牆電視櫃、1米8餐邊櫃、4米櫥櫃＋2米5中島、5米衣櫃。全部含在內，做到好、裝到好。這套就是堅持「輕硬裝，重軟裝」沒有複雜造型，反而更顯大、更耐看</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 69</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">719</span></div><div class="stat">💬 <span class="val">69</span></div><div class="stat">🔁 <span class="val">41</span></div><div class="stat">📤 <span class="val">1,191</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@musenza.tw/post/DYemwjWoGnb" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>消費者渴望「全包式」整裝方案（含板材、五金、保固），但又擔心預算超支與品質不穩定，「輕硬裝、重軟裝」訴求精準命中此焦慮</div><div><strong>ChannelDeco商機：</strong>品牌官方帳號親自留言導流加LINE諮詢，示範「內容→詢問→轉換」標準化路徑——正是ChannelDeco可複製的內容行銷漏斗範本</div><div>⚡ 大量留言寫著「留自己看」、「留著看」——顯示用戶將貼文當作「靈感收藏夾」而非立即互動，反映軟裝/裝潢類內容的「長尾種草」特性，品牌應著重長期內容資產累積而非單次曝光成效</div></div>
@@ -1878,7 +1916,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@rimuyju</div><div class="post-date">2026-5-2</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">室內16坪兩房一廳小資裝潢46萬🤎 #新家開箱 #川字格局 #小資裝潢</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 64</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">164</span></div><div class="stat">💬 <span class="val">158</span></div><div class="stat">🔁 <span class="val">4</span></div><div class="stat">📤 <span class="val">297</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@rimuyju/post/DX0sq8pkid5" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>小資族渴望「精準預算內完成裝潢」的可複製範本，公開總價分享建立信任與參考價值</div><div><strong>ChannelDeco商機：</strong>幾乎每則熱門留言都在問「哪間裝潢公司」，作者必須一一私訊回覆「已經私訊給你嘍🤎」——這種高詢問、高購買意圖卻仍仰賴人工逐一回覆的模式，正是ChannelDeco可標準化導購、建立諮詢漏斗的市場缺口</div><div>⚡ 幾乎所有熱門留言關注點都集中在「找哪間公司」而非設計細節本身——顯示消費者決策的最大障礙不是靈感而是「找到值得信任的執行者」</div></div>
@@ -1897,7 +1935,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@shoes.pan</div><div class="post-date">2026-5-19 · 業界視角</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">現在的客戶 只要嫌貴！我就不做了。不是我不給便宜，而是現在成本就很高！...就讓一些缺錢蟑螂需要工作收入的人去接吧！反正你家毀了也是妳家的事....</div></div>
-      <div class="post-badges"><span class="badge">無奈妥協型</span></div>
+      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-low">病毒訊號 35</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">129</span></div><div class="stat">💬 <span class="val">17</span></div><div class="stat">🔁 <span class="val">2</span></div><div class="stat">📤 <span class="val">5</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@shoes.pan/post/DYhanBwk2k1" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>此貼文呈現「裝潢供應端」視角——廠商面對消費者一味砍價、比價、甚至迷信「AI生成設計能省百萬」等不切實際期待時的無奈與防禦心態，反映「資訊不對等」同樣困擾專業服務提供者</div><div><strong>ChannelDeco商機：</strong>從「業界第一線」視角揭露「比價文化」對裝潢產業的傷害，可作為品牌內容靈感——透過透明化報價、教育消費者「一分錢一分貨」的價值溝通，建立差異化信任</div><div>⚡ twlin0917提到「有人說AI生成就能省100萬不用找設計師」——反映「科技萬能論」對專業服務的潛在威脅認知，恰是ChannelDeco可正面回應、強調「人本顧問服務」不可取代的切角</div></div>
@@ -1917,7 +1955,7 @@
     <div class="post-card featured" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@leenlynn1119</div><div class="post-date">2026-2-9 · 老屋改造</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">40 歲，2026年。我送給自己的大禮物！🏠🎊 終於把這間老屋大改造了一層樓，小小的30坪，花了200萬😱把它變成了我夢想中那種「每天都想賴著不走」的樣子。✨ 努力工作的意義，大概就是為了有能力過上自己喜歡的生活吧！</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 44</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">1,002</span></div><div class="stat">💬 <span class="val">20</span></div><div class="stat">🔁 <span class="val">2</span></div><div class="stat">📤 <span class="val">123</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@leenlynn1119/post/DUgNc1Jk5Y3" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>人到中年想為自己圓一個「理想生活空間」的夢，老屋翻新過程的成就感與自我實現意義，引發強烈情感共鳴</div><div><strong>ChannelDeco商機：</strong>留言中ondu_livinggoods、176_.1zch等家居品牌帳號主動「毛遂自薦」推銷商品——顯示居家改造類熱門貼文是品牌導購的兵家必爭之地，ChannelDeco可參考此留言行銷模式佈局曝光</div><div>⚡ yinling.lam.7留言「真的很大很漂亮，但清潔上來很辛苦」——道出「夢想空間」實現後的現實面維護成本，是顧問服務可預先溝通、降低期待落差的切角</div></div>
@@ -1936,7 +1974,7 @@
     <div class="post-card" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@pieceof_days</div><div class="post-date">2026-初 · DIY軟裝</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">免鑽牆磁性板DIY——租屋也能擁有牆面收納與展示，不傷牆面、可隨時拆卸帶走</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 50</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">1,389</span></div><div class="stat">💬 <span class="val">549</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@pieceof_days/post/DXCHkS6EiX9" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>租屋族／怕鑽牆破壞牆面的住戶，渴望「免施工、可逆」的居家佈置方案</div><div><strong>ChannelDeco商機：</strong>5則熱門留言全是「請問商品連結」——示範了「DIY教學內容」帶動的高詢問轉換率，是ChannelDeco切入軟裝/陳列內容行銷、建立標準化導購機制的絕佳範本（呼應@yian.zz、@maggie.liu_的相同模式，顯示「求連結」是裝潢軟裝類內容的共通痛點）</div><div>⚡ 留言高度集中於購買意圖、無明顯反差，是本週收集中「轉換意圖最純粹」的一篇——值得作為內容行銷的標竿範例研究</div></div>
@@ -1956,7 +1994,7 @@
     <div class="post-card featured" data-kw="寵物宅">
       <div class="post-header"><div><div class="post-author">@maodongxitw</div><div class="post-date">近期 · 職人工作室</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">我是專門設計貓抓板的工作室。七年來⋯始終堅持手工製作、選用安全材質，希望每件作品都能真正融入主人的居家風格</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 25</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">189</span></div><div class="stat">💬 <span class="val">10</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@maodongxitw/post/DUkfuwBkh7k" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>手作寵物家具職人面對「理想與消費者預算」之間的落差——專業手工製品的價格門檻讓一般養貓家庭卻步</div><div><strong>ChannelDeco商機：</strong>（與服務較不直接相關，可作為「寵物宅」市場觀察素材——了解消費者對「客製化寵物家具」的價格敏感度，作為未來異業合作或服務定位的參考依據）</div><div>⚡ guashaoba直言「這個價格確實一般養貓家庭會卻步」——揭露手工／客製化寵物家具市場「叫好不叫座」的現實，凸顯「平價親民」與「質感升級」之間需要更巧妙的中間解方，正是「寵物宅＋空間陳列」服務可切入的缺口</div></div>
@@ -1975,7 +2013,7 @@
     <div class="post-card" data-kw="寵物宅">
       <div class="post-header"><div><div class="post-author">@jane_in_daily</div><div class="post-date">2026-5-26 · 租屋友善</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">只佔 0.1 坪，卻像給了貓一座森林🌳 每次曝光都被問爆的頂天立地貓爬柱，這次把賣家跟細節一次整理。租屋不能鑽牆，但貓還是需要往高處跑、放電、觀察世界。這種設計最大優點就是不用破壞牆面，對租屋族真的很友善</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 45</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">98</span></div><div class="stat">💬 <span class="val">6</span></div><div class="stat">🔁 <span class="val">2</span></div><div class="stat">📤 <span class="val">148</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@jane_in_daily/post/DYzXzrPEpNu" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>租屋族養寵物面臨「不能鑽牆、空間有限」的雙重限制，急需「友善租屋＋友善毛孩」的空間解方</div><div><strong>ChannelDeco商機：</strong>可對應「寵物宅」客群開發「免施工軟裝佈置」服務內容，串聯「租屋友善」與「毛孩友善」兩大訴求，精準對接品味租屋族與寵物家庭兩大目標受眾</div><div>⚡ kenneth0320留言「在淘寶好多劣評」與作者推薦的淘寶賣家形成反差——揭示消費者對「網購寵物家具」品質與履約的信任疑慮，正是本地化、可實際勘查的專業服務可以補位之處</div></div>
@@ -1995,7 +2033,7 @@
     <div class="post-card" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@siyu_headhealing</div><div class="post-date">近期 · 店家開幕籌備</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">倒數6天開幕——美容工作室空間佈置與開幕籌備進度分享，邀請大家一起期待新空間亮相</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 33</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">69</span></div><div class="stat">💬 <span class="val">38</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@siyu_headhealing/post/DZTdNcWiG_n" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>店家／工作室在開幕前夕，對空間佈置與顧客體驗細節（如美容床配件採購來源）充滿不確定感與籌備焦慮</div><div><strong>ChannelDeco商機：</strong>「即將開幕」的店家／工作室是「空間陳列擺拍」服務的潛在B2B客群——可主動提供開幕前空間佈置健檢／陳列建議，協助商家用最適預算打造吸睛開幕門面，開拓服務地區新客源</div><div>⚡ little19781017與ruic_beauty皆詢問「美容床下面床單哪裡買」——顯示商用空間佈置的「軟裝採購資訊」同樣稀缺，此需求與居家軟裝詢問模式高度相似，印證軟裝類內容/服務的市場缺口具有跨場景共通性</div></div>
@@ -2015,7 +2053,7 @@
     <div class="post-card featured" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@_yi_tin</div><div class="post-date">2025-12-18 · 139.9萬次瀏覽</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">想問問大家裝潢的時候最不後悔做過的一個設計是什麼🥹🥹最近一直瘋狂看裝潢 想要有點靈感</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 69</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">9,986</span></div><div class="stat">💬 <span class="val">1,291</span></div><div class="stat">🔁 <span class="val">1,949</span></div><div class="stat">📤 <span class="val">7,612</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@_yi_tin/post/DSX5ajKEuO-" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>裝潢前茫然、缺乏靈感來源，透過「問卷集成」集眾人智慧作為決策依據，互動貼爆紅（139.9萬瀏覽）</div><div><strong>ChannelDeco商機：</strong>留言最高讚答案@a.sushi.home（1萬❤️「淋浴間做半牆」）代表「已做過有感設計」的真實用戶見證，是軟裝/輕裝潢提案時最有說服力的素材</div><div>⚡ 前5名高讚答案（半牆淋浴、復古元素、插座做滿、可收納中島、窗簾選材）幾乎都是「細節軟裝規劃」而非硬裝必需——完全呼應ChannelDeco「輕硬裝重軟裝」品牌主張</div></div>
@@ -2034,7 +2072,7 @@
     <div class="post-card featured" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@smarthome_mira</div><div class="post-date">2026-4-2 · 98萬次瀏覽</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">真的很好奇！在裝潢之後大家最後悔的設計是什麼？想蓋個避雷樓！！！！（有人覺得裝潢真的是一場理想與現實的修羅場嗎…🫠）</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-hi">🚀🚀🚀 病毒訊號 84</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">4,381</span></div><div class="stat">💬 <span class="val">1,172</span></div><div class="stat">🔁 <span class="val">709</span></div><div class="stat">📤 <span class="val">6,356</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@smarthome_mira/post/DWoOYoxEsU7" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「裝潢後悔」是Threads上爆發力最強的居家話題類型——互動本能式問題帶動海量留言，消費者願意公開分享「血淚教訓」</div><div><strong>ChannelDeco商機：</strong>帳號@smarthome_mira本身是智能家居品牌，示範B2B類服務商也能靠「同理客戶痛點」的話題內容建立品牌共鳴與集客</div><div>⚡ @nfu5283（1,574❤️）「後悔讓親戚做裝潢」道出最普遍的消費者後悔——「人情裝潢信任赤字」，正是ChannelDeco「透明溝通、不亂推銷」定位可直接回應的市場痛點</div></div>
@@ -2053,7 +2091,7 @@
     <div class="post-card featured" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@hxxhai_</div><div class="post-date">2025-5-13 · 35萬次瀏覽 · 裝潢日記</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">原以為事情已落幕，沒想到又！發！現！設計師未經屋主同意也無告知，就私自帶攝影團隊進入案場拍攝，案主未授權的情況下就公開宣傳使用...她還惡人先告狀，我們要上法院了</div></div>
-      <div class="post-badges"><span class="badge">無奈妥協型</span></div>
+      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 52</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">4,117</span></div><div class="stat">💬 <span class="val">125</span></div><div class="stat">🔁 <span class="val">64</span></div><div class="stat">📤 <span class="val">819</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@hxxhai_/post/DJlrbCChPIy" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>裝潢產業「信任赤字」的極端案例——設計師侵入私人空間偷拍、任意移動損壞屋主物品、惡人先告狀，引爆全台裝潢受害者集體憤慨</div><div><strong>ChannelDeco商機：</strong>此帖所揭露的「設計師職業倫理失守」正是ChannelDeco「透明溝通、尊重屋主」品牌定位的完美對照組——可在留言區以「保護屋主權益」為訴求植入品牌，建立差異化信任</div><div>⚡ 東森新聞記者（@timlin0107）主動私訊求採訪，印證此案已具媒體關注等級的社會效應；@pylforrest（234❤️）「新竹區的各位，我只想說」隱含地理信息，北台灣消費者已識別此案涉及的設計公司</div></div>
@@ -2072,7 +2110,7 @@
     <div class="post-card" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@freelifeduo</div><div class="post-date">2026-6-2 · 12萬次瀏覽</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">年底房子準備完工🏠✨最近開始研究裝潢，發現根本是另一個世界😳 想問大家，新成屋交屋後有哪些項目是你覺得一定要做、不做會後悔的？✨最值得花錢的地方 ✨最實用的設計 ✨必避開的裝潢地雷</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-hi">🚀🚀🚀 病毒訊號 75</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">902</span></div><div class="stat">💬 <span class="val">211</span></div><div class="stat">🔁 <span class="val">121</span></div><div class="stat">📤 <span class="val">1,184</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@freelifeduo/post/DZFclH1jw2m" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>新成屋交屋後的「第一次裝潢決策焦慮」——不知道哪些錢值得花、哪些省了會後悔，在資訊不對稱下想借助社群智慧避雷</div><div><strong>ChannelDeco商機：</strong>作者明確說「10年內可能換房，不打算做太多重裝潢」——這正是「輕裝潢+軟裝」服務的精準目標客群，可在留言區直接提供專業建議導購</div><div>⚡ @ziyou_design主動在留言回覆專業建議（58❤️），作者甚至親自回覆「有需要會再找你們」——示範了「在問答帖留下有用回答」的留言行銷轉換路徑，與@atymi.o打法相同，建議ChannelDeco仿效</div></div>
@@ -2092,7 +2130,7 @@
     <div class="post-card featured" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@amelie.in.home</div><div class="post-date">2025-4-28 · 51萬次瀏覽 · 居家裝潢</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">░ 居家裝潢必逛好店 _ 北中南——台灣不是沒有好東西，而是好東西藏得太深、不容易被看見。追蹤我，並在底下留言告訴我「你家還缺什麼軟裝」我會把文件寄給你🫰🏻</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-hi">🚀🚀🚀 病毒訊號 75</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">2,447</span></div><div class="stat">💬 <span class="val">5,107</span></div><div class="stat">🔁 <span class="val">387</span></div><div class="stat">📤 <span class="val">1,068</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@amelie.in.home/post/DI_No9PSDRy" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>想在台灣找到「質感好、價格合理」的居家軟裝好店，卻面對資訊過載、良莠不齊的市場困境——「一份整理好的好店清單」需求極度普遍</div><div><strong>ChannelDeco商機：</strong>5,107則留言幾乎全是「留言索取文件」的行動——示範了「用乾貨內容換取受眾資料（追蹤/私訊）」的精準導流機制，是ChannelDeco可複製的內容行銷漏斗範本</div><div>⚡ @realfntco（83❤️）趁機自我推薦「台灣自主設計製造」——再次印證居家裝潢類高互動帖是品牌留言行銷的必爭之地，建議ChannelDeco建立留言監測機制定期佈局</div></div>
@@ -2112,7 +2150,7 @@
     <div class="post-card" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@ccl.829</div><div class="post-date">2026-3-28 · 18萬次瀏覽 · 居家佈置</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">我自行宣布 第一屆《Threads DIY軟裝設計家》正式開始，比一個大家都是軟裝生活王，把家設計成自己喜歡的樣子😍</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 64</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">866</span></div><div class="stat">💬 <span class="val">292</span></div><div class="stat">🔁 <span class="val">103</span></div><div class="stat">📤 <span class="val">605</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@ccl.829/post/DWbP9hQFIex" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「DIY軟裝」的成就感與社群歸屬感——發起互動帖讓追蹤者分享各自的軟裝改造作品，形成正向循環的社群共鳴</div><div><strong>ChannelDeco商機：</strong>留言中@yian.zz（1,373❤️）與@amigo_homelife（475❤️）貼出自己的軟裝案例，顯示「軟裝成果分享」是Threads高互動內容形式——ChannelDeco可定期發起類似互動貼，鼓勵客戶分享成果並以品牌帳號標記，形成社群口碑</div><div>⚡ @melo_kurashi（527❤️）「超喜歡自己的家而且並沒有打算停下改變軟裝的腳步」——道出軟裝客戶的終身消費心理，是建立長期客戶關係而非單次交易的關鍵洞察</div></div>
@@ -2132,7 +2170,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@shoes.pan</div><div class="post-date">2025-8-10 · 12萬次瀏覽 · 木工裝潢</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">現在的房子越來越小間。裝潢預算也不高…</div></div>
-      <div class="post-badges"><span class="badge">無奈妥協型</span></div>
+      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 44</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">354</span></div><div class="stat">💬 <span class="val">57</span></div><div class="stat">🔁 <span class="val">1</span></div><div class="stat">📤 <span class="val">38</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@shoes.pan/post/DNLS6j5TMpO" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>裝潢業者對「房子越來越小、預算越來越低」的市場現實感嘆——購屋力下降直接壓縮裝潢預算空間，供需雙方同感無奈</div><div><strong>ChannelDeco商機：</strong>此帖呼應「輕裝潢」關鍵字的核心市場——預算有限卻仍想住得好的首購族，正是「輕裝潢+軟裝」組合服務的精準客群定義</div><div>⚡ @tw_gino（75❤️）身為油漆工說「如果有房子我只會輕裝潢，天花板不釘、櫃子不做，懂的就懂」——業內人士親身背書「輕裝潢」理念，是ChannelDeco內容行銷可引用的觀點素材</div></div>
@@ -2151,7 +2189,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@godz_illa99</div><div class="post-date">2026-3-13 · 12萬次瀏覽</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">以下是個人觀點的勸世文，有在觀望或者想做這種開放式衣櫥的朋友們，請檢視一家裡的安裝條件，水泥牆面較為適合，其他輕隔間、木隔間，還是不要安裝的好，除非你的裝潢能夠特地為你加強整個牆面...不然很有機會使用不了多久就整面塌掉了，三思</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 54</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">352</span></div><div class="stat">💬 <span class="val">46</span></div><div class="stat">🔁 <span class="val">12</span></div><div class="stat">📤 <span class="val">314</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@godz_illa99/post/DV09v6ziSGp" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>開放式金屬衣架「網帥實際有風險」的知識落差——僅適合水泥牆，輕隔間可能導致整面塌掉，專業資訊不透明讓消費者易踩雷</div><div><strong>ChannelDeco商機：</strong>「哪些軟裝DIY是危險的？哪些需要專業評估？」是軟裝服務的知識型切入點——以避雷/風險提示作為內容行銷，建立「值得信任的專業顧問」品牌認知</div><div>⚡ @moso.tw（124❤️）「到IKEA實際看過穩固程度後就立刻改成做頂天立地式的」——消費者在「DIY看網帥」與「實際評估安全性」之間存在巨大落差，正是「現場評估」專業服務的核心價值主張</div></div>
@@ -2171,7 +2209,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@jincostw</div><div class="post-date">2026-6-6 · 9.4萬次瀏覽</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">想請教有沒有人改造浴室是使用微水泥的？已經使用兩年以上的。想請問你們現在浴室為水泥的狀況如何？最近想要改造自己的浴室</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 61</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">134</span></div><div class="stat">💬 <span class="val">190</span></div><div class="stat">🔁 <span class="val">3</span></div><div class="stat">📤 <span class="val">108</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@jincostw/post/DZMtZhZknIb" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「微水泥浴室」是近年熱門網美風選擇，但長期使用後「發霉、起裂、難保養」的真實案例讓消費者在「好看」與「耐用」之間陷入選擇困難</div><div><strong>ChannelDeco商機：</strong>190則留言幾乎全是正反兩派激烈論戰——「材質選擇的資訊混亂」需要專業顧問提供「因屋況、生活習慣給出個人化建議」，正是差異化顧問服務的切入點</div><div>⚡ @asu_600930（1,449❤️）「真心勸你打消念頭」——一則簡短留言卻獲最高讚，凸顯使用者對「踩雷材質」的強烈情緒反應；ChannelDeco可製作「微水泥浴室關鍵在這」系列內容精準截流高關注度話題</div></div>
@@ -2190,7 +2228,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@shannnnnnnnn2160</div><div class="post-date">2026-6-10 · 7,330次瀏覽</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">有裝潢過房子的大家，什麼東西是最後悔沒有一開始就弄的嗎？XD</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 41</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">15</span></div><div class="stat">💬 <span class="val">17</span></div><div class="stat">📤 <span class="val">30</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@shannnnnnnnn2160/post/DZWlfZnEXDY" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>裝潢「決策事前補課」的典型需求——首購族在動工前想透過社群集思廣益確認「必備清單」以避免日後後悔</div><div><strong>ChannelDeco商機：</strong>此帖今日剛發，留言仍在累積中；同類問題與@_yi_tin（9,986❤️）爆文形式相同，顯示「裝潢後悔清單」是持續有流量的長青話題型態</div><div>⚡ @atymi.o（ATYMI室內設計AI管理系統）已在此帖留言區出現自我推銷——顯示競品已建立「裝潢後悔類帖自動監測＋留言」機制，ChannelDeco應跟進建立類似主動出擊策略</div></div>
@@ -2210,7 +2248,7 @@
     <div class="post-card" data-kw="寵物宅">
       <div class="post-header"><div><div class="post-author">@carea_interior</div><div class="post-date">2025-6-25 · 找尋合作夥伴</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">來脆一下，我們95%專案是新社區新成屋住宅案，客群為首購、新婚、寵物宅，歡迎北部廠商、工班自我推薦互相認識，期待有更多年輕師傅一起打拼</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 34</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">59</span></div><div class="stat">💬 <span class="val">47</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@carea_interior/post/DLUyk_JyOxW" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>中小型設計工作室面臨「自建供應鏈」的生存課題——在台灣裝潢業分工細、小廠零散的環境下，主動透過社群建立異業聯盟是降低成本、提升服務品質的關鍵策略</div><div><strong>ChannelDeco商機：</strong>@carea_interior客群定義（首購、新婚、寵物宅）與ChannelDeco高度重疊，其北部市場布局顯示競品積極拓展合作網絡——值得追蹤其後續合作廠商，作為供應鏈評估的競品參照</div><div>⚡ @ours_hsinja留言「我是軟裝師，希望有機會可以合作」——顯示「軟裝師自我推薦」的市場需求存在，反向提示ChannelDeco可在Threads「求合作」類帖發掘潛在供應商夥伴</div></div>
@@ -2229,7 +2267,7 @@
     <div class="post-card" data-kw="寵物宅">
       <div class="post-header"><div><div class="post-author">@cheng.yi.design</div><div class="post-date">2024-12-30 · 中古屋</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">開箱280萬的中古屋翻新寵物宅，新北土城，28.6坪，2廳4房3衛1廚，為毛孩設計的夢幻天堂-貓跳台，嚴選超低甲醛板材、綠建材、認證合格設備與知名品牌，有澄邑的健康設計，在家住的更安心。</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 42</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">26</span></div><div class="stat">💬 <span class="val">8</span></div><div class="stat">🔁 <span class="val">2</span></div><div class="stat">📤 <span class="val">2</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@cheng.yi.design/post/DEMzYEGz6x9" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「寵物友善裝潢」（含貓跳台、低甲醛建材、安全空間設計）是中古屋翻新族日益增長的需求，但能同時整合「室內設計美感＋毛孩需求＋健康建材」的工作室在市場上仍屬稀缺</div><div><strong>ChannelDeco商機：</strong>@cheng.yi.design（澄邑設計）以北部新北市為主要市場；280萬中古屋翻新（28.6坪）與ChannelDeco目標客群高度相似，值得追蹤作為南台灣「寵物宅軟裝服務」定位的競品參照</div><div>⚡ 帖文明確標示「超低甲醛板材、綠建材、認證合格設備」——顯示「健康環保建材意識」已成為寵物宅裝潢的新標配訴求，是ChannelDeco未來服務定位可延伸的差異化方向</div></div>
@@ -2249,7 +2287,7 @@
     <div class="post-card" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@more_than.deco</div><div class="post-date">2026-5-30 · 居家靈感</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">你也和我一樣嗎？常常pinterest存了很多喜歡的空間，但真正要使用的時候，卻不知道從哪開始～我試著把靈感拆解，讓你可以照著對的方向和靈感，打造最適合你的空間：）到Ig留言『case』，免費領取完整指南！</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 31</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">3</span></div><div class="stat">💬 <span class="val">1</span></div><div class="stat">📤 <span class="val">1</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@more_than.deco/post/DY8oICJkmO6" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「靈感收集者」的通病——大量收藏Pinterest/社群圖片卻無法轉化為實際行動，缺乏「從靈感到落實的系統性方法」</div><div><strong>ChannelDeco商機：</strong>@more_than.deco的「留言case免費領取指南」是精準的潛客培育機制——ChannelDeco可參考此「乾貨內容→IG互動→私信諮詢」漏斗，設計專屬「空間靈感指南」換取目標客群的主動接觸</div><div>⚡ 帳號定位為「軟裝分享、好物推薦」並積極建立「空間社群」，與ChannelDeco服務範疇高度重疊——其在Threads分享靈感分解方法、引流至IG的內容策略，值得作為小型軟裝品牌社群運營範本研究</div></div>
@@ -2271,7 +2309,7 @@
     <div class="post-card featured" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@jimmychang72</div><div class="post-date">2024-11-14 · 243萬次瀏覽 🔥 史上最高互動</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">入住一年了，現在要我列無用設計，我大概可以列30條。（含：開關位置失誤、系統櫃開放空間堆雜物、桌子叫木工做死、氣密窗沒選好、影音系統事後改代價大⋯⋯共列出30條裝潢無用設計心得）</div></div>
-      <div class="post-badges"><span class="badge">無奈妥協型</span></div>
+      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 64</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">44,000</span></div><div class="stat">💬 <span class="val">2,014</span></div><div class="stat">🔁 <span class="val">5,045</span></div><div class="stat">📤 <span class="val">3.0萬</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@jimmychang72/post/DCWMiwOSFis" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>入住一年後的完整後悔清單（開關位置、玄關開放鞋區堆雜物、木工死做傢俱、全屋木工費超貴卻無法更換、氣密窗省了後悔、影音沒事前規劃、LED燈條入住後完全無用）——台灣近年病毒係數最高的裝潢後悔帖，44,000讚、243萬瀏覽</div><div><strong>ChannelDeco商機：</strong>以「裝潢前預防30種後悔」為主軸，提供入住前的「後悔清單預防諮詢」服務，直接回應台灣最大裝潢焦慮；可在留言區以「顧問身分」回應尚未解答的問題，截流大量精準流量</div><div>⚡ @curtain__anuo（1,784❤️）「兄弟，你救了很多人，好人會有好報的，再買一間房子重新設計吧😆」——道出屋主「下次一定做好」的心理，正是轉介紹與回購動機的核心</div></div>
@@ -2290,7 +2328,7 @@
     <div class="post-card" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@mydachitw</div><div class="post-date">2025-11-4 · 裝潢大賽</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">我自行宣布第一屆「花超多錢，但最後悔的裝潢」大賽正式開始</div></div>
-      <div class="post-badges"><span class="badge">無奈妥協型</span></div>
+      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 41</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">755</span></div><div class="stat">💬 <span class="val">139</span></div><div class="stat">📤 <span class="val">583</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@mydachitw" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>以「競賽」遊戲化格式讓人分享裝潢後悔花大錢的品項，引發強烈共鳴——「後悔排行榜」形式比普通問卷帖更能激活社群分享慾，583次分享顯示高度轉發意願</div><div><strong>ChannelDeco商機：</strong>可仿效此帖格式發起「最值的設計大賽」正向版本，讓客戶分享ChannelDeco服務帶來的最值錢改變，以遊戲化口碑機制取代傳統客戶見證</div></div>
@@ -2309,7 +2347,7 @@
     <div class="post-card" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@linwanjean</div><div class="post-date">2026-4-17 · 裝潢叮嚀</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">有沒有人已經裝潢好幾年後悔沒設計的點或者最近在裝潢覺得很必要留意的點可以分享一下嗎</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 39</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">530</span></div><div class="stat">💬 <span class="val">99</span></div><div class="stat">📤 <span class="val">1,084</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@linwanjean" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>正在裝潢或已完成的人主動求救、分享各種遺憾與叮嚀——1,084次分享顯示此帖已成為「裝潢資料庫」被廣泛傳播，帶出「後悔清單」強烈市場需求</div><div><strong>ChannelDeco商機：</strong>在留言區以「裝潢顧問」身分給出最有價值的具體建議（如「空間陳列預留彈性、收納分層規劃」），打「ChannelDeco = 不留遺憾的專業夥伴」定位；1,084次分享代表顧問留言可觸達大量潛在客戶</div></div>
@@ -2329,7 +2367,7 @@
     <div class="post-card featured" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@w.home.select</div><div class="post-date">2026-6-10 · 52萬次瀏覽</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">前幾年很流行奶油風、奶茶風、侘寂風這類淺色系空間。現在住了幾年之後，大家家裡還是維持當初那種乾淨清新的感覺嗎？還是慢慢被小孩、寵物、生活用品攻陷了😂 有沒有人願意分享一下：📷 當初完工照 📷 現在真實入住照 我很好奇奶油風住久了之後，到底會變得更有生活感，還是會開始懷念深色家具。</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 61</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">2,800</span></div><div class="stat">💬 <span class="val">326</span></div><div class="stat">🔁 <span class="val">217</span></div><div class="stat">📤 <span class="val">1,282</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@w.home.select/post/DZW84w8kaD5" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「奶油風住多年後的真實反饋」是最有說服力的口碑——「完工照 vs 真實入住照」對比引發超高互動（326留言/52萬瀏覽），大多分享真實入住後的環境變化，折射「完工只是開始」的普遍心聲</div><div><strong>ChannelDeco商機：</strong>「住進去才是軟裝的開始」——推出「入住後空間更新服務」，讓裝潢不是一次性消費而是持續優化歷程，精準切入奶油風住戶的長期需求；此帖是ChannelDeco「軟裝顧問持續陪伴」訴求的最佳市場印證</div><div>⚡ 設計師@tsao_atelier（231❤️）留言：「與風格無關，跟住在裡面的那個人關係比較大😅」——一句話詮釋了「以人為本的空間顧問」，正是ChannelDeco服務核心</div></div>
@@ -2348,7 +2386,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@cheche_ou2000</div><div class="post-date">2026-6-12 · 交屋前</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">房子快交屋了想知道大家裝潢「最後悔&最滿意的設計」😍</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 65</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">189</span></div><div class="stat">💬 <span class="val">79</span></div><div class="stat">🔁 <span class="val">15</span></div><div class="stat">📤 <span class="val">157</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@cheche_ou2000/post/DZcha8DE2Z-" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>準新屋主在交屋前大量收集「後悔清單」與「值得做清單」，面對裝潢決策充滿焦慮——交屋時間壓力讓決策焦慮倍增，典型「交屋前焦慮族」</div><div><strong>ChannelDeco商機：</strong>推出「交屋前裝潢顧問諮詢」服務——「花2小時諮詢，省10萬後悔費用」是精準價值主張，在此類帖留言可直接獲得預約意向客戶</div><div>⚡ @weilidesign的留言點出本週最值得引用的洞察：「最後悔的，幾乎都是為了好看犧牲了好用⋯好看是加分，好住是底線」——可直接作為ChannelDeco顧問服務的金句素材</div></div>
@@ -2368,7 +2406,7 @@
     <div class="post-card featured" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@t.o__home</div><div class="post-date">2026-6-14 · 軟裝分享</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">分享給您～我們每天都會發一些軟裝佈置的空間～暫時不營利，純分享～希望每天都能帶給您一點好心情😍～</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-low">病毒訊號 37</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">2,219</span></div><div class="stat">💬 <span class="val">26</span></div><div class="stat">📤 <span class="val">411</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@t.o__home" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>純分享型帳號累積大量互動（411分享），說明受眾渴望持續看到「有美感的真實空間」而非廣告——「不營利純分享」的姿態反而建立了最高信任度</div><div><strong>ChannelDeco商機：</strong>以「分享心態」而非「銷售姿態」定期發布陳列擺拍作品，讓追蹤者自然積累對品牌美感的認知；此類帳號證明「空間美感分享」是最強的長期客戶種草機制</div></div>
@@ -2387,7 +2425,7 @@
     <div class="post-card" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@hejjc77</div><div class="post-date">2026-6-14 · 房間選物</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">雖然我沒有自己的租屋處但是我很喜歡看那種房間選物像垃圾桶、鞋架、收納盒⋯⋯我還想了各種版本可以裝飾我的小窩</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-low">病毒訊號 39</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">1,096</span></div><div class="stat">💬 <span class="val">84</span></div><div class="stat">📤 <span class="val">186</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@hejjc77" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>租屋族渴望佈置空間，即使還沒有空間也在心裡規劃——「看選物」的瀏覽行為折射的是對「屬於自己的空間」的深層渴望，是最早期的潛在客戶意識形成</div><div><strong>ChannelDeco商機：</strong>針對「準租屋族」提供「空間選物靈感」內容，長期種草——等他們有空間時自然回想起ChannelDeco，建立從「看選物」到「找顧問」的消費轉換路徑</div></div>
@@ -2407,7 +2445,7 @@
     <div class="post-card featured" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@lulz5ec</div><div class="post-date">2025-5-18 · 19萬次瀏覽</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">現況紀錄 房間還有很多東西想換 以前很急浪費了很多錢 現在學會慢慢來就好</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 51</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">7,767</span></div><div class="stat">💬 <span class="val">158</span></div><div class="stat">🔁 <span class="val">314</span></div><div class="stat">📤 <span class="val">719</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@lulz5ec/post/DJyIH-PJf6q" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「以前很急浪費了很多錢，現在學會慢慢來就好」——7,767讚說明「不急慢慢來」的佈置心態引起廣泛共鳴，對應正在被市場教育「一次到位未必最好」的消費者認知轉型</div><div><strong>ChannelDeco商機：</strong>推出「分期軟裝規劃服務」——不需要一次到位，根據生活節奏逐步調整；以「慢慢來才是正確的」為品牌調性，降低客戶的決策焦慮與一次性費用心理壓力</div><div>⚡ 留言大量詢問衣架連結、和室椅來源——顯示高品質空間照片帶動的「選物詢問」轉換率極高，ChannelDeco陳列擺拍服務可精準截流此類選物需求</div></div>
@@ -2426,7 +2464,7 @@
     <div class="post-card" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@lizys_insta</div><div class="post-date">2026-6-1 · 租屋選物</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">認真發問🙋‍♀️租空屋買家具你們都怎麼開始（完全不知從何挑）有推薦的品牌嗎🥹</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 40</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">557</span></div><div class="stat">💬 <span class="val">130</span></div><div class="stat">📤 <span class="val">212</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@lizys_insta" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>租空屋面對「從零開始選家具」的茫然感——不知道從哪裡開始、不知道哪個品牌可信，是最普遍的首次獨立居住焦慮；130則留言顯示此類問題長期無標準答案</div><div><strong>ChannelDeco商機：</strong>提供「軟裝入門諮詢」服務——幫助從零開始的用戶建立選物架構，以「一次性諮詢費換省時省錢省後悔」為主要價值訴求；在此類帖留言「空間顧問」建議可直接截流精準客戶</div></div>
@@ -2445,7 +2483,7 @@
     <div class="post-card" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@e7888_iamu</div><div class="post-date">2026-5-31 · 小空間色彩</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">房間太小 又想要彩色怎麼辦</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 49</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">614</span></div><div class="stat">💬 <span class="val">149</span></div><div class="stat">🔁 <span class="val">13</span></div><div class="stat">📤 <span class="val">50</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@e7888_iamu/post/DY_GDSjmc6t" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>小空間配色的「坪數限制 vs 風格渴望」核心矛盾——149則留言顯示「小坪數彩色空間」是市場缺乏答案的需求，想要彩色卻擔心視覺擁擠</div><div><strong>ChannelDeco商機：</strong>展示「小坪數彩色空間」陳列案例，提供「小空間色彩規劃」諮詢——以作品力與專業知識回應市場空白，精準切入彩色空間愛好者市場</div></div>
@@ -2465,7 +2503,7 @@
     <div class="post-card" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@hellotody</div><div class="post-date">2024-12-25 · 品味觀察</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">在所有我看過的「好品味」住宅，沒有一個主人會稱自己為軟裝師。而出來開課教軟裝設計的，倒是沒見過幾位品味真的獨到的...</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 26</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">504</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@hellotody" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>「軟裝品味不是靠上課學來的」——對「軟裝師」標籤的反思引發知識型受眾共鳴，質疑過度商業化的軟裝教育市場</div><div><strong>ChannelDeco商機：</strong>以「真實作品說話」而非「標籤行銷」——避免自稱「軟裝師」，改以「空間顧問」、「生活選物夥伴」等更有生活感的定位，與過度包裝的市場形成有效差異化</div></div>
@@ -2485,7 +2523,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@qiwen1011</div><div class="post-date">2026-6-4 · 預算詢問</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">新竹有推薦的輕裝潢嗎 小資女預算15～18萬那麼多🥹想要好收納簡約奶油風格。</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 59</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">222</span></div><div class="stat">💬 <span class="val">114</span></div><div class="stat">🔁 <span class="val">3</span></div><div class="stat">📤 <span class="val">62</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@qiwen1011/post/DZJ1WdEEzlc" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>小資族在找「有品質又不超預算」的輕裝潢廠商，卻不知道哪裡可信——「15～18萬能做什麼」是典型的資訊不對稱焦慮，114則留言顯示大量人在幫忙推薦與潑冷水</div><div><strong>ChannelDeco商機：</strong>針對小資預算客群提供「輕裝修顧問入門方案」——明確告知預算可以做到什麼，建立透明信任感；ChannelDeco服務北中南，可直接在此類帖留言接觸正在主動尋找廠商的精準客戶</div><div>⚡ @7719en再度於此帖貼出「台中特利空間設計／王建森」裝潢蟑螂警示（與上週@chiaowen.22帖相同警示內容重複出現），顯示同一則消費者保護警訊正被系統性地轉發至多個裝潢求助帖，值得持續關注是否為真實維權行動或帶有其他動機的洗版</div></div>
@@ -2507,7 +2545,7 @@
     <div class="post-card" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@gtry5656</div><div class="post-date">本週 · 軟裝大賽</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">我自行宣布第一屆《threads史上最Cozy室內軟裝》大賽正式開始</div></div>
-      <div class="post-badges"><span class="badge">成就感分享型</span></div>
+      <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 66</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">2,879</span></div><div class="stat">💬 <span class="val">378</span></div><div class="stat">🔁 <span class="val">518</span></div><div class="stat">📤 <span class="val">2,191</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@gtry5656/post/DQNyJLAiUlc" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>素人發起「軟裝大賽」自我宣告，反映打造好看居家空間後渴望被看見、被認可的心理需求；高互動（2,879❤️/378💬）證明「曬成果＋競賽框架」內容極具病毒傳播力</div><div><strong>ChannelDeco商機：</strong>可發起「ChannelDeco軟裝改造大賽」UGC活動，邀請既有/潛在客戶曬出改造前後對比，同步累積案例庫與口碑曝光</div></div>
@@ -2519,7 +2557,7 @@
     <div class="post-card" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@2.20_j</div><div class="post-date">本週 · 課程踩雷</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">想問問大家：你們買過最雷的線上課是什麼...8月購買了Nina高效軟裝設計課...實際上遇到的狀況真的好雷</div></div>
-      <div class="post-badges"><span class="badge">無奈妥協型</span></div>
+      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 59</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">756</span></div><div class="stat">💬 <span class="val">238</span></div><div class="stat">🔁 <span class="val">53</span></div><div class="stat">📤 <span class="val">325</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@2.20_j/post/DRtNgb9ifa3" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>花錢買線上軟裝課程卻覺得內容與期待不符，反映消費者對「軟裝設計知識」付費學習存在高度不信任與踩雷恐懼</div><div><strong>ChannelDeco商機：</strong>可凸顯「真人顧問諮詢」與一次性線上課程的差異——依實際空間客製化建議，正好對應踩雷後尋求可信賴替代方案的潛在客群</div></div>
@@ -2531,7 +2569,7 @@
     <div class="post-card" data-kw="軟裝設計">
       <div class="post-header"><div><div class="post-author">@emma031200</div><div class="post-date">本週 · 軟裝報價</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">一坪5000的軟裝設計師...軟裝設計費17萬...覺得溝通的心很累</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 54</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">82</span></div><div class="stat">💬 <span class="val">38</span></div><div class="stat">🔁 <span class="val">0</span></div><div class="stat">📤 <span class="val">72</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@emma031200/post/DSPSkxskoKq" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>軟裝設計費（17萬）與溝通成本超出預期，凸顯市場上「軟裝設計報價不透明」、容易讓委託人感到心累的痛點</div><div><strong>ChannelDeco商機：</strong>在報價與溝通流程上強調透明化、階段確認，可作為差異化訴求，吸引曾被類似經驗困擾的潛在客戶</div></div>
@@ -2544,7 +2582,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@josh_stylehair</div><div class="post-date">本週 · 天花板抱怨</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">我真的很看不懂這輕鋼架天花板...這樣天花板就會被壓縮了也會有種壓迫感、重點真的滿醜的</div></div>
-      <div class="post-badges"><span class="badge">無奈妥協型</span></div>
+      <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 56</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">436</span></div><div class="stat">💬 <span class="val">386</span></div><div class="stat">🔁 <span class="val">2</span></div><div class="stat">📤 <span class="val">48</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@josh_stylehair/post/DZfAZGkGln1" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>對「輕鋼架天花板」做法的視覺壓迫感與美感低落公開不滿，顯示輕裝潢族群對天花板工法選擇缺乏判斷依據，容易被工班慣性做法犧牲美感</div><div><strong>ChannelDeco商機：</strong>可在內容行銷中對比「輕裝潢天花板的正確做法」，主打「不犧牲美感的輕裝修」訴求</div></div>
@@ -2556,7 +2594,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@brian.cheng03</div><div class="post-date">本週 · 新竹求助（非服務區）</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">廣大的脆友們！求新竹裝潢救星...新竹縣竹東鎮...預算70-75萬...無印風</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 60</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">122</span></div><div class="stat">💬 <span class="val">115</span></div><div class="stat">🔁 <span class="val">1</span></div><div class="stat">📤 <span class="val">121</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@brian.cheng03/post/DV3TJUNlMqN" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>首次面對70-75萬預算的全屋輕裝潢，急需可信賴的設計師人選，反映預算有限族群在「找對的人」上的高焦慮</div><div><strong>ChannelDeco商機：</strong>新竹非現有服務區域，屬趨勢觀察案例而非直接轉換對象；但「無印風＋70-75萬輕裝潢」需求模式值得參考，未來擴點可作市場驗證</div></div>
@@ -2568,7 +2606,7 @@
     <div class="post-card" data-kw="輕裝潢">
       <div class="post-header"><div><div class="post-author">@ii_.crystal._ii</div><div class="post-date">本週 · 高雄二手屋</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">買了一間二手空屋發現選家具比想像中還難...求廣大網友推薦高雄評價好的家具店或輕裝潢廠商</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 47</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">35</span></div><div class="stat">💬 <span class="val">46</span></div><div class="stat">🔁 <span class="val">0</span></div><div class="stat">📤 <span class="val">9</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@ii_.crystal._ii/post/DXqMofoE9nR" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>購入高雄二手空屋後在「選家具」與「找輕裝潢廠商」間舉棋不定，是局部換殼族典型決策困境</div><div><strong>ChannelDeco商機：</strong>高雄為核心服務區，且使用者明確求推薦輕裝潢廠商——屬高轉換潛力名單，適合留言區提供專業建議導流</div></div>
@@ -2581,7 +2619,7 @@
     <div class="post-card" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@d_13sjie1491</div><div class="post-date">本週 · 租屋佛堂</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">想請問有沒有租在外面住套房的修行者都是怎麼自己佈置自己的小佛堂嗎？...床跟書桌都是在同一個空間</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 48</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">316</span></div><div class="stat">💬 <span class="val">169</span></div><div class="stat">🔁 <span class="val">0</span></div><div class="stat">📤 <span class="val">13</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@d_13sjie1491/post/DYtUmuck-R5" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>租屋套房空間有限，需在床/書桌與宗教信仰角落間找到共存方式，凸顯租屋族「小空間多功能佈置」的普遍困擾</div><div><strong>ChannelDeco商機：</strong>「品味租屋族」核心客群——可推廣小空間軟裝陳列顧問服務，協助租屋族在有限空間做出兼顧生活機能與個人需求的佈置方案</div></div>
@@ -2593,7 +2631,7 @@
     <div class="post-card" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@twhaohaoeat</div><div class="post-date">本週 · 育兒空間</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">各位爸爸媽媽有沒有可以用很久的育兒空間佈置可以參考呢</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 45</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">186</span></div><div class="stat">💬 <span class="val">83</span></div><div class="stat">🔁 <span class="val">0</span></div><div class="stat">📤 <span class="val">14</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@twhaohaoeat/post/DZRsBaRGcOg" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>詢問「可以用很久」的育兒空間佈置方案，反映新手父母在「育兒需求變化快、佈置卻想一次到位」間的矛盾焦慮</div><div><strong>ChannelDeco商機：</strong>可規劃「可成長式」軟裝佈置方案（家具可隨孩子成長調整），對應首購成家／換殼族中有育兒需求的客群</div></div>
@@ -2605,7 +2643,7 @@
     <div class="post-card" data-kw="空間佈置">
       <div class="post-header"><div><div class="post-author">@chelsea0108</div><div class="post-date">本週 · 換尿布區</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">最近看了好多佈置寶寶空間影片...想參考一下媽媽們佈置的非尿布檯的換尿布區域</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 52</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">76</span></div><div class="stat">💬 <span class="val">31</span></div><div class="stat">🔁 <span class="val">0</span></div><div class="stat">📤 <span class="val">65</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@chelsea0108/post/DW9dffjkr1_" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>參考大量影片後仍難以決定「非尿布檯」式換尿布區佈置方式，顯示新手父母在育兒空間規劃上資訊過載卻難以落地執行</div><div><strong>ChannelDeco商機：</strong>陳列擺拍／空間佈置服務可針對育兒族群推出「彈性育兒角」方案範例，降低決策成本</div></div>
@@ -2618,7 +2656,7 @@
     <div class="post-card featured" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@softstar79</div><div class="post-date">本週 · 陽台改造</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">請問這陽台空間可以怎麼改造</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 54</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">17,000</span></div><div class="stat">💬 <span class="val">961</span></div><div class="stat">🔁 <span class="val">115</span></div><div class="stat">📤 <span class="val">880</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@softstar79/post/DZwMlK2GRy9" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>陽台空間長期閒置卻不知如何改造利用，是台灣住宅常見的「畸零空間」痛點；本帖以17,000讚成為本週最高互動新增貼文，顯示「閒置空間活化」話題極具共鳴</div><div>⚡ 熱門留言區前五則幾乎全是幽默吐槽（「玩不膩的50嵐」「考慮找一隻老鼠教你做菜」），但留言串後段meta.ai自動回覆反而給出實際專業建議（半戶外洗衣晾衣＋收納茶水區）——「真建議排不進熱門留言」的反差，正是品牌帳號可趁機提供「真建議」搶占注意力的機會缺口</div></div>
@@ -2637,7 +2675,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@tinagm2024</div><div class="post-date">2026-6-14 · 燈光色溫</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">目前正在選客廳的燈光色溫，設計師建議3000-3500K...</div></div>
-      <div class="post-badges"><span class="badge">選擇困難型</span></div>
+      <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 59</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">500</span></div><div class="stat">💬 <span class="val">158</span></div><div class="stat">🔁 <span class="val">29</span></div><div class="stat">📤 <span class="val">372</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@tinagm2024/post/DZkKgZhmqii" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>客廳燈光色溫該選3000K還是3500K，是裝潢決策中常見卻又難以單靠網路意見定案的「細節選擇困難」，顯示屋主對燈光專業知識的渴求遠高於想像</div><div><strong>ChannelDeco商機：</strong>燈光規劃為軟裝陳列的關鍵環節，可主打「依空間情境客製燈光顧問」服務，精準對應此類「選擇困難但重視細節品質」的客群</div></div>
@@ -2655,7 +2693,7 @@
     <div class="post-card" data-kw="室內設計">
       <div class="post-header"><div><div class="post-author">@zzz02.16</div><div class="post-date">本週 · 首購16坪</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">小弟我第一次買房子...室內大概16坪...裝修的預算大概在10-20萬...請問還有有機會嗎 有厲害的設計師推薦或自薦嗎</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 69</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">366</span></div><div class="stat">💬 <span class="val">500</span></div><div class="stat">🔁 <span class="val">22</span></div><div class="stat">📤 <span class="val">402</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@zzz02.16/post/DZm79QDmhSi" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>首購族16坪老屋、預算僅10-20萬，急需「厲害設計師推薦或自薦」，反映小宅低預算族群在裝修資源資訊取得上的高焦慮</div><div><strong>ChannelDeco商機：</strong>典型「首購成家小白」客群，預算區間與「輕裝修＋軟裝設計」服務高度吻合，適合在留言區主動提供諮詢入口</div></div>
@@ -2668,7 +2706,7 @@
     <div class="post-card featured" data-kw="裝潢後悔">
       <div class="post-header"><div><div class="post-author">@a.sushi.home</div><div class="post-date">本週 · 浴室設計</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">淋浴間做半牆，沒做玻璃門...省時間省錢通風好看</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 54</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">10,000</span></div><div class="stat">💬 <span class="val">125</span></div><div class="stat">🔁 <span class="val">306</span></div><div class="stat">📤 <span class="val">2,616</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@a.sushi.home/post/DSZjAiAEZeZ" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>分享「淋浴間半牆不做玻璃門」省錢、省時、好清潔的實際心得，反向回應大眾對「裝潢後悔」的恐懼——示範「做對選擇」也能引發高共鳴（約10,000讚）</div><div><strong>ChannelDeco商機：</strong>可作為「不後悔裝潢」系列內容素材，整理「裝潢後悔／不後悔」的浴室設計清單，強化顧問諮詢的專業形象</div></div>
@@ -2681,7 +2719,7 @@
     <div class="post-card" data-kw="寵物宅">
       <div class="post-header"><div><div class="post-author">@vica__0330</div><div class="post-date">本週 · 貓宅請益</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">裝潢小白請益🙏...家裡有1貓🐈...有沒有那種做完會覺得很值得的項目</div></div>
-      <div class="post-badges"><span class="badge">焦慮求助型</span></div>
+      <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 65</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">1,316</span></div><div class="stat">💬 <span class="val">360</span></div><div class="stat">🔁 <span class="val">199</span></div><div class="stat">📤 <span class="val">925</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@vica__0330/post/DUuvYsGj5ip" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>家中養貓的屋主對「裝潢後會覺得值得的項目」感到不確定，急需有經驗者建議，顯示寵物宅族群在裝修決策上缺乏專屬指引</div><div><strong>ChannelDeco商機：</strong>可規劃「寵物友善軟裝清單」作為長輩居家照護族／寵物宅族群的差異化服務切角</div></div>
@@ -2693,7 +2731,7 @@
     <div class="post-card" data-kw="寵物宅">
       <div class="post-header"><div><div class="post-author">@ruilei_hong</div><div class="post-date">本週 · 貓宅職人</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">貓友善設計7點建議：書櫃跳台、貓抓布、隱藏式貓砂櫃、貓洞、隱形紗窗等</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 36</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">36</span></div><div class="stat">💬 <span class="val">3</span></div><div class="stat">🔁 <span class="val">0</span></div><div class="stat">📤 <span class="val">21</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@ruilei_hong/post/DVdrggJk9bb" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>雖然互動數不高（36❤️），但提供完整7點專業貓友善設計建議，顯示寵物宅設計知識仍多由小眾職人帳號零散提供，缺乏整合性資源</div><div><strong>ChannelDeco商機：</strong>可整合此類專業知識製作「寵物宅軟裝懶人包」內容，搶占目前競爭較少的寵物友善設計利基市場</div></div>
@@ -2706,7 +2744,7 @@
     <div class="post-card" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@cookieyeh</div><div class="post-date">本週 · 31坪四房</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">上次分享了家裡衣櫃...這次再度附上我家赤裸裸的客廳...我家四房，室內大概31坪</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 43</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">811</span></div><div class="stat">💬 <span class="val">47</span></div><div class="stat">🔁 <span class="val">6</span></div><div class="stat">📤 <span class="val">40</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@cookieyeh" target="_blank">🔗 原文連結 (個人頁)</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>分享自家「赤裸裸的客廳」真實佈置現況，呼應大眾對「精美佈置範例與現實生活落差」的好奇與共鳴</div><div><strong>ChannelDeco商機：</strong>真實感軟裝案例分享是建立信任的有效素材，可規劃「真實入住生活感」系列內容對比過度修飾的示範空間</div></div>
@@ -2718,7 +2756,7 @@
     <div class="post-card" data-kw="空間佈置靈感">
       <div class="post-header"><div><div class="post-author">@thelifereorganizer</div><div class="post-date">本週 · 軟裝心法</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">不要砸錢裝潢，只靠家居佈置有可能辦到嗎？可以，但我自己在搬過三個房子後有幾個經驗分享...</div></div>
-      <div class="post-badges"><span class="badge">理性建議型</span></div>
+      <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 43</span></div>
       <div class="post-stats"><div class="stat">❤️ <span class="val">292</span></div><div class="stat">💬 <span class="val">22</span></div><div class="stat">🔁 <span class="val">8</span></div><div class="stat">📤 <span class="val">116</span></div></div>
       <div class="post-link"><a href="https://www.threads.com/@thelifereorganizer/post/DZyYx5tE2Ro" target="_blank">🔗 原文連結</a></div>
       <div class="post-analysis"><div class="al">🔍 透視分析</div><div><strong>核心痛點：</strong>分享「不砸錢裝潢、只靠佈置」搬過三次家的實際心得，直擊「想改善居住空間卻不想／不能大裝修」的核心需求</div><div><strong>ChannelDeco商機：</strong>與ChannelDeco「輕裝修＋軟裝設計」服務主張高度吻合，可直接引用此類觀點作為服務理念佐證，甚至邀請合作或轉發互動</div><div>⚡ 留言區出現多家軟裝/家具業者（如iliz.furniture推薦義式沙發、artistdogz「路過自薦」）主動留言自薦，證實此類高互動軟裝知識帖是品牌留言導流的理想標的——ChannelDeco可比照此策略在同類貼文中留言曝光</div></div>
@@ -2737,6 +2775,44 @@
 
   </div><!-- end posts-grid -->
 
+  <div class="authority-section">
+    <div class="section-title">🏆 同族群權威帳號觀察名單（Theo 建議經營關係）</div>
+    <div class="auth-grid">
+      <div class="auth-card"><span class="ac-freq">4次</span><div class="ac-name">@dayviewdesign</div><div class="ac-role">室內設計工作室</div><div class="ac-note">跨多篇不同貼文留言區重複出現，且留言多帶專業觀點，是本次觀察中互動密度最高的同業帳號，建議優先追蹤並在其貼文下方留下有觀點的回覆，累積演算法認定的「同語意集群關係」</div></div>
+      <div class="auth-card"><span class="ac-freq">3次</span><div class="ac-name">@atymi.ai / @atymi.o</div><div class="ac-role">AI室內設計管理系統品牌</div><div class="ac-note">在多篇裝潢痛點貼文留言區提供具體、有溫度的建議（非制式業配文），互動品質高，屬於「內容型」品牌帳號，適合觀察其留言風格作為ChannelDeco回覆留言的參考範本</div></div>
+      <div class="auth-card"><span class="ac-freq">3次</span><div class="ac-name">@channel.deco（自家帳號）</div><div class="ac-role">ChannelDeco 官方</div><div class="ac-note">已主動在3則貼文留言導流，是好的開始——建議持續此策略，並優先鎖定本名單中的同業高互動貼文留言，累積演算法認定的社交圖譜權重</div></div>
+      <div class="auth-card"><span class="ac-freq">2次</span><div class="ac-name">@weilidesign</div><div class="ac-role">室內設計師</div><div class="ac-note">留言常提出「好看是加分，好住是底線」類的專業判斷型觀點，語氣理性有說服力，可作為同業內容風格參考對象</div></div>
+      <div class="auth-card"><span class="ac-freq">2次</span><div class="ac-name">@chengyi__design</div><div class="ac-role">室內設計師</div><div class="ac-note">重複出現在裝潢後悔／室內設計類貼文留言區，屬於活躍度高的同業帳號，值得建立雙向互動關係</div></div>
+      <div class="auth-card"><span class="ac-freq">2次</span><div class="ac-name">@oak.design.tw / @ziyou_design</div><div class="ac-role">室內設計工作室</div><div class="ac-note">留言活躍且多聚焦專業細節分享，可觀察其貼文選題角度，作為ChannelDeco錨點貼文的靈感參考來源</div></div>
+      <div class="auth-card"><span class="ac-freq">3次</span><div class="ac-name">@t.o__home</div><div class="ac-role">純分享軟裝陳列帳號</div><div class="ac-note">帳號定位與ChannelDeco高度重疊（純分享軟裝陳列圖），持續產出高互動內容，是最值得深入研究選題與圖文節奏的標竿帳號，而非單純視為競爭對手</div></div>
+      <div class="auth-card"><span class="ac-freq">3次</span><div class="ac-name">@musenza.tw</div><div class="ac-role">輕裝修品牌</div><div class="ac-note">定位「輕硬裝、重軟裝」與ChannelDeco幾乎完全一致，其「總價透明＋清單化」的呈現方式值得參考，亦可觀察是否有異業合作空間</div></div>
+      <div class="auth-card"><span class="ac-freq">2次</span><div class="ac-name">@cheche_ou2000 / @smarthome_mira</div><div class="ac-role">高互動UGC發起者</div><div class="ac-note">並非設計服務商，而是持續發起「裝潢後悔／最滿意設計」類徵集帖並穩定獲得高互動的素人帳號，適合在其貼文留言區以專業角度補充回覆，爭取被作者置頂或高讚曝光</div></div>
+    </div>
+  </div>
+
+  <div class="anchor-section">
+    <div class="section-title">⚓ ChannelDeco 錨點貼文規劃區（本週痛點轉化）</div>
+    <div class="anchor-grid">
+      <div class="anchor-card">
+        <span class="an-goal">共鳴 Resonance</span>
+        <div class="an-hook">「我拒絕再讓任何業主聽到『軟裝是窮人的選擇』這句話。」</div>
+        <div class="an-body">直接呼應本週@__chen.zh／@pay_linn引爆的世代軟裝迷思討論。用ChannelDeco真實接案經驗反駁「軟裝＝將就」的刻板印象，列出3個「軟裝其實更貴更講究」的具體例子（設計師選品、陳列手法、色彩計畫），收尾邀請追蹤者留言「你家長輩也這樣說過嗎？」</div>
+        <div class="an-why"><strong>為何是錨點：</strong>開頭是強烈、具體、有立場的陳述（非籠統雞湯），直接命中本週全站最高語意集群共鳴點，且緊扣ChannelDeco核心語意集群（軟裝設計），有機會吸引同業高互動帳號留言背書</div>
+      </div>
+      <div class="anchor-card">
+        <span class="an-goal">權威 Authority</span>
+        <div class="an-hook">「系統櫃該做多少？我們的答案跟大部分設計師不一樣。」</div>
+        <div class="an-body">回應@likkk0999高讚留言的核心共識（先做對的位置的硬裝、其餘留給軟裝），整理成ChannelDeco版「玄關／電器櫃／衣櫃 系統櫃 vs 軟裝比例判斷表」，用真實案例坪數與預算佐證，建立「輕裝修＋軟裝」的專業判斷框架形象</div>
+        <div class="an-why"><strong>為何是錨點：</strong>提供具體、可操作的判斷框架（非空泛建議），符合「高信號、低雞湯」的演算法偏好，且是ChannelDeco最能展現專業差異化的核心服務內容，適合作為長期置頂／導流用貼文</div>
+      </div>
+      <div class="anchor-card">
+        <span class="an-goal">分享 Shareability</span>
+        <div class="an-hook">「我們收監工費，但業主完全不用到現場。這句話，我打算證明給你看。」</div>
+        <div class="an-body">正面回應@_aboutdaily_留言區「花錢卻還要天天監工」的普遍不滿，用一支「一週工地進度雲端回報」實例影片/圖文，展示ChannelDeco如何用透明溝通機制取代業主親自盯場，結尾附上「你也遇過這種崩潰經驗嗎？」拋出討論引子</div>
+        <div class="an-why"><strong>為何是錨點：</strong>強烈反差型開頭句（先立靶再打靶）具備高分享驅動力，直接回應本週留言區最深層的信任焦慮，容易被轉發到「正在裝潢／準備裝潢」的社群中形成自然擴散</div>
+      </div>
+    </div>
+  </div>
 
   <!-- Strategy -->
   <div class="strategy-box">
