@@ -63,7 +63,10 @@
   .pl-table th{text-align:left;padding:6px 8px;background:#F8FAF9;font-size:11px;color:var(--primary);border-bottom:2px solid var(--border)}
   .pl-table td{padding:6px 8px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5}
   .pl-grade-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-  .pl-grade{flex:1;min-width:150px;border-radius:10px;padding:10px 12px;font-size:11.5px;line-height:1.6}
+  .pl-grade{flex:1;min-width:150px;border-radius:10px;padding:10px 12px;font-size:11.5px;line-height:1.6;cursor:pointer;border:2px solid transparent;transition:all .15s}
+  .pl-grade:hover{transform:translateY(-2px)}
+  .pl-grade.lvl-active{border-color:var(--primary)}
+  .kpi-box.lvl-active{outline:2px solid var(--primary);outline-offset:1px}
   .pl-grade b{display:block;font-size:13px;margin-bottom:3px}
   .pl-grade.g-A{background:#DCFCE7;color:#14532D}
   .pl-grade.g-B{background:#DBEAFE;color:#1E3A8A}
@@ -174,7 +177,7 @@
   </div>
 
   <div class="patrol-legend">
-    <h3>📖 ChannelDeco 版海巡判讀框架（改編自 Tru-Mi 海巡八類詢問＋A-D 意圖分級邏輯）</h3>
+    <h3>📖 ChannelDeco 版海巡判讀框架</h3>
     <div class="pl-sub">每則貼文依「表層問題／深層焦慮／預算與時程訊號」判讀類型與等級，而非只看讚數高低——同時出現地區、預算、時程的貼文，即使互動不高也是A級。</div>
     <table class="pl-table">
       <tr><th style="width:26%">類型</th><th style="width:30%">典型語氣</th><th style="width:44%">ChannelDeco切入點</th></tr>
@@ -188,18 +191,19 @@
       <tr><td>⑧ 老屋/租屋翻新</td><td>中古屋整理、局部換殼、租屋不能大改</td><td>局部換殼方案、租屋軟裝快速上手</td></tr>
     </table>
     <div class="pl-grade-row">
-      <div class="pl-grade g-A"><b>🎯 A 高意圖</b>有地區＋預算／時程／求推薦——優先接觸，24小時內回頭追蹤是否已被回覆</div>
-      <div class="pl-grade g-B"><b>📋 B 問題意圖</b>有明確困擾但未進決策期——留言給專業判斷，納入內容題庫</div>
-      <div class="pl-grade g-C"><b>💬 C 情緒共鳴</b>分享裝潢壓力、後悔故事——先接情緒再補一句觀點，發展品牌故事</div>
-      <div class="pl-grade g-D"><b>👀 D 低對頻</b>純娛樂性UGC大賽／無明確需求——只記錄市場訊號，不追蹤</div>
-      <div class="pl-grade g-risk"><b>⚠️ 風險</b>點名投訴、蟑螂警告、糾紛爆料——不批評不自薦，轉化為自家透明度內容題材</div>
+      <div class="pl-grade g-A" data-lvl="A" onclick="filterLevel('A',this)"><b>🎯 A 高意圖</b>有地區＋預算／時程／求推薦——優先接觸，24小時內回頭追蹤是否已被回覆</div>
+      <div class="pl-grade g-B" data-lvl="B" onclick="filterLevel('B',this)"><b>📋 B 問題意圖</b>有明確困擾但未進決策期——留言給專業判斷，納入內容題庫</div>
+      <div class="pl-grade g-C" data-lvl="C" onclick="filterLevel('C',this)"><b>💬 C 情緒共鳴</b>分享裝潢壓力、後悔故事——先接情緒再補一句觀點，發展品牌故事</div>
+      <div class="pl-grade g-D" data-lvl="D" onclick="filterLevel('D',this)"><b>👀 D 低對頻</b>純娛樂性UGC大賽／無明確需求——只記錄市場訊號，不追蹤</div>
+      <div class="pl-grade g-risk" data-lvl="風險" onclick="filterLevel('風險',this)"><b>⚠️ 風險</b>點名投訴、蟑螂警告、糾紛爆料——不批評不自薦，轉化為自家透明度內容題材</div>
+      <div class="pl-grade" data-lvl="all" onclick="filterLevel('all',this)" style="background:#F3F4F6;color:var(--text-light);cursor:pointer"><b>↺ 顯示全部</b>清除等級篩選，回到完整貼文列表</div>
     </div>
     <div class="kpi-strip">
-      <div class="kpi-box" style="background:#DCFCE7;color:#14532D"><div class="kn">18</div><div class="kl">🎯 A級貼文</div></div>
-      <div class="kpi-box" style="background:#DBEAFE;color:#1E3A8A"><div class="kn">78</div><div class="kl">📋 B級貼文</div></div>
-      <div class="kpi-box" style="background:#EDE9FE;color:#5B21B6"><div class="kn">11</div><div class="kl">💬 C級貼文</div></div>
-      <div class="kpi-box" style="background:#F1F1EF;color:#555"><div class="kn">42</div><div class="kl">👀 D級貼文</div></div>
-      <div class="kpi-box" style="background:#FEE2E2;color:#7F1D1D"><div class="kn">3</div><div class="kl">⚠️ 風險貼文</div></div>
+      <div class="kpi-box" data-lvl="A" onclick="filterLevel('A',this)" style="background:#DCFCE7;color:#14532D;cursor:pointer"><div class="kn">18</div><div class="kl">🎯 A級貼文</div></div>
+      <div class="kpi-box" data-lvl="B" onclick="filterLevel('B',this)" style="background:#DBEAFE;color:#1E3A8A;cursor:pointer"><div class="kn">78</div><div class="kl">📋 B級貼文</div></div>
+      <div class="kpi-box" data-lvl="C" onclick="filterLevel('C',this)" style="background:#EDE9FE;color:#5B21B6;cursor:pointer"><div class="kn">11</div><div class="kl">💬 C級貼文</div></div>
+      <div class="kpi-box" data-lvl="D" onclick="filterLevel('D',this)" style="background:#F1F1EF;color:#555;cursor:pointer"><div class="kn">42</div><div class="kl">👀 D級貼文</div></div>
+      <div class="kpi-box" data-lvl="風險" onclick="filterLevel('風險',this)" style="background:#FEE2E2;color:#7F1D1D;cursor:pointer"><div class="kn">3</div><div class="kl">⚠️ 風險貼文</div></div>
     </div>
   </div>
 
@@ -208,7 +212,7 @@
 
     <!-- ▼ 2026-7-20 本週新增 11 則（依類別分組；資料來源：Threads「最相關」排序，已排除與既有貼文重複之相同貼文） ▼ -->
 
-    <div class="post-card featured" data-kw="輕裝潢">
+    <div class="post-card featured" data-kw="輕裝潢" data-level="D">
       <div class="post-header"><div><div class="post-author">@houj.khh</div><div class="post-date">2026-3-25 · 最會過生活的家大賽</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">我自行宣布第一屆《Threads史上最會過生活的家》正式開始🏡✨我們不比豪宅，不比裝潢費，只比一件事——「誰最會把日子過成自己喜歡的樣子」</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge">🔥本週最高互動</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 66</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -227,7 +231,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="空間佈置">
+    <div class="post-card featured" data-kw="空間佈置" data-level="B">
       <div class="post-header"><div><div class="post-author">@scarlettliving.co</div><div class="post-date">2026-6-19 · 美感的療癒作用</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">最近聽podcast聽到一句很有感的話：長期接觸設計、藝術、美的事物其實和規律運動一樣，對身心都有某種「抗氧化作用」。突然有點理解為什麼有些人一忙就想去看展、逛選物店、整理空間</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge">🔥本週高互動</span><span class="badge vscore v-ok">🚀 病毒訊號 53</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -246,7 +250,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="軟裝設計">
+    <div class="post-card" data-kw="軟裝設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@__chen.zh</div><div class="post-date">2024-10-30 · 媽媽的軟裝迷思</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">和老媽討論裝修風格拿這些圖，媽：窮人才通通用軟裝買傢俱。不是欸PH5吊燈USM櫃子Togo沙發，媽媽這個我真的買不起耶，不想買奢侈品包，只想在房間擺七盞燈，新家工程自己房間自己出錢</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 51</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -265,7 +269,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="軟裝設計">
+    <div class="post-card" data-kw="軟裝設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@pay_linn</div><div class="post-date">2024-9-20 · 軟裝vs硬裝的世代轉變</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">感覺台灣越來越多不太靠裝潢，而是靠軟裝與生活品味營造出居家美感</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 52</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -284,7 +288,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="B">
       <div class="post-header"><div><div class="post-author">@maggie123141</div><div class="post-date">2026-5-27 · 台中70萬15坪案例</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">謝謝客人願意讓我們分享這麼美的案子❤️❤️❤️總預算70內～～～有興趣歡迎跟我們了解</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 61</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -303,7 +307,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="B">
       <div class="post-header"><div><div class="post-author">@likkk0999</div><div class="post-date">2025-12-18 · 系統櫃vs軟裝抉擇</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">昨天跟一位貴婦討論裝潢，她提醒我系統櫃不要做太多，甚至建議都軟裝，但我想說我都買房不是租屋了，都軟裝好像有點可惜？客廳的玄關、電器櫃應該還是建議要做系統櫃嗎？</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 55</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -322,7 +326,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置">
+    <div class="post-card" data-kw="空間佈置" data-level="B">
       <div class="post-header"><div><div class="post-author">@_blue.utsuroi</div><div class="post-date">2026-6-4 · 租屋佈置求助</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">想佈置租屋處，有沒有推薦的軟裝家具🙏或是一些裝飾小東東，我有很多書、玩具，不知道怎麼收納比較好⋯⋯🥲</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 47</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -341,7 +345,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="D">
       <div class="post-header"><div><div class="post-author">@goldialin</div><div class="post-date">本週 · 設計師資源被索取爭議</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">我是室內設計師，朋友，為什麼你覺得可以跟我要我的水電或是其他廠商的聯絡資訊啊，頭好痛</div></div>
       <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 50</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -360,7 +364,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@alice_s_p</div><div class="post-date">本週 · 對主流裝潢風格審美疲勞</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">看了一輪室內設計，為何一定要滿滿的系統櫃、滿滿的天花板、滿滿的線燈，不是奶油風就是侘寂風，冰冷的裝潢感，有沒有宋式美學～少即是美，恰如其分的設計</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 55</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -379,7 +383,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="寵物宅">
+    <div class="post-card" data-kw="寵物宅" data-level="B">
       <div class="post-header"><div><div class="post-author">@misslucy_and_mia</div><div class="post-date">2026-2-14 · 貓咪陽台隱形鐵窗實例</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">隱形鐵窗很推薦。增加貓咪的領地和探索空間，順便曬太陽玩耍看小鳥看車車的，裝了之後一勞永逸，不用擔心陽台開開關關他們溜出去會有意外什麼的</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 46</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -398,7 +402,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置靈感">
+    <div class="post-card" data-kw="空間佈置靈感" data-level="D">
       <div class="post-header"><div><div class="post-author">@journey_target_freedom</div><div class="post-date">2026-3-8 · 租屋美化求靈感</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">想把租來的房間變得舒服又高級，但又不能添置太多家具……🥹大家平時會用什麼方法或App美化空間、改造房間的小細節呢？</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 57</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -419,7 +423,7 @@
 
     <!-- ▼ 2026-7-13 本週新增 21 則（依類別分組；資料來源：Threads「最相關」排序） ▼ -->
 
-    <div class="post-card featured" data-kw="空間佈置靈感">
+    <div class="post-card featured" data-kw="空間佈置靈感" data-level="D">
       <div class="post-header"><div><div class="post-author">@t.o__home</div><div class="post-date">2026-5-31 · 軟裝佈置日常分享</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">可以看我們的軟裝佈置～！我們每天都會發一些軟裝佈置的空間～暫時不營利，純分享～希望能給您的靈感～～～</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge">🔥本週最高互動</span><span class="badge vscore v-ok">🚀 病毒訊號 51</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -438,7 +442,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="室內設計">
+    <div class="post-card featured" data-kw="室內設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@ericktwyo</div><div class="post-date">2026-7-10 · 自製沙發丈量工具</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">為了新家沙發要210還是190，我跟老婆各執一詞吵了三天，後來我乾脆做了一個網頁工具，把家具照真實尺寸拖曳擺放，結果210的沙發走道只剩48cm。做都做了就開放給大家用：roomfit.app 免費、免下載、還能印1:50比例圖給木工</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge">🔥本週高互動</span><span class="badge vscore v-hi">🚀🚀🚀 病毒訊號 77</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -457,7 +461,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="裝潢後悔">
+    <div class="post-card featured" data-kw="裝潢後悔" data-level="B">
       <div class="post-header"><div><div class="post-author">@smarthome_mira</div><div class="post-date">2026-4-2 · 裝潢後悔票選（避雷樓）</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">真的很好奇！在裝潢之後大家最後悔的設計是什麼？想蓋個避雷樓！！！！（有人覺得裝潢真的是一場理想與現實的修羅場嗎…🫠）</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge">🔥本週高互動</span><span class="badge vscore v-hi">🚀🚀🚀 病毒訊號 84</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -476,7 +480,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="空間佈置靈感">
+    <div class="post-card featured" data-kw="空間佈置靈感" data-level="風險">
       <div class="post-header"><div><div class="post-author">@hxxhai_</div><div class="post-date">2025-5-13 · 設計師侵權糾紛</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">設計師未經屋主同意也無告知，就私自帶攝影團隊進入案場拍攝、任意移動購買的軟裝當道具拍攝，種種跡象都指出了專業和尊重上的問題，故事最後更新：她還惡人先告狀，我們要上法院了</div></div>
       <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 53</span><span class="badge plevel p-risk">⚠️ 風險貼文</span></div>
@@ -488,7 +492,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置靈感">
+    <div class="post-card" data-kw="空間佈置靈感" data-level="A">
       <div class="post-header"><div><div class="post-author">@xxoo1112_</div><div class="post-date">2026-4-29 · 買房小白找軟裝陳列</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">和女友從大學畢業就一起奮鬥，存錢買了一間房準備結婚，終於準備交屋了！身邊朋友買房現在都以軟裝佈置為主，省錢又有美感，自己弄一定會浪費錢又四不像，想問大家有推薦很有美感的空間陳列設計公司嗎，給買房小白一些建議</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge">🎯高轉換意圖</span><span class="badge vscore v-ok">🚀 病毒訊號 51</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -500,7 +504,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="寵物宅">
+    <div class="post-card" data-kw="寵物宅" data-level="D">
       <div class="post-header"><div><div class="post-author">@17.17.y</div><div class="post-date">2026-5-28 · 寵物友善宜蘭飯店開箱</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">帶寶貝們來住宜蘭飯店 一泊四食 飽到天靈蓋🥹 狗年事已高 為了她們很少出國旅遊了 平常她們在家也很無聊 去哪都想帶上她們 意外找到這家飯店 超寵物友善🩵</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 62</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -519,7 +523,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="寵物宅">
+    <div class="post-card" data-kw="寵物宅" data-level="D">
       <div class="post-header"><div><div class="post-author">@kai_ad_yann</div><div class="post-date">2026-1-11 · 貓宅實木客製作品</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">這不是寵物用品，是為貓打造的實木作品。木工師傅親自丈量、定位、安裝，每一塊實木、每一個高度，都是為了讓貓咪能安全地跳、安心地待。家，是人和貓一起住得舒服的地方</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-low">病毒訊號 38</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -531,7 +535,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="寵物宅">
+    <div class="post-card" data-kw="寵物宅" data-level="B">
       <div class="post-header"><div><div class="post-author">@asdf6469z</div><div class="post-date">2026-5-27 · 預售屋寵物公設</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">第一次看到預售屋介紹公設有寵物宅，可以讓毛小孩直接在大樓洗澡，而且還有專業的洗澡設備，好像真有這麼一回事，應該是全台首創了吧，養狗養貓的會想要入住嗎?</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-low">病毒訊號 31</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -543,7 +547,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="裝潢後悔">
+    <div class="post-card" data-kw="裝潢後悔" data-level="B">
       <div class="post-header"><div><div class="post-author">@cheche_ou2000</div><div class="post-date">2026-6-11 · 最後悔＆最滿意設計徵集</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">房子快交屋了，想知道大家裝潢「最後悔&最滿意的設計」😍</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 72</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -555,7 +559,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="裝潢後悔">
+    <div class="post-card" data-kw="裝潢後悔" data-level="B">
       <div class="post-header"><div><div class="post-author">@kinglu0520</div><div class="post-date">2025-5-13 · 裝潢日記#13避坑清單</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">🏠 裝潢容易後悔的事，你中幾個？最近看到一些「裝潢容易後悔的事」，整理記錄下來一一檢視。對於找熟人裝潢、沒有乾溼分離、吊燈積灰、開放式櫃體、沒有預留嬰兒床位置特別有感</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 66</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -567,7 +571,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="D">
       <div class="post-header"><div><div class="post-author">@mmmuiui__</div><div class="post-date">本週 · 室內設計助理職缺爆料</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">室內設計助理職位，要熟AutoCAD、Revit、SketchUp等等繪圖軟體，要畫平面、立面、3D模型、大樣圖，要製圖開自己車到案場，做簡報算成本報價，薪水一個月$30,000-$40,000之間？？？</div></div>
       <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 54</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -579,7 +583,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="D">
       <div class="post-header"><div><div class="post-author">@feeling_sunyata</div><div class="post-date">本週 · 你家最美的地方UGC活動</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">《你家最美的地方》最近買房了，正在看各種裝潢分享，也想在這裡蓋一樓「家裡最美、最得意的裝潢擺設」，脆友們用力分享自己的家吧！！！！</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 62</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -591,7 +595,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="B">
       <div class="post-header"><div><div class="post-author">@musenza.tw</div><div class="post-date">2026-5-18 · 25萬奶油木質感全屋方案</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">25萬，這樣的奶油木質感全屋誰不心動🤍 包含4米電視櫃、餐邊櫃、中島、衣櫃全部含在內，做到好、裝到好。這套就是堅持輕硬裝，重軟裝，沒有複雜造型，反而更顯大、更耐看</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 69</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -610,7 +614,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="輕裝潢">
+    <div class="post-card featured" data-kw="輕裝潢" data-level="B">
       <div class="post-header"><div><div class="post-author">@bightk46401</div><div class="post-date">2026-6-27 · 低預算統包師傅推薦</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">感謝裝潢師傅又幫我們完成了一間房，裝潢好一週立刻順利出租🫶🏻如果預算有限但也喜歡簡約質感，我真心大推這位統包師傅🥰全室天花/收納櫃體/電視牆/油漆/水電加起來不用20萬，有興趣可以私訊我</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 65</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -629,7 +633,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="A">
       <div class="post-header"><div><div class="post-author">@brian.cheng03</div><div class="post-date">2026-3-14 · 新竹竹東求統包</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">廣大的脆友們！求新竹裝潢救星🥹預計2026.06月交屋，目前正在找統包或設計師。地點新竹縣竹東鎮，室內實坪約26坪，預算70-75萬（不含家具家電），風格無印風，預算有限希望把錢花在刀口上</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 60</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -641,7 +645,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="軟裝設計">
+    <div class="post-card" data-kw="軟裝設計" data-level="D">
       <div class="post-header"><div><div class="post-author">@2.20_j</div><div class="post-date">2025-12-1 · 軟裝線上課踩雷</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">想問問大家：你們買過最雷的線上課是什麼😅 8月購買了Nina高效軟裝設計課，身為軟裝師本來超期待，但實際上遇到的狀況真的…好雷，也歡迎大家無私分享線上課程的坑，想看看是不是只有我遇到🤣</div></div>
       <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 68</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -660,7 +664,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="軟裝設計">
+    <div class="post-card" data-kw="軟裝設計" data-level="D">
       <div class="post-header"><div><div class="post-author">@gtry5656</div><div class="post-date">2025-10-25 · Cozy軟裝大賽</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">我自行宣布，第一屆《threads史上最Cozy室內軟裝》大賽正式開始，選手如下：</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 67</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -672,7 +676,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="軟裝設計">
+    <div class="post-card" data-kw="軟裝設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@hellotody</div><div class="post-date">2024-12-25 · 軟裝品味論述</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">軟裝設計。在所有我看過的「好品味」住宅，沒有一個主人會稱自己為軟裝師。而出來開課教軟裝設計的，倒是沒見過幾位品味真的獨到的。要讓房子有質感，事實上只需要質感好的傢俱，不需要匠氣的擺設和花俏的配色</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 39</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -684,7 +688,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置">
+    <div class="post-card" data-kw="空間佈置" data-level="D">
       <div class="post-header"><div><div class="post-author">@mr_raven0522</div><div class="post-date">2026-3-1 · 無印良品鋼製書架牆面改造</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">不用鑽牆，也能有一面好看的牆！無印良品推出的鋼製書架隔板，搭配3M無痕掛扣，將掛扣黏貼在隔板背面固定於牆面，不鑽孔就能完成安裝，可擺放充電式小燈、香氛蠟燭，打造屬於自己的展示角落</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 59</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -696,7 +700,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置">
+    <div class="post-card" data-kw="空間佈置" data-level="B">
       <div class="post-header"><div><div class="post-author">@only_aries25</div><div class="post-date">2025-11-5 · 迷因：台灣人的裝潢自嘲</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">外國網友問：如何佈置這個空間？台灣網友表示：13萬</div></div>
       <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge">📤全站最高分享數</span><span class="badge vscore v-ok">🚀 病毒訊號 58</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -708,7 +712,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置">
+    <div class="post-card" data-kw="空間佈置" data-level="B">
       <div class="post-header"><div><div class="post-author">@avocadoartlab</div><div class="post-date">2025-5-30 · 商業空間藝術品採購</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">幫客戶徵求公共空間佈置藝術品，整形醫院內部佈置用，預計購入50幅，每幅預算1-2萬內。有興趣且價格符合的脆友可推文Po自己的作品，業主會自行挑選</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 64</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -725,7 +729,7 @@
 
     <!-- ▼ 2026-7-12 本週新增 19 則（依發文日期新→舊排列；資料來源：Threads「最相關」排序，本週「最近」排序異常查無結果） ▼ -->
 
-    <div class="post-card" data-kw="寵物宅">
+    <div class="post-card" data-kw="寵物宅" data-level="D">
       <div class="post-header"><div><div class="post-author">@happystudio2009</div><div class="post-date">2026-7-12 · 寵物宅獲獎</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">《共生貓宅 Symbiosis Cat House》入選 KUKAN DESIGN AWARD 2026 Longlist。我們希望寵物宅不只是機能的加入，而是讓動線、尺度、材質與日常習慣自然共生，讓空間同時回應人的生活，也照顧貓的自由與安全感</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-low">病毒訊號 8</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -737,7 +741,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@jellyfish.894285</div><div class="post-date">2026-7-11 · 找設計師血淚教訓</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">⚠️如果你是第一次找室內設計師，以下是我的血淚建議：1.設計費最好分階段付費不要一次付清 2.丈量要收費的你要確定他值得 3.注意回答問題有沒有避重就輕 4.溝通是否讓你感覺被尊重跟理解 5.工程費用絕對可以比價</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 58</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -756,7 +760,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="室內設計">
+    <div class="post-card featured" data-kw="室內設計" data-level="A">
       <div class="post-header"><div><div class="post-author">@romi.2020610 <span style="color:var(--accent)">⭐官方已留言</span></div><div class="post-date">2026-7-11 · 找奶油風設計師</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">最近開始找室內設計師了！想找擅長 奶油風＋現代簡約 的設計師，希望作品有質感、耐看，不是網美風那種🥹 有沒有大家真的很推的設計師？歡迎直接分享作品或完工案例，我想多比較幾家</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge">⭐ @channel.deco 已留言</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 63</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -775,7 +779,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="D">
       <div class="post-header"><div><div class="post-author">@yellowred21</div><div class="post-date">2026-7-11 · 中島美家開箱</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">中島美家。在家享受房貸之餘，趁颱風天整理前陣子拍攝的照片。前前後後花了好多時間精力跟設計師討論，最後的成品跟質感真的很棒。幾乎收藏品跟雜物都先收起來，所以才會看起來東西這麼少，這就是減法的美嗎</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 56</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -794,7 +798,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置">
+    <div class="post-card" data-kw="空間佈置" data-level="D">
       <div class="post-header"><div><div class="post-author">@lazypigjustwanttosleep</div><div class="post-date">2026-7-11 · 畸零空間求助</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">最近在裝潢新家，想問一下脆上面各位大神，這個空間大家都怎麼利用或設計呢？高度很低又窄，實在是不知道怎麼利用🙇🏻‍♀️</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 33</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -813,7 +817,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="A">
       <div class="post-header"><div><div class="post-author">@keulloi.zip</div><div class="post-date">2026-7-10 · 高雄10坪小宅</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">10坪迷你小宅是不是超難裝潢，填單諮詢的時候看到裝潢預算只有百萬選項，都只能默默關掉。好想知道同樣是迷你宅的脆友，預算抓40-50萬夠不夠以及推薦必做的裝潢！座標｜高雄 屋齡｜預售屋 偏好風格｜法式復古、奶油風、日式無印風</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge">📍高雄</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 63</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -832,7 +836,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="軟裝設計">
+    <div class="post-card" data-kw="軟裝設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@cynthiachu701</div><div class="post-date">2026-7-9 · 想學軟裝</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">最近開始對軟裝產生興趣，不是想走設計師這條路，而是希望培養自己的美感，學會如何運用家具、燈光、色彩與材質，打造出舒服又有質感的生活空間。想請教大家，有沒有推薦的軟裝實體課程？希望課程內容有系統、能實際操作</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 30</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -851,7 +855,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="裝潢後悔">
+    <div class="post-card" data-kw="裝潢後悔" data-level="B">
       <div class="post-header"><div><div class="post-author">@michelle__hsuan</div><div class="post-date">2026-7-1 · 木地板抉擇</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">想問！關於地板。我本來一直都很確定裝潢要鋪木地板（超耐磨），但家人說鋪了10年後熱脹冷縮一定會有縫，到時候家具都在也不好重鋪處理，一直勸我不要鋪。想問大家鋪了木地板有後悔嗎？真的不喜歡建商磁磚地板🫠</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 53</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -870,7 +874,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="裝潢後悔">
+    <div class="post-card" data-kw="裝潢後悔" data-level="C">
       <div class="post-header"><div><div class="post-author">@home.with.yiyu</div><div class="post-date">2026-6-20 · 電視尺寸後悔</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">認真問，有沒有人當初買 65 吋電視覺得已經夠大了，結果入住後看了兩天開始後悔：當初為什麼不直接上 75 吋？</div></div>
       <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 56</span><span class="badge plevel p-C">💬 C級情緒共鳴</span></div>
@@ -889,7 +893,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="裝潢後悔">
+    <div class="post-card" data-kw="裝潢後悔" data-level="B">
       <div class="post-header"><div><div class="post-author">@wangjing.design</div><div class="post-date">2026-6-9 · 老屋翻修清單</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">認真研究老屋翻修超過30年，我整理出5個最多人後悔沒做的事：①防水做兩道 ②管線全換不要省 ③隔音棉塞進輕隔間 ④排油煙機排管走向要確認 ⑤驗收前自己拿手電筒照每個角落。屋主懂得越多，住起來越舒服</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 63</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -908,7 +912,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置靈感">
+    <div class="post-card" data-kw="空間佈置靈感" data-level="B">
       <div class="post-header"><div><div class="post-author">@linabycat</div><div class="post-date">2026-5-29 · 台南徵軟裝優化</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">想徵求一間願意接「小坪數空間美化」的設計工作室🙏 不是豪宅、不是大工程。需求：小坪數空間規劃、色調與氛圍設計、文青／溫暖／耐看感。補充：不拆裝潢、不動水電、不換地板天花板、不重新做櫃體，以「氛圍升級」為主，著重門面、燈光、植栽、牆面裝飾</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge">📍台南</span><span class="badge vscore v-ok">🚀 病毒訊號 44</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -927,7 +931,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="寵物宅">
+    <div class="post-card" data-kw="寵物宅" data-level="B">
       <div class="post-header"><div><div class="post-author">@asdf6469z</div><div class="post-date">2026-5-27 · 寵物公設宅</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">第一次看到預售屋介紹公設有寵物宅，可以讓毛小孩直接在大樓洗澡，而且還有專業的洗澡設備。好像真有這麼一回事，應該是全台首創了吧。養狗養貓的會想要入住嗎?</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 31</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -946,7 +950,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置">
+    <div class="post-card" data-kw="空間佈置" data-level="A">
       <div class="post-header"><div><div class="post-author">@howard0412</div><div class="post-date">2026-5-20 · B2B佈置徵求</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">我們是專業精油品牌公司，將於今年7月舉辦全新精油品牌發表會，現正尋找台北、台中、高雄具質感與美感的花藝／空間佈置工作室合作。主要需求為「精油產品展示桌花藝佈置」，希望整體風格能呈現天然、有機、療癒、高級質感的品牌氛圍，期待建立長期合作關係</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge">📍高雄/台北/台中</span><span class="badge vscore v-low">病毒訊號 32</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -965,7 +969,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="寵物宅">
+    <div class="post-card" data-kw="寵物宅" data-level="D">
       <div class="post-header"><div><div class="post-author">@guo_05.05</div><div class="post-date">2026-5-19 · 寵物空間分享</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">為了狗勾把房子用成寵物民宿，朋友們出國都把狗狗拿來寄放😂 舒服自在快樂還有冷氣吹</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-low">病毒訊號 29</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -984,7 +988,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="B">
       <div class="post-header"><div><div class="post-author">@musenza.tw</div><div class="post-date">2026-5-18 · 系統櫃全屋方案</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">25萬，這樣的奶油木質感全屋誰不心動🤍 包含4米滿牆電視櫃、餐邊櫃、櫥櫃＋中島、5米衣櫃，全部含在內、做到好裝到好。這套就是堅持「輕硬裝，重軟裝」，沒有複雜造型，反而更顯大、更耐看</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge">業者內容</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 69</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1003,7 +1007,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置靈感">
+    <div class="post-card" data-kw="空間佈置靈感" data-level="A">
       <div class="post-header"><div><div class="post-author">@xxoo1112_</div><div class="post-date">2026-4-29 · 買房小白求陳列公司</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">和女友從大學畢業就一起奮鬥，存錢買了一間房準備結婚，終於在今年準備交屋了！身邊朋友買房現在都以軟裝佈置為主，省錢又有美感。想佈置成現代風，覺得還是要找專業的來佈置設計，自己弄一定會浪費錢又四不像......想問大家有推薦很有美感的空間陳列設計公司嗎</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 59</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -1022,7 +1026,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="軟裝設計">
+    <div class="post-card" data-kw="軟裝設計" data-level="D">
       <div class="post-header"><div><div class="post-author">@interior.design_w</div><div class="post-date">2026-3-28 · 設計師的家開放</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">自己的工作室品牌要開張了，如果開放設計師的家給需要諮詢的客人參觀討論，不知道在找設計公司的大家有沒有興趣呢～～除了室內設計，還有廚具、訂製櫃體軟裝、地毯、進口傢俱</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge">業者內容</span><span class="badge vscore v-ok">🚀 病毒訊號 54</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -1041,7 +1045,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="A">
       <div class="post-header"><div><div class="post-author">@pikachill_rookie</div><div class="post-date">2026-2-1 · 統包報價疑慮</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">不懂就問脆，因不想花大錢找設計師，現在找統包輕裝潢，只是發現即使找統包現在也不便宜。全室兩房一廳室內不到15坪，基本天花板跟油漆、一面特殊漆電視牆、玄關跟更衣室系統櫃兩座，目前統包報價65萬，這樣算是合理的價格嗎？</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 35</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -1060,7 +1064,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="軟裝設計">
+    <div class="post-card featured" data-kw="軟裝設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@robert.19870329 <span style="color:var(--accent)">⭐官方已留言</span></div><div class="post-date">2025-8-2 · 高雄求薦（回顧）</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">請問高雄有推薦的設計師或店家嗎？我有一個房間要重新設計，不會有太多的木工裝潢，大概就是家具和電燈之類重新配置。1.室內設計師 2.軟裝設計師 3.空間規劃師</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge">📍高雄</span><span class="badge">⭐ @channel.deco 已留言</span><span class="badge vscore v-low">病毒訊號 39</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1083,7 +1087,7 @@
 
     <!-- ▼ 2026-7-4 本週新增 12 則（依發文日期新→舊排列；資料來源：Threads「最近」排序，僅收錄2026-6-28後發文） ▼ -->
 
-    <div class="post-card" data-kw="裝潢後悔">
+    <div class="post-card" data-kw="裝潢後悔" data-level="B">
       <div class="post-header"><div><div class="post-author">@tricia_8234477</div><div class="post-date">2026-7-4 · 產業氛圍反思</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">最近看到一些留言，忍不住想分享一個想法。不管是設計師、木工、工班還是脆友，發文提問很多時候是真的想尋求建議，一句酸言酸語往往會讓願意發問的人失去勇氣</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 30</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1102,7 +1106,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="D">
       <div class="post-header"><div><div class="post-author">@editor_belle335</div><div class="post-date">2026-7-4 · 瓜家裝修日記</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">設計師老公問我一個廁所怎麼可以Po這麼多次，啊就很多人在問浴缸尺寸「OVO BK106B」，之前朋友和設計師都說要泡就去飯店泡，但我頓悟這個家如果要有一個讓我放鬆休息的地方，第一個還是想到浴缸</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-low">病毒訊號 31</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -1118,7 +1122,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@y.h_____c</div><div class="post-date">2026-7-4 · 油漆糾紛</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">油漆過色、裝潢油漆修補都不會讓妳家建商給的爛牆面變平順變漂亮，如果預算有限就不要完工後靠杯油漆做的差，每個想省錢的到最後都在靠杯油漆</div></div>
       <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-low">病毒訊號 25</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1136,7 +1140,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="裝潢後悔">
+    <div class="post-card featured" data-kw="裝潢後悔" data-level="B">
       <div class="post-header"><div><div class="post-author">@missbibible</div><div class="post-date">2026-7-1 · 9萬次瀏覽</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">最近在準備油漆選色階段了，一直在猶豫全室得利1501還是豪灰，燈預計搭配4000k，但豪灰會不會有點偏黃？請問沒有全室豪灰可以參考😌</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 71</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1155,7 +1159,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="D">
       <div class="post-header"><div><div class="post-author">@rs.__222</div><div class="post-date">2026-7-1 · 孝親老屋翻修</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">想看大家透天老屋成功翻修的案例，好多設計公司不知道該怎麼選🥹 18坪45年以上三層透天，想改造個讓爸媽住得舒適</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 45</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -1174,7 +1178,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="B">
       <div class="post-header"><div><div class="post-author">@eatea_ttoday</div><div class="post-date">2026-7-3 · 台中主臥求薦</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">想請問台中有推薦的裝潢公司嗎？想輕裝潢主臥的櫃子跟餐邊櫃，但不知道從何問起🥺</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 37</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1193,7 +1197,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="空間佈置靈感">
+    <div class="post-card featured" data-kw="空間佈置靈感" data-level="B">
       <div class="post-header"><div><div class="post-author">@arbormooz</div><div class="post-date">2026-7-1 · 台南老件傢俱</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">前陣子在台南逛了兩家老件傢俱，如果有到台南都很值得特別安排去挖寶——老件人（空間超大氛圍讚）與北歐巨匠（老件傢俱為主，較多知名款式）</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 46</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1209,7 +1213,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置靈感">
+    <div class="post-card" data-kw="空間佈置靈感" data-level="D">
       <div class="post-header"><div><div class="post-author">@seanfffffff</div><div class="post-date">2026-6-30 · 和室改造求靈感</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">有人的家也有榻榻米的房間或和室嗎，想看看大家都怎麼佈置🍃 家裡和室目前當倉庫使用，想往侘寂的感覺、寧靜安心的空間去佈置</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 7</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -1224,7 +1228,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="軟裝設計">
+    <div class="post-card" data-kw="軟裝設計" data-level="D">
       <div class="post-header"><div><div class="post-author">@youngioo</div><div class="post-date">2026-7-4 · 好感空間展</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">EXPERIENCE LIFE｜好感空間展 最近為了新家開始看起家具與軟裝，算一算那些讓人心動的物件價錢，加總起來都快要追上新家的房價</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 23</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -1239,7 +1243,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="軟裝設計">
+    <div class="post-card" data-kw="軟裝設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@itsjames_js</div><div class="post-date">2026-7-3 · 工程人第二曲線</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">工程做到最後，最可惜的不是施工，而是最後一哩路的利潤留給了別人。系統櫃、木作、水電都完成了，當業主問「家具怎麼配？」很多工程人不知道怎麼搭</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 7</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1254,7 +1258,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="裝潢後悔">
+    <div class="post-card" data-kw="裝潢後悔" data-level="B">
       <div class="post-header"><div><div class="post-author">@chenxin_luke</div><div class="post-date">2026-7-3 · 插座規劃清單</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">裝潢最容易遺忘的5個插座位置，住進去之後全靠延長線救急：床頭兩側、窗邊落地窗旁、馬桶旁、更衣室內、中島或餐桌旁</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 42</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1269,7 +1273,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="裝潢後悔">
+    <div class="post-card" data-kw="裝潢後悔" data-level="B">
       <div class="post-header"><div><div class="post-author">@shansen_artdesign</div><div class="post-date">2026-7-3 · 生活型態反思</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">裝潢施工前可以存網美圖，但拜託不要只存網美圖。很多裝潢後悔真的不一定是風格選錯，而是一開始太少想「自己平常到底怎麼生活」</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 20</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1300,7 +1304,7 @@
 
     <!-- ▼ 2026-7-6 本週新增 17 則（依發文日期新→舊排列） ▼ -->
 
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="B">
       <div class="post-header"><div><div class="post-author">@wiwi_uu0902</div><div class="post-date">2026-7-5 · 驗屋開箱驚訝</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">有沒有人跟我一樣驗屋一開箱超驚訝😂😂😂怎麼這麼小！！可以曬一下你們家的小坪數裝潢嗎🥹不限風格！也可以推薦林口桃園有合作過真的不錯的輕裝潢</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 31</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1312,7 +1316,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="A">
       <div class="post-header"><div><div class="post-author">@_nn_lawyer</div><div class="post-date">2026-7-5 · 台積電股利買房</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">三年前做過最正確的決定，就是all in台積電，用股利股息慢慢繳工程款，新房子即將完工！徵求台北市室內設計師推薦、自薦，希望能找到擅長規劃收納空間的設計魔術師</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-low">病毒訊號 36</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -1324,7 +1328,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@sjr_0227</div><div class="post-date">2026-7-1 · 高雄30坪求薦</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">高雄有推薦的室內設計師嗎～室內坪數大約30+，我想要積極細節控的那種😍</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 50</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1336,7 +1340,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@colleen_wei</div><div class="post-date">2026-6-28 · 玄關靈感徵集</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">求大家曬一下你們家的玄關或前陽台，不管豪宅、小宅、新成屋、老屋都想看！最近想找靈感，拜託讓我參考一下</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 49</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1348,7 +1352,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="A">
       <div class="post-header"><div><div class="post-author">@free_can_</div><div class="post-date">2026-6-27 · 高雄交屋誠徵</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">房屋預計下週交屋，誠徵統包或工班，高雄兩房，輕裝潢不用設計師，希望9月完工，可先傳些作品參考</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 49</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -1360,7 +1364,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置">
+    <div class="post-card" data-kw="空間佈置" data-level="C">
       <div class="post-header"><div><div class="post-author">@lany_lanyday</div><div class="post-date">2026-6-22 · 冷氣孔洞美化</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">最近搬到了新的房間，空間整體很不錯，只有這個原本窗型冷氣的洞讓我有點頭痛，想請問有沒有什麼方法可以把它修飾掉或是美化？</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 31</span><span class="badge plevel p-C">💬 C級情緒共鳴</span></div>
@@ -1372,7 +1376,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="寵物宅">
+    <div class="post-card" data-kw="寵物宅" data-level="D">
       <div class="post-header"><div><div class="post-author">@ruilei_hong</div><div class="post-date">2026-6-22 · 貓派狗派對比</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">去年在同一棟大樓做了兩戶格局一樣的作品，但業主的需求和喜好截然不同，一戶養了兩隻貓，另外一戶則是養了四隻狗🐶 大家看得出來哪個是貓派哪個是狗派嗎？</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 46</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -1384,7 +1388,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置靈感">
+    <div class="post-card" data-kw="空間佈置靈感" data-level="B">
       <div class="post-header"><div><div class="post-author">@lomiruve</div><div class="post-date">2026-6-19 · 電器櫃定位卡關</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">我看著這兩張圖一個月了，我還是不知道電器櫃可以擺哪裡，陽台門邊的位置窄到不行，存了很多別人家裡佈置的照片想要有靈感，靈感來了靈感又去了。燒腦咧～～～</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-low">病毒訊號 34</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1396,7 +1400,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="軟裝設計">
+    <div class="post-card" data-kw="軟裝設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@joyevnne</div><div class="post-date">2026-6-10 · 客變設計</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">想聽聽脆友客變建議，小宅需要室內設計嗎？還是軟裝設計就行？或是掏寶設計呢？太多方向捉摸不定，因為單面採光想著怎麼才有通透感！</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 41</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1415,7 +1419,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置靈感">
+    <div class="post-card" data-kw="空間佈置靈感" data-level="B">
       <div class="post-header"><div><div class="post-author">@linda45649</div><div class="post-date">2026-6-12 · 玄關展示牆</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">從裝潢前到現在入住三個月，還在苦惱入門玄關直面的大白牆要怎麼設計，想展示出國搜集的水晶球、專輯，還需要放上一張穿鞋椅凳（已放棄和AI溝通）</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-low">病毒訊號 32</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1427,7 +1431,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="裝潢後悔">
+    <div class="post-card featured" data-kw="裝潢後悔" data-level="B">
       <div class="post-header"><div><div class="post-author">@lee.house.daily.tw</div><div class="post-date">2026-6-7 · 入住一年回顧</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">入住滿一年🏠 來分享一下裝潢裡目前心中的最好跟最壞。大儲藏櫃門片、臥室床頭背板還在觀察中，班傑明油漆再貴都會閉著眼選。沒有完美的裝潢，但有越住越喜歡的家🌸</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 53</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1439,7 +1443,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="裝潢後悔">
+    <div class="post-card featured" data-kw="裝潢後悔" data-level="C">
       <div class="post-header"><div><div class="post-author">@_aboutdaily_</div><div class="post-date">2026-5-21 · 裝潢心理壓力</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">想問裝潢到心理壓力大到快無法承受是正常的嗎，從二月裝潢至今，設計師幾乎每週都有事情讓我很頭痛，累到問自己我為什麼要買這房子來折磨自己，最後訴諸「你愛怎麼搞我的房子就怎麼搞」</div></div>
       <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 64</span><span class="badge plevel p-C">💬 C級情緒共鳴</span></div>
@@ -1458,7 +1462,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="裝潢後悔">
+    <div class="post-card" data-kw="裝潢後悔" data-level="B">
       <div class="post-header"><div><div class="post-author">@smarthome_yee</div><div class="post-date">2026-4-5 · 血汗教訓</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">裝潢最燒錢的不是家具，而是你那「以為很有質感」的無用美感。過來人的血淚告白：插座位置、燈光迴路層次、廚房抽屜收納、地板顏色、預留未來管線，這5個隱形細節決定入住一年後會不會後悔</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 48</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1470,7 +1474,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="寵物宅">
+    <div class="post-card" data-kw="寵物宅" data-level="B">
       <div class="post-header"><div><div class="post-author">@asdf6469z</div><div class="post-date">2026-5-27 · 預售屋寵物公設</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">第一次看到預售屋介紹公設有寵物宅，可以讓毛小孩直接在大樓洗澡，而且還有專業的洗澡設備，應該是全台首創了吧，養狗養貓的會想要入住嗎?</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-low">病毒訊號 31</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1482,7 +1486,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="軟裝設計">
+    <div class="post-card" data-kw="軟裝設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@sasa831025</div><div class="post-date">2026-6-3 · 軟裝設計師求薦</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">不知道有沒有專門幫忙配軟裝的設計師，自己買真的各種選擇障礙😌</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 41</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1501,7 +1505,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置">
+    <div class="post-card" data-kw="空間佈置" data-level="D">
       <div class="post-header"><div><div class="post-author">@andy20419</div><div class="post-date">2026-2-13 · AI佈置工具</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">要安排新家的佈置，一時找不到適合的平台，想放常見家居元素、方便移動做規劃，用磁磚算長度、不同空間自動合併…於是直接Gemini尻了一個，還真的能用😆 AI真的太可怕了</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 49</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -1513,7 +1517,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="空間佈置靈感">
+    <div class="post-card featured" data-kw="空間佈置靈感" data-level="D">
       <div class="post-header"><div><div class="post-author">@sansuo_home</div><div class="post-date">2026-3-21 · 入住一年Home Tour</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">入住一年，終於拍下這個 Home Tour。這個小家沒有請設計師，也沒有一步到位的裝修，只做了油漆、木地板和廚房櫃，其他都是住進來之後再慢慢用軟裝一點一點佈置</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 50</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -1529,7 +1533,7 @@
 
     <!-- ▼ 2026-6-28 本週新增 15 則（依發文日期新→舊排列） ▼ -->
 
-    <div class="post-card featured" data-kw="輕裝潢">
+    <div class="post-card featured" data-kw="輕裝潢" data-level="B">
       <div class="post-header"><div><div class="post-author">@bightk46401</div><div class="post-date">2026-6-27 · 出租輕裝潢</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">低預算統包出租輕裝潢方案，一天收到3,400則訊息詢問，#只開放中南部朋友</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 63</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1548,7 +1552,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="A">
       <div class="post-header"><div><div class="post-author">@chiaowen.22</div><div class="post-date">2026-6-27 · 桃園預售屋</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">桃園｜預售屋15坪兩房一廳，預算50萬，求設計師/統包推薦</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 63</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -1567,7 +1571,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="室內設計">
+    <div class="post-card featured" data-kw="室內設計" data-level="A">
       <div class="post-header"><div><div class="post-author">@buf_050_</div><div class="post-date">2026-6-23 · 首購房貸焦慮</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">房貸人生開始，首購族裝潢焦慮，想做白色奶油風但預算有限，求設計師推薦</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 62</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -1586,7 +1590,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@claudecode9527</div><div class="post-date">2026-6-22 · 裝潢預算辯論</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">年輕人到底該不該花大錢裝潢？年收500-600萬，預售3000萬27坪新房，設計師報價250-300萬，該花嗎</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 61</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1605,7 +1609,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="軟裝設計">
+    <div class="post-card" data-kw="軟裝設計" data-level="D">
       <div class="post-header"><div><div class="post-author">@rhino.5532077</div><div class="post-date">2026-6-20 · 交屋軟裝求建議</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">交屋在即，想請大家給點軟裝建議，新手屋主完全沒方向😅</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 39</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -1624,7 +1628,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置">
+    <div class="post-card" data-kw="空間佈置" data-level="D">
       <div class="post-header"><div><div class="post-author">@alittleheng</div><div class="post-date">2026-6-17 · 6坪套房</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">分享自己的6坪小宅套房設計成果，從空間規劃到軟裝佈置全紀錄</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 48</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -1643,7 +1647,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置">
+    <div class="post-card" data-kw="空間佈置" data-level="B">
       <div class="post-header"><div><div class="post-author">@sunny___0319</div><div class="post-date">2026-6-15 · 新家軟裝小物</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">新家軟裝小物推薦清單，從擺飾到收納分享一次到位</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 51</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1662,7 +1666,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="A">
       <div class="post-header"><div><div class="post-author">@lilrockelvin</div><div class="post-date">2026-6-12 · 桃園統包求推薦</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">桃園/新北求推薦統包＋畫圖規劃，預算60萬，有推薦的廠商嗎</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 42</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -1681,7 +1685,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="空間佈置靈感">
+    <div class="post-card featured" data-kw="空間佈置靈感" data-level="D">
       <div class="post-header"><div><div class="post-author">@t.o__home</div><div class="post-date">2026-5-31 · 軟裝靈感帳號</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">持續分享每日軟裝佈置靈感，暫時不營利純分享，為未來懶骨頭/沙發產品上市預熱</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 51</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -1700,7 +1704,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置靈感">
+    <div class="post-card" data-kw="空間佈置靈感" data-level="D">
       <div class="post-header"><div><div class="post-author">@00debe00</div><div class="post-date">2026-5-21 · 13坪小宅完工</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">即將完工，分享我的小宅——13坪的1+1房空間規劃全紀錄</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 47</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -1719,7 +1723,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="寵物宅">
+    <div class="post-card" data-kw="寵物宅" data-level="B">
       <div class="post-header"><div><div class="post-author">@leapyeardesign</div><div class="post-date">2026-5-14 · 寵物地材辯論</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">11年經驗設計師分享波龍地毯作為寵物友善地材的選擇理由，回應網友質疑</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 56</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1738,7 +1742,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="A">
       <div class="post-header"><div><div class="post-author">@zeroone_life</div><div class="post-date">2026-4-13 · 高雄裝潢求推薦</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">高雄裝潢求推薦，預算70萬，有沒有口碑好的設計師或統包</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 67</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -1757,7 +1761,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="軟裝設計">
+    <div class="post-card featured" data-kw="軟裝設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@jxconcepts</div><div class="post-date">2026-3-22 · AI軟裝工具</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">推出AI軟裝模擬工具，上傳空間照片即可一鍵生成多種軟裝佈置風格效果圖，讓使用者動手佈置前先預覽成果</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 58</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1776,7 +1780,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="寵物宅">
+    <div class="post-card featured" data-kw="寵物宅" data-level="D">
       <div class="post-header"><div><div class="post-author">@chong.dingg</div><div class="post-date">2026-3-17 · 養狗裝潢心得</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">養了狗之後，我的裝潢美學直接降為零——分享養狗後裝潢風格大轉變的真實心得</div></div>
       <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 56</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -1795,7 +1799,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="空間佈置">
+    <div class="post-card featured" data-kw="空間佈置" data-level="D">
       <div class="post-header"><div><div class="post-author">@only_aries25</div><div class="post-date">2025-11-5 · 迷因熱門舊文回顧（293萬瀏覽）</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">外國網友問如何佈置這個空間？台灣網友表示...（迷因式幽默回應集錦）</div></div>
       <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 66</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -1817,7 +1821,7 @@
     <!-- ▲ 2026-6-28 新增結束 ▲ -->
 
     <!-- 室內設計 x2 -->
-    <div class="post-card featured" data-kw="室內設計">
+    <div class="post-card featured" data-kw="室內設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@o.oy66</div><div class="post-date">2026-5-31 · 首購成家</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">從存頭期款到現在，終於把夢想中的家完成了🏠 我們因為預算不高，沒有追求豪宅感，只想要一個下班回家能放鬆、一起窩著看劇聊天的家❤️ 18坪60萬對我們夫妻來說真的不容易，但好險在有限的預算設計師還是幫我們做到了~真的很感謝小蔡從討論初期就一直幫我們節省預算</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 51</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1836,7 +1840,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="室內設計">
+    <div class="post-card featured" data-kw="室內設計" data-level="A">
       <div class="post-header"><div><div class="post-author">@lizhu170</div><div class="post-date">2026-6-6 · 裝潢日記</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">設計師把我心中想要的風格做出來了🏡 會給很衷心的建議，不會推你做不必要的東西，而且在符合預算下，覺得整體服務也已經超過該價值了🤍👍🏼（第一次裝潢，謝謝朋友的推薦❣️）#其實很亂的家</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 66</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -1856,7 +1860,7 @@
     </div>
 
     <!-- 裝潢後悔 x3 -->
-    <div class="post-card featured" data-kw="裝潢後悔">
+    <div class="post-card featured" data-kw="裝潢後悔" data-level="C">
       <div class="post-header"><div><div class="post-author">@juliacyw</div><div class="post-date">2025-12-6 · 73萬次瀏覽</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">大家裝潢最後悔的是什麼？我先來～選裝大金冷氣！</div></div>
       <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 71</span><span class="badge plevel p-C">💬 C級情緒共鳴</span></div>
@@ -1875,7 +1879,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="裝潢後悔">
+    <div class="post-card" data-kw="裝潢後悔" data-level="B">
       <div class="post-header"><div><div class="post-author">@ray.buray</div><div class="post-date">2026-5-18 · 23萬次瀏覽</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">老婆說要裝吊扇（我家是大樓實內24）可以麻煩大家幫我勸勸她嗎...其他的我決定happy wife happy life</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 68</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1894,7 +1898,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="裝潢後悔">
+    <div class="post-card" data-kw="裝潢後悔" data-level="B">
       <div class="post-header"><div><div class="post-author">@gm._.dreamhouse</div><div class="post-date">2026-6-7</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">獨立買房子，成為高級大人的瞬間✨...軟土深掘的人很多，會吵才有糖吃🍬...</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 35</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1914,7 +1918,7 @@
     </div>
 
     <!-- 軟裝設計 x2 -->
-    <div class="post-card featured" data-kw="軟裝設計">
+    <div class="post-card featured" data-kw="軟裝設計" data-level="D">
       <div class="post-header"><div><div class="post-author">@yian.zz</div><div class="post-date">2026-3-28 · 11萬次瀏覽</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">我用仿磁磚貼，把廚房原本的烤漆玻璃改成了窯變磚的外觀，加上@switch_papa 的piko開關插座，成果實在美翻了，總共花不到1000元😍</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 59</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -1933,7 +1937,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="軟裝設計">
+    <div class="post-card" data-kw="軟裝設計" data-level="D">
       <div class="post-header"><div><div class="post-author">@maggie.liu_</div><div class="post-date">2025-5-31 · 2.8萬次瀏覽</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">⋯不裝潢、全靠軟裝打造🕰️ 我弟弟的中古風高質感房間 .ᐟ.ᐟ 你們會幫他打幾分？</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 49</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -1953,7 +1957,7 @@
     </div>
 
     <!-- 輕裝潢 x3 -->
-    <div class="post-card featured" data-kw="輕裝潢">
+    <div class="post-card featured" data-kw="輕裝潢" data-level="B">
       <div class="post-header"><div><div class="post-author">@musenza.tw</div><div class="post-date">2026-5-18 · 6萬次瀏覽</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">25萬，這樣的奶油木質感全屋誰不心動🤍 包含4米滿牆電視櫃、1米8餐邊櫃、4米櫥櫃＋2米5中島、5米衣櫃。全部含在內，做到好、裝到好。這套就是堅持「輕硬裝，重軟裝」沒有複雜造型，反而更顯大、更耐看</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 69</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1972,7 +1976,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="B">
       <div class="post-header"><div><div class="post-author">@rimuyju</div><div class="post-date">2026-5-2</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">室內16坪兩房一廳小資裝潢46萬🤎 #新家開箱 #川字格局 #小資裝潢</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 64</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -1991,7 +1995,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="風險">
       <div class="post-header"><div><div class="post-author">@shoes.pan</div><div class="post-date">2026-5-19 · 業界視角</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">現在的客戶 只要嫌貴！我就不做了。不是我不給便宜，而是現在成本就很高！...就讓一些缺錢蟑螂需要工作收入的人去接吧！反正你家毀了也是妳家的事....</div></div>
       <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-low">病毒訊號 35</span><span class="badge plevel p-risk">⚠️ 風險貼文</span></div>
@@ -2011,7 +2015,7 @@
     </div>
 
     <!-- 空間佈置 x2 -->
-    <div class="post-card featured" data-kw="空間佈置">
+    <div class="post-card featured" data-kw="空間佈置" data-level="B">
       <div class="post-header"><div><div class="post-author">@leenlynn1119</div><div class="post-date">2026-2-9 · 老屋改造</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">40 歲，2026年。我送給自己的大禮物！🏠🎊 終於把這間老屋大改造了一層樓，小小的30坪，花了200萬😱把它變成了我夢想中那種「每天都想賴著不走」的樣子。✨ 努力工作的意義，大概就是為了有能力過上自己喜歡的生活吧！</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 44</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2030,7 +2034,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置">
+    <div class="post-card" data-kw="空間佈置" data-level="B">
       <div class="post-header"><div><div class="post-author">@pieceof_days</div><div class="post-date">2026-初 · DIY軟裝</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">免鑽牆磁性板DIY——租屋也能擁有牆面收納與展示，不傷牆面、可隨時拆卸帶走</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 50</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2050,7 +2054,7 @@
     </div>
 
     <!-- 寵物宅 x2 -->
-    <div class="post-card featured" data-kw="寵物宅">
+    <div class="post-card featured" data-kw="寵物宅" data-level="B">
       <div class="post-header"><div><div class="post-author">@maodongxitw</div><div class="post-date">近期 · 職人工作室</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">我是專門設計貓抓板的工作室。七年來⋯始終堅持手工製作、選用安全材質，希望每件作品都能真正融入主人的居家風格</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 25</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2069,7 +2073,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="寵物宅">
+    <div class="post-card" data-kw="寵物宅" data-level="D">
       <div class="post-header"><div><div class="post-author">@jane_in_daily</div><div class="post-date">2026-5-26 · 租屋友善</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">只佔 0.1 坪，卻像給了貓一座森林🌳 每次曝光都被問爆的頂天立地貓爬柱，這次把賣家跟細節一次整理。租屋不能鑽牆，但貓還是需要往高處跑、放電、觀察世界。這種設計最大優點就是不用破壞牆面，對租屋族真的很友善</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 45</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -2089,7 +2093,7 @@
     </div>
 
     <!-- 空間佈置靈感 x1 -->
-    <div class="post-card" data-kw="空間佈置靈感">
+    <div class="post-card" data-kw="空間佈置靈感" data-level="D">
       <div class="post-header"><div><div class="post-author">@siyu_headhealing</div><div class="post-date">近期 · 店家開幕籌備</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">倒數6天開幕——美容工作室空間佈置與開幕籌備進度分享，邀請大家一起期待新空間亮相</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 33</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -2109,7 +2113,7 @@
     </div>
 
     <!-- 裝潢後悔 NEW x4 (2026-6-10) -->
-    <div class="post-card featured" data-kw="裝潢後悔">
+    <div class="post-card featured" data-kw="裝潢後悔" data-level="C">
       <div class="post-header"><div><div class="post-author">@_yi_tin</div><div class="post-date">2025-12-18 · 139.9萬次瀏覽</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">想問問大家裝潢的時候最不後悔做過的一個設計是什麼🥹🥹最近一直瘋狂看裝潢 想要有點靈感</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 69</span><span class="badge plevel p-C">💬 C級情緒共鳴</span></div>
@@ -2128,7 +2132,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="裝潢後悔">
+    <div class="post-card featured" data-kw="裝潢後悔" data-level="C">
       <div class="post-header"><div><div class="post-author">@smarthome_mira</div><div class="post-date">2026-4-2 · 98萬次瀏覽</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">真的很好奇！在裝潢之後大家最後悔的設計是什麼？想蓋個避雷樓！！！！（有人覺得裝潢真的是一場理想與現實的修羅場嗎…🫠）</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-hi">🚀🚀🚀 病毒訊號 84</span><span class="badge plevel p-C">💬 C級情緒共鳴</span></div>
@@ -2147,7 +2151,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="裝潢後悔">
+    <div class="post-card featured" data-kw="裝潢後悔" data-level="風險">
       <div class="post-header"><div><div class="post-author">@hxxhai_</div><div class="post-date">2025-5-13 · 35萬次瀏覽 · 裝潢日記</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">原以為事情已落幕，沒想到又！發！現！設計師未經屋主同意也無告知，就私自帶攝影團隊進入案場拍攝，案主未授權的情況下就公開宣傳使用...她還惡人先告狀，我們要上法院了</div></div>
       <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 52</span><span class="badge plevel p-risk">⚠️ 風險貼文</span></div>
@@ -2166,7 +2170,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="裝潢後悔">
+    <div class="post-card" data-kw="裝潢後悔" data-level="C">
       <div class="post-header"><div><div class="post-author">@freelifeduo</div><div class="post-date">2026-6-2 · 12萬次瀏覽</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">年底房子準備完工🏠✨最近開始研究裝潢，發現根本是另一個世界😳 想問大家，新成屋交屋後有哪些項目是你覺得一定要做、不做會後悔的？✨最值得花錢的地方 ✨最實用的設計 ✨必避開的裝潢地雷</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-hi">🚀🚀🚀 病毒訊號 75</span><span class="badge plevel p-C">💬 C級情緒共鳴</span></div>
@@ -2186,7 +2190,7 @@
     </div>
 
     <!-- 空間佈置 NEW x1 (2026-6-10) -->
-    <div class="post-card featured" data-kw="空間佈置">
+    <div class="post-card featured" data-kw="空間佈置" data-level="B">
       <div class="post-header"><div><div class="post-author">@amelie.in.home</div><div class="post-date">2025-4-28 · 51萬次瀏覽 · 居家裝潢</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">░ 居家裝潢必逛好店 _ 北中南——台灣不是沒有好東西，而是好東西藏得太深、不容易被看見。追蹤我，並在底下留言告訴我「你家還缺什麼軟裝」我會把文件寄給你🫰🏻</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-hi">🚀🚀🚀 病毒訊號 75</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2206,7 +2210,7 @@
     </div>
 
     <!-- 軟裝設計 NEW x1 (2026-6-10) -->
-    <div class="post-card" data-kw="軟裝設計">
+    <div class="post-card" data-kw="軟裝設計" data-level="D">
       <div class="post-header"><div><div class="post-author">@ccl.829</div><div class="post-date">2026-3-28 · 18萬次瀏覽 · 居家佈置</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">我自行宣布 第一屆《Threads DIY軟裝設計家》正式開始，比一個大家都是軟裝生活王，把家設計成自己喜歡的樣子😍</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 64</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -2226,7 +2230,7 @@
     </div>
 
     <!-- 輕裝潢 NEW x2 (2026-6-10) -->
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="B">
       <div class="post-header"><div><div class="post-author">@shoes.pan</div><div class="post-date">2025-8-10 · 12萬次瀏覽 · 木工裝潢</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">現在的房子越來越小間。裝潢預算也不高…</div></div>
       <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 44</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2245,7 +2249,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="B">
       <div class="post-header"><div><div class="post-author">@godz_illa99</div><div class="post-date">2026-3-13 · 12萬次瀏覽</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">以下是個人觀點的勸世文，有在觀望或者想做這種開放式衣櫥的朋友們，請檢視一家裡的安裝條件，水泥牆面較為適合，其他輕隔間、木隔間，還是不要安裝的好，除非你的裝潢能夠特地為你加強整個牆面...不然很有機會使用不了多久就整面塌掉了，三思</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 54</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2265,7 +2269,7 @@
     </div>
 
     <!-- 室內設計 NEW x2 (2026-6-10) -->
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="D">
       <div class="post-header"><div><div class="post-author">@jincostw</div><div class="post-date">2026-6-6 · 9.4萬次瀏覽</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">想請教有沒有人改造浴室是使用微水泥的？已經使用兩年以上的。想請問你們現在浴室為水泥的狀況如何？最近想要改造自己的浴室</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 61</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -2284,7 +2288,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="C">
       <div class="post-header"><div><div class="post-author">@shannnnnnnnn2160</div><div class="post-date">2026-6-10 · 7,330次瀏覽</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">有裝潢過房子的大家，什麼東西是最後悔沒有一開始就弄的嗎？XD</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 41</span><span class="badge plevel p-C">💬 C級情緒共鳴</span></div>
@@ -2304,7 +2308,7 @@
     </div>
 
     <!-- 寵物宅 NEW x2 (2026-6-10) -->
-    <div class="post-card" data-kw="寵物宅">
+    <div class="post-card" data-kw="寵物宅" data-level="B">
       <div class="post-header"><div><div class="post-author">@carea_interior</div><div class="post-date">2025-6-25 · 找尋合作夥伴</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">來脆一下，我們95%專案是新社區新成屋住宅案，客群為首購、新婚、寵物宅，歡迎北部廠商、工班自我推薦互相認識，期待有更多年輕師傅一起打拼</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 34</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2323,7 +2327,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="寵物宅">
+    <div class="post-card" data-kw="寵物宅" data-level="A">
       <div class="post-header"><div><div class="post-author">@cheng.yi.design</div><div class="post-date">2024-12-30 · 中古屋</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">開箱280萬的中古屋翻新寵物宅，新北土城，28.6坪，2廳4房3衛1廚，為毛孩設計的夢幻天堂-貓跳台，嚴選超低甲醛板材、綠建材、認證合格設備與知名品牌，有澄邑的健康設計，在家住的更安心。</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 42</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -2343,7 +2347,7 @@
     </div>
 
     <!-- 空間佈置靈感 NEW x1 (2026-6-10) -->
-    <div class="post-card" data-kw="空間佈置靈感">
+    <div class="post-card" data-kw="空間佈置靈感" data-level="D">
       <div class="post-header"><div><div class="post-author">@more_than.deco</div><div class="post-date">2026-5-30 · 居家靈感</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">你也和我一樣嗎？常常pinterest存了很多喜歡的空間，但真正要使用的時候，卻不知道從哪開始～我試著把靈感拆解，讓你可以照著對的方向和靈感，打造最適合你的空間：）到Ig留言『case』，免費領取完整指南！</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 31</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -2365,7 +2369,7 @@
     <!-- ▼ 2026-6-15 本週新增 12 則 ▼ -->
 
     <!-- 裝潢後悔 x3 NEW -->
-    <div class="post-card featured" data-kw="裝潢後悔">
+    <div class="post-card featured" data-kw="裝潢後悔" data-level="D">
       <div class="post-header"><div><div class="post-author">@jimmychang72</div><div class="post-date">2024-11-14 · 243萬次瀏覽 🔥 史上最高互動</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">入住一年了，現在要我列無用設計，我大概可以列30條。（含：開關位置失誤、系統櫃開放空間堆雜物、桌子叫木工做死、氣密窗沒選好、影音系統事後改代價大⋯⋯共列出30條裝潢無用設計心得）</div></div>
       <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 64</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -2384,7 +2388,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="裝潢後悔">
+    <div class="post-card" data-kw="裝潢後悔" data-level="C">
       <div class="post-header"><div><div class="post-author">@mydachitw</div><div class="post-date">2025-11-4 · 裝潢大賽</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">我自行宣布第一屆「花超多錢，但最後悔的裝潢」大賽正式開始</div></div>
       <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 41</span><span class="badge plevel p-C">💬 C級情緒共鳴</span></div>
@@ -2403,7 +2407,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="裝潢後悔">
+    <div class="post-card" data-kw="裝潢後悔" data-level="C">
       <div class="post-header"><div><div class="post-author">@linwanjean</div><div class="post-date">2026-4-17 · 裝潢叮嚀</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">有沒有人已經裝潢好幾年後悔沒設計的點或者最近在裝潢覺得很必要留意的點可以分享一下嗎</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-low">病毒訊號 39</span><span class="badge plevel p-C">💬 C級情緒共鳴</span></div>
@@ -2423,7 +2427,7 @@
     </div>
 
     <!-- 室內設計 x2 NEW -->
-    <div class="post-card featured" data-kw="室內設計">
+    <div class="post-card featured" data-kw="室內設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@w.home.select</div><div class="post-date">2026-6-10 · 52萬次瀏覽</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">前幾年很流行奶油風、奶茶風、侘寂風這類淺色系空間。現在住了幾年之後，大家家裡還是維持當初那種乾淨清新的感覺嗎？還是慢慢被小孩、寵物、生活用品攻陷了😂 有沒有人願意分享一下：📷 當初完工照 📷 現在真實入住照 我很好奇奶油風住久了之後，到底會變得更有生活感，還是會開始懷念深色家具。</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 61</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2442,7 +2446,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="C">
       <div class="post-header"><div><div class="post-author">@cheche_ou2000</div><div class="post-date">2026-6-12 · 交屋前</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">房子快交屋了想知道大家裝潢「最後悔&最滿意的設計」😍</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 65</span><span class="badge plevel p-C">💬 C級情緒共鳴</span></div>
@@ -2462,7 +2466,7 @@
     </div>
 
     <!-- 空間佈置 x2 NEW -->
-    <div class="post-card featured" data-kw="空間佈置">
+    <div class="post-card featured" data-kw="空間佈置" data-level="D">
       <div class="post-header"><div><div class="post-author">@t.o__home</div><div class="post-date">2026-6-14 · 軟裝分享</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">分享給您～我們每天都會發一些軟裝佈置的空間～暫時不營利，純分享～希望每天都能帶給您一點好心情😍～</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-low">病毒訊號 37</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -2481,7 +2485,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置">
+    <div class="post-card" data-kw="空間佈置" data-level="B">
       <div class="post-header"><div><div class="post-author">@hejjc77</div><div class="post-date">2026-6-14 · 房間選物</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">雖然我沒有自己的租屋處但是我很喜歡看那種房間選物像垃圾桶、鞋架、收納盒⋯⋯我還想了各種版本可以裝飾我的小窩</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-low">病毒訊號 39</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2501,7 +2505,7 @@
     </div>
 
     <!-- 空間佈置靈感 x3 NEW -->
-    <div class="post-card featured" data-kw="空間佈置靈感">
+    <div class="post-card featured" data-kw="空間佈置靈感" data-level="D">
       <div class="post-header"><div><div class="post-author">@lulz5ec</div><div class="post-date">2025-5-18 · 19萬次瀏覽</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">現況紀錄 房間還有很多東西想換 以前很急浪費了很多錢 現在學會慢慢來就好</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-ok">🚀 病毒訊號 51</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -2520,7 +2524,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置靈感">
+    <div class="post-card" data-kw="空間佈置靈感" data-level="B">
       <div class="post-header"><div><div class="post-author">@lizys_insta</div><div class="post-date">2026-6-1 · 租屋選物</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">認真發問🙋‍♀️租空屋買家具你們都怎麼開始（完全不知從何挑）有推薦的品牌嗎🥹</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 40</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2539,7 +2543,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置靈感">
+    <div class="post-card" data-kw="空間佈置靈感" data-level="B">
       <div class="post-header"><div><div class="post-author">@e7888_iamu</div><div class="post-date">2026-5-31 · 小空間色彩</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">房間太小 又想要彩色怎麼辦</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 49</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2559,7 +2563,7 @@
     </div>
 
     <!-- 軟裝設計 x1 NEW -->
-    <div class="post-card" data-kw="軟裝設計">
+    <div class="post-card" data-kw="軟裝設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@hellotody</div><div class="post-date">2024-12-25 · 品味觀察</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">在所有我看過的「好品味」住宅，沒有一個主人會稱自己為軟裝師。而出來開課教軟裝設計的，倒是沒見過幾位品味真的獨到的...</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 26</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2579,7 +2583,7 @@
     </div>
 
     <!-- 輕裝潢 x1 NEW -->
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="A">
       <div class="post-header"><div><div class="post-author">@qiwen1011</div><div class="post-date">2026-6-4 · 預算詢問</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">新竹有推薦的輕裝潢嗎 小資女預算15～18萬那麼多🥹想要好收納簡約奶油風格。</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 59</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -2601,7 +2605,7 @@
 
     <!-- ▼ 2026-6-22 本週新增 17 則 ▼ -->
     <!-- 軟裝設計 NEW x3 -->
-    <div class="post-card" data-kw="軟裝設計">
+    <div class="post-card" data-kw="軟裝設計" data-level="D">
       <div class="post-header"><div><div class="post-author">@gtry5656</div><div class="post-date">本週 · 軟裝大賽</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">我自行宣布第一屆《threads史上最Cozy室內軟裝》大賽正式開始</div></div>
       <div class="post-badges"><span class="badge">成就感分享型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 66</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -2613,7 +2617,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="軟裝設計">
+    <div class="post-card" data-kw="軟裝設計" data-level="D">
       <div class="post-header"><div><div class="post-author">@2.20_j</div><div class="post-date">本週 · 課程踩雷</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">想問問大家：你們買過最雷的線上課是什麼...8月購買了Nina高效軟裝設計課...實際上遇到的狀況真的好雷</div></div>
       <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 59</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -2625,7 +2629,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="軟裝設計">
+    <div class="post-card" data-kw="軟裝設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@emma031200</div><div class="post-date">本週 · 軟裝報價</div></div><span class="post-kw kw-軟裝設計">軟裝設計</span></div>
       <div class="post-content"><div class="trunc">一坪5000的軟裝設計師...軟裝設計費17萬...覺得溝通的心很累</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 54</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2638,7 +2642,7 @@
     </div>
 
     <!-- 輕裝潢 NEW x3 -->
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="D">
       <div class="post-header"><div><div class="post-author">@josh_stylehair</div><div class="post-date">本週 · 天花板抱怨</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">我真的很看不懂這輕鋼架天花板...這樣天花板就會被壓縮了也會有種壓迫感、重點真的滿醜的</div></div>
       <div class="post-badges"><span class="badge">無奈妥協型</span><span class="badge vscore v-ok">🚀 病毒訊號 56</span><span class="badge plevel p-D">👀 D級低對頻</span></div>
@@ -2650,7 +2654,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="A">
       <div class="post-header"><div><div class="post-author">@brian.cheng03</div><div class="post-date">本週 · 新竹求助（非服務區）</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">廣大的脆友們！求新竹裝潢救星...新竹縣竹東鎮...預算70-75萬...無印風</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 60</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -2662,7 +2666,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢">
+    <div class="post-card" data-kw="輕裝潢" data-level="B">
       <div class="post-header"><div><div class="post-author">@ii_.crystal._ii</div><div class="post-date">本週 · 高雄二手屋</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">買了一間二手空屋發現選家具比想像中還難...求廣大網友推薦高雄評價好的家具店或輕裝潢廠商</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 47</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2675,7 +2679,7 @@
     </div>
 
     <!-- 空間佈置 NEW x3 -->
-    <div class="post-card" data-kw="空間佈置">
+    <div class="post-card" data-kw="空間佈置" data-level="B">
       <div class="post-header"><div><div class="post-author">@d_13sjie1491</div><div class="post-date">本週 · 租屋佛堂</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">想請問有沒有租在外面住套房的修行者都是怎麼自己佈置自己的小佛堂嗎？...床跟書桌都是在同一個空間</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 48</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2687,7 +2691,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置">
+    <div class="post-card" data-kw="空間佈置" data-level="B">
       <div class="post-header"><div><div class="post-author">@twhaohaoeat</div><div class="post-date">本週 · 育兒空間</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">各位爸爸媽媽有沒有可以用很久的育兒空間佈置可以參考呢</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 45</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2699,7 +2703,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置">
+    <div class="post-card" data-kw="空間佈置" data-level="B">
       <div class="post-header"><div><div class="post-author">@chelsea0108</div><div class="post-date">本週 · 換尿布區</div></div><span class="post-kw kw-空間佈置">空間佈置</span></div>
       <div class="post-content"><div class="trunc">最近看了好多佈置寶寶空間影片...想參考一下媽媽們佈置的非尿布檯的換尿布區域</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 52</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2712,7 +2716,7 @@
     </div>
 
     <!-- 室內設計 NEW x3 -->
-    <div class="post-card featured" data-kw="室內設計">
+    <div class="post-card featured" data-kw="室內設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@softstar79</div><div class="post-date">本週 · 陽台改造</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">請問這陽台空間可以怎麼改造</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 54</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2731,7 +2735,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="B">
       <div class="post-header"><div><div class="post-author">@tinagm2024</div><div class="post-date">2026-6-14 · 燈光色溫</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">目前正在選客廳的燈光色溫，設計師建議3000-3500K...</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge vscore v-ok">🚀 病毒訊號 59</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2749,7 +2753,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計">
+    <div class="post-card" data-kw="室內設計" data-level="A">
       <div class="post-header"><div><div class="post-author">@zzz02.16</div><div class="post-date">本週 · 首購16坪</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">小弟我第一次買房子...室內大概16坪...裝修的預算大概在10-20萬...請問還有有機會嗎 有厲害的設計師推薦或自薦嗎</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 69</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -2762,7 +2766,7 @@
     </div>
 
     <!-- 裝潢後悔 NEW x1 -->
-    <div class="post-card featured" data-kw="裝潢後悔">
+    <div class="post-card featured" data-kw="裝潢後悔" data-level="B">
       <div class="post-header"><div><div class="post-author">@a.sushi.home</div><div class="post-date">本週 · 浴室設計</div></div><span class="post-kw kw-裝潢後悔">裝潢後悔</span></div>
       <div class="post-content"><div class="trunc">淋浴間做半牆，沒做玻璃門...省時間省錢通風好看</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 54</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2775,7 +2779,7 @@
     </div>
 
     <!-- 寵物宅 NEW x2 -->
-    <div class="post-card" data-kw="寵物宅">
+    <div class="post-card" data-kw="寵物宅" data-level="B">
       <div class="post-header"><div><div class="post-author">@vica__0330</div><div class="post-date">本週 · 貓宅請益</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">裝潢小白請益🙏...家裡有1貓🐈...有沒有那種做完會覺得很值得的項目</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 65</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2787,7 +2791,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="寵物宅">
+    <div class="post-card" data-kw="寵物宅" data-level="B">
       <div class="post-header"><div><div class="post-author">@ruilei_hong</div><div class="post-date">本週 · 貓宅職人</div></div><span class="post-kw kw-寵物宅">寵物宅</span></div>
       <div class="post-content"><div class="trunc">貓友善設計7點建議：書櫃跳台、貓抓布、隱藏式貓砂櫃、貓洞、隱形紗窗等</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-low">病毒訊號 36</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2800,7 +2804,7 @@
     </div>
 
     <!-- 空間佈置靈感 NEW x2 -->
-    <div class="post-card" data-kw="空間佈置靈感">
+    <div class="post-card" data-kw="空間佈置靈感" data-level="B">
       <div class="post-header"><div><div class="post-author">@cookieyeh</div><div class="post-date">本週 · 31坪四房</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">上次分享了家裡衣櫃...這次再度附上我家赤裸裸的客廳...我家四房，室內大概31坪</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 43</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2812,7 +2816,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="空間佈置靈感">
+    <div class="post-card" data-kw="空間佈置靈感" data-level="B">
       <div class="post-header"><div><div class="post-author">@thelifereorganizer</div><div class="post-date">本週 · 軟裝心法</div></div><span class="post-kw kw-空間佈置靈感">空間佈置靈感</span></div>
       <div class="post-content"><div class="trunc">不要砸錢裝潢，只靠家居佈置有可能辦到嗎？可以，但我自己在搬過三個房子後有幾個經驗分享...</div></div>
       <div class="post-badges"><span class="badge">理性建議型</span><span class="badge vscore v-ok">🚀 病毒訊號 43</span><span class="badge plevel p-B">📋 B級問題意圖</span></div>
@@ -2914,6 +2918,7 @@
 <script>
 let curKw='all';
 function filterKw(kw,el){curKw=kw;document.querySelectorAll('.cs').forEach(c=>c.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.post-card').forEach(c=>{c.style.display=(kw==='all'||c.dataset.kw===kw)?'flex':'none'})}
+function filterLevel(lvl,el){document.querySelectorAll('.cs').forEach(c=>c.classList.remove('active'));document.querySelector('.cs[data-kw="all"]').classList.add('active');document.querySelectorAll('.pl-grade,.kpi-box').forEach(c=>c.classList.remove('lvl-active'));if(lvl!=='all'){document.querySelectorAll('.pl-grade[data-lvl="'+lvl+'"],.kpi-box[data-lvl="'+lvl+'"]').forEach(c=>c.classList.add('lvl-active'))}document.querySelectorAll('.post-card').forEach(c=>{c.style.display=(lvl==='all'||c.dataset.level===lvl)?'flex':'none'});document.getElementById('postsGrid').scrollIntoView({behavior:'smooth',block:'start'})}
 function toggleComments(btn){const list=btn.nextElementSibling;btn.classList.toggle('open');list.classList.toggle('open')}
 </script>
 </body>
