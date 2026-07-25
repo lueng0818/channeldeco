@@ -168,6 +168,18 @@
   .pd-copy:hover,.aq-copy:hover{background:#1a3d2e}
   .aq-copy{margin-left:8px;padding:2px 9px;font-size:11px;vertical-align:middle}
   .aq-list .aq-draft-text{display:none}
+
+  /* ===== 📝 本週內容選題（B 級高分享自動彙整；固定結構，勿移除） ===== */
+  .content-topics{background:var(--card);border-radius:14px;border:1px solid var(--border);border-left:5px solid var(--c2);padding:18px 20px;margin:26px 0;box-shadow:var(--shadow)}
+  .content-topics .ct-sub{font-size:12px;color:var(--text-light);line-height:1.6;margin-bottom:12px;overflow-wrap:anywhere}
+  .ct-list{list-style:none;counter-reset:ct;display:grid;grid-template-columns:repeat(2,1fr);gap:6px 18px}
+  .ct-list li{counter-increment:ct;font-size:12.5px;line-height:1.6;padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--border);overflow-wrap:anywhere}
+  .ct-list li::before{content:counter(ct);position:absolute;left:0;top:8px;width:20px;height:20px;background:var(--c2);color:#fff;border-radius:50%;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .ct-theme{font-weight:700;color:var(--primary)}
+  .ct-meta{color:var(--text-light);font-size:11.5px}
+  .ct-angle{display:block;color:var(--text);margin-top:2px}
+  .ct-empty{color:var(--text-light);padding:6px 0}
+  @media(max-width:700px){.ct-list{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -2876,6 +2888,13 @@
 
   <!-- 本週 A 級追蹤清單已移至頁面最上方「🎯 今日行動佇列」，並改為 JS 自動生成 -->
 
+  <!-- 📝 本週內容選題（固定結構，勿移除）：由頁尾 JS 自動從 B 級卡片依分享數排序彙整 -->
+  <div class="content-topics" id="contentTopics">
+    <div class="section-title">📝 本週內容選題（B 級高分享主題自動彙整）</div>
+    <div class="ct-sub">以下是本週 B 級「有明確困擾、分享數高」的貼文——代表<strong>會被瘋傳的內容缺口</strong>，直接拿來當 IG／Threads／Reels 題目。依分享數（📤）由高到低排序。</div>
+    <ol class="ct-list" id="ctList"><li class="ct-empty">載入中…</li></ol>
+  </div>
+
   <!-- Strategy -->
   <div class="strategy-box">
     <h3>🏢 ChannelDeco 伽宜諾 品牌策略專區</h3>
@@ -2947,6 +2966,26 @@ function copyDraft(btn){
   function legacy(){try{var ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();document.execCommand('copy');document.body.removeChild(ta);done();}catch(e){}}
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,legacy);}else{legacy();}
 }
+
+/* 📝 本週內容選題：自動從 B 級卡片依分享數(📤)由高到低排序彙整（分享高＝傳播缺口＝好題目）；卡片若有 data-topic 屬性則顯示內容切角 */
+(function buildContentTopics(){
+  var list=document.getElementById('ctList');if(!list)return;
+  function shares(card){var n=0;card.querySelectorAll('.post-stats .stat').forEach(function(s){if(s.textContent.indexOf('📤')>-1){n=parseInt(s.textContent.replace(/[^0-9]/g,'')||'0',10);}});return n;}
+  var bCards=[].slice.call(document.querySelectorAll('.post-card[data-level="B"]'));
+  bCards.sort(function(a,b){return shares(b)-shares(a);});
+  var top=bCards.slice(0,10);
+  if(!top.length){list.innerHTML='<li class="ct-empty">本週暫無 B 級主題。</li>';return;}
+  var html='';
+  top.forEach(function(card){
+    var author=((card.querySelector('.post-author')||{}).textContent||'').trim();
+    var dateTxt=((card.querySelector('.post-date')||{}).textContent||'').trim();
+    var theme=dateTxt.indexOf('·')>-1?dateTxt.split('·').slice(1).join('·').trim():dateTxt;
+    var kw=((card.querySelector('.post-kw')||{}).textContent||'').trim();
+    var angle=(card.getAttribute('data-topic')||'').trim();
+    html+='<li><span class="ct-theme">'+esc(theme)+'</span> <span class="ct-meta">｜'+esc(kw)+'｜📤'+shares(card)+'｜'+esc(author)+'</span>'+(angle?'<span class="ct-angle">→ '+esc(angle)+'</span>':'')+'</li>';
+  });
+  list.innerHTML=html;
+})();
 </script>
 </body>
 </html>
