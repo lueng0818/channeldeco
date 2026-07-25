@@ -33,9 +33,15 @@
   .section-title{font-size:17px;font-weight:700;color:var(--primary);margin:26px 0 14px;display:flex;align-items:center;gap:8px}
   .section-title::after{content:'';flex:1;height:2px;background:linear-gradient(to right,var(--primary-light),transparent);border-radius:2px}
   .posts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  .post-card{background:var(--card);border-radius:14px;padding:18px;box-shadow:var(--shadow);transition:all .2s;border:1px solid var(--border);display:flex;flex-direction:column;gap:10px}
+  .post-card{background:var(--card);border-radius:14px;padding:18px;box-shadow:var(--shadow);transition:box-shadow .2s,transform .2s;border:1px solid var(--border);border-left:5px solid var(--border);display:flex;flex-direction:column;gap:10px;content-visibility:auto;contain-intrinsic-size:auto 460px}
   .post-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(44,95,74,.12)}
   .post-card.featured{border-color:var(--accent)}
+  /* 卡片左緣優先色條：依意圖等級 A/B/C/D/風險 一眼分辨（固定結構，勿移除） */
+  .post-card[data-level="A"]{border-left-color:#166534}
+  .post-card[data-level="B"]{border-left-color:#3B82F6}
+  .post-card[data-level="C"]{border-left-color:#8B5CF6}
+  .post-card[data-level="D"]{border-left-color:#D9D6D0}
+  .post-card[data-level="風險"]{border-left-color:#7F1D1D}
   .post-header{display:flex;justify-content:space-between;align-items:flex-start;gap:6px}
   .post-author{font-weight:700;font-size:14px;color:var(--primary)}
   .post-date{font-size:11px;color:var(--text-light)}
@@ -132,6 +138,36 @@
   .si h4{font-size:13px;color:var(--accent);margin-bottom:7px}.si p{font-size:12px;line-height:1.7;opacity:.9}
   @media(max-width:1100px){.posts-grid{grid-template-columns:repeat(2,1fr)}.cat-summary{grid-template-columns:repeat(4,1fr)}}
   @media(max-width:700px){.posts-grid,.hot-topics,.strategy-grid{grid-template-columns:1fr}.cat-summary{grid-template-columns:repeat(2,1fr)}}
+
+  /* ===== P0 修正：防止長文字撞出右邊界被切掉（固定結構，勿移除） ===== */
+  html,body{overflow-x:hidden}
+  .ch-row>span{min-width:0;overflow-wrap:anywhere}
+  .post-analysis,.comment-text,.ac-note,.an-body,.si p{overflow-wrap:anywhere}
+
+  /* ===== 🎯 今日行動佇列（置頂；清單由 JS 自動從 A 級卡片生成，固定結構，勿移除） ===== */
+  .action-queue{background:linear-gradient(135deg,#FFF9F3,#FCEAD9);border:1px solid var(--accent);border-left:6px solid var(--accent);border-radius:16px;padding:18px 22px;margin-bottom:22px;box-shadow:var(--shadow)}
+  .action-queue .aq-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+  .aq-title{font-size:18px;font-weight:800;color:var(--primary)}
+  .aq-sub{font-size:12px;color:var(--text-light);margin-top:4px;line-height:1.6;max-width:820px;overflow-wrap:anywhere}
+  .aq-btn{flex-shrink:0;background:var(--primary);color:#fff;border:none;border-radius:10px;padding:11px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s,transform .2s}
+  .aq-btn:hover{background:#1a3d2e;transform:translateY(-1px)}
+  .aq-list{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:2px 20px}
+  .aq-list li{font-size:12.5px;line-height:1.6;padding:6px 0;border-bottom:1px dashed var(--border);overflow-wrap:anywhere}
+  .aq-list li strong{color:var(--primary)}
+  .aq-list li .meta{color:var(--text-light);font-size:11.5px}
+  .aq-empty{font-size:12.5px;color:var(--text-light);padding:6px 0}
+  .aq-foot{font-size:11px;color:var(--text-light);margin-top:10px;padding-top:8px;border-top:1px dashed var(--border)}
+  @media(max-width:700px){.aq-list{grid-template-columns:1fr}}
+
+  /* ===== 留言草稿：卡片內顯示＋一鍵複製（草稿由生成 routine 寫進卡片 data-draft；固定結構，勿移除） ===== */
+  .post-draft{background:#F0F7F3;border:1px solid #CDE7DA;border-radius:10px;padding:11px 13px}
+  .post-draft .pd-label{font-weight:700;color:var(--primary);font-size:11.5px;margin-bottom:5px}
+  .post-draft .pd-text{font-size:12.5px;line-height:1.65;color:var(--text);overflow-wrap:anywhere;white-space:pre-wrap}
+  .pd-copy,.aq-copy{background:var(--primary);color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s}
+  .pd-copy{margin-top:7px;padding:5px 12px;font-size:11.5px}
+  .pd-copy:hover,.aq-copy:hover{background:#1a3d2e}
+  .aq-copy{margin-left:8px;padding:2px 9px;font-size:11px;vertical-align:middle}
+  .aq-list .aq-draft-text{display:none}
 </style>
 </head>
 <body>
@@ -148,6 +184,20 @@
 </header>
 
 <div class="container">
+
+  <!-- 🎯 今日行動佇列（置頂固定結構，勿移除）：清單由頁尾 JS 自動從所有 data-level="A" 卡片生成，每週卡片更新後會自動同步，不需手動維護 -->
+  <div class="action-queue" id="actionQueue">
+    <div class="aq-head">
+      <div>
+        <div class="aq-title">🎯 今日行動佇列</div>
+        <div class="aq-sub">本週 <strong id="aqCount">—</strong> 則 A 級高意圖貼文——完整回答 2–4 句非推銷式專業判斷，<strong>不放連結、不自薦</strong>；24 小時內回頭確認是否已被作者回覆或被同業搶先。服務區內（高雄／屏東／台南／桃園／新北／台北）優先。</div>
+      </div>
+      <button class="aq-btn" onclick="filterLevel('A',this)">📋 只看 A 級貼文卡 →</button>
+    </div>
+    <ul class="aq-list" id="aqList"><li class="aq-empty">載入中…</li></ul>
+    <div class="aq-foot">📌 此清單自動列出目前所有 A 級（地區＋預算／時程訊號明確）貼文；點右上「只看 A 級貼文卡」或下方分級「🎯 A 高意圖」可展開完整卡片與留言草稿。</div>
+  </div>
+
   <div class="section-title">📂 類別篩選</div>
   <div class="cat-summary">
     <div class="cs active" data-kw="all" onclick="filterKw('all',this)"><div class="num">154</div><div class="lbl">全部</div></div>
@@ -305,7 +355,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="室內設計" data-level="A">
+    <div class="post-card featured" data-kw="室內設計" data-level="A" data-draft="（官方已留言，這是追蹤回覆用）補一個你說的『要耐看、不要網美風』——關鍵其實在配色飽和度和材質：把顏色壓低一階、多用木皮和霧面，就會從網美感變耐看。真的想比較的話，看『完工滿一年』的案子會比看剛拍好的美照準很多，因為耐看是時間才看得出來的。">
       <div class="post-header"><div><div class="post-author">@romi.2020610 <span style="color:var(--accent)">⭐官方已留言</span></div><div class="post-date">2026-7-11 · 找奶油風設計師</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">最近開始找室內設計師了！想找擅長 奶油風＋現代簡約 的設計師，希望作品有質感、耐看，不是網美風那種🥹 有沒有大家真的很推的設計師？歡迎直接分享作品或完工案例，我想多比較幾家</div></div>
       <div class="post-badges"><span class="badge">選擇困難型</span><span class="badge">⭐ @channel.deco 已留言</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 63</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -381,7 +431,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計" data-level="A">
+    <div class="post-card" data-kw="室內設計" data-level="A" data-draft="10坪其實是最能靠軟裝＋輕裝修放大的坪數～40-50萬抓對重點很夠用：把錢集中在收納機能和採光，風格用軟裝（燈、窗簾、地毯）去堆，比硬做滿系統櫃更省也更有彈性。奶油風和無印其實可以混，先想清楚你每天在家最常做的三件事，再決定櫃體位置，比較不會住進去才後悔。">
       <div class="post-header"><div><div class="post-author">@keulloi.zip</div><div class="post-date">2026-7-10 · 高雄10坪小宅</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">10坪迷你小宅是不是超難裝潢，填單諮詢的時候看到裝潢預算只有百萬選項，都只能默默關掉。好想知道同樣是迷你宅的脆友，預算抓40-50萬夠不夠以及推薦必做的裝潢！座標｜高雄 屋齡｜預售屋 偏好風格｜法式復古、奶油風、日式無印風</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge">📍高雄</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 63</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -718,7 +768,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢" data-level="A">
+    <div class="post-card" data-kw="輕裝潢" data-level="A" data-draft="9月完工的話現在啟動剛好～兩房輕裝潢不用設計師也能做得好，關鍵是先把『工期綁進合約、每個工項留緩衝』寫清楚，才不會卡在交屋前趕工。可以先分成『一定要的（收納、油漆、燈）』和『之後再補的軟裝』，分階段做，時間和預算都比較不會爆。">
       <div class="post-header"><div><div class="post-author">@free_can_</div><div class="post-date">2026-6-27 · 高雄交屋誠徵</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">房屋預計下週交屋，誠徵統包或工班，高雄兩房，輕裝潢不用設計師，希望9月完工，可先傳些作品參考</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 49</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -749,7 +799,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計" data-level="A">
+    <div class="post-card" data-kw="室內設計" data-level="A" data-draft="桃園預售屋15坪、50萬是很實際的預算～小坪數建議把錢花在『格局微調＋收納』的硬裝，風格交給軟裝處理，CP值和彈性都比較高。還沒交屋的話，現在可以先看客變能不能省下之後打牆改管的錢，這步很多人漏掉、其實最省。">
       <div class="post-header"><div><div class="post-author">@chiaowen.22</div><div class="post-date">2026-6-27 · 桃園預售屋</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">桃園｜預售屋15坪兩房一廳，預算50萬，求設計師/統包推薦</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 63</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -806,7 +856,7 @@
       </div>
     </div>
 
-    <div class="post-card featured" data-kw="室內設計" data-level="A">
+    <div class="post-card featured" data-kw="室內設計" data-level="A" data-draft="首購＋房貸的壓力真的懂～奶油風其實不一定要砸硬裝，把預算留給軟裝（顏色、燈光、窗簾、家具線條）反而更有雜誌感，之後想換風格也不用敲牆。建議先把『非做不可的硬裝』和『可以慢慢添的軟裝』分開，第一階段抓重點就好，住進去再逐步補，壓力會小很多。">
       <div class="post-header"><div><div class="post-author">@buf_050_</div><div class="post-date">2026-6-23 · 首購房貸焦慮</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">房貸人生開始，首購族裝潢焦慮，想做白色奶油風但預算有限，求設計師推薦</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 62</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -995,7 +1045,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="室內設計" data-level="A">
+    <div class="post-card" data-kw="室內設計" data-level="A" data-draft="16坪、10-20萬的話，找『願意在這個預算內幫你排優先順序』的人比找名氣大的重要～這個預算做全室會很緊，建議聚焦一兩個核心區（例如收納＋客廳），其他先用軟裝過渡。先想清楚你最不能忍受的是什麼（亂、暗、還是沒地方收），預算就有方向了。">
       <div class="post-header"><div><div class="post-author">@zzz02.16</div><div class="post-date">本週 · 首購16坪</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">小弟我第一次買房子...室內大概16坪...裝修的預算大概在10-20萬...請問還有有機會嗎 有厲害的設計師推薦或自薦嗎</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 69</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -1249,7 +1299,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢" data-level="A">
+    <div class="post-card" data-kw="輕裝潢" data-level="A" data-draft="桃園/新北60萬又要含畫圖規劃的話，建議找『能出平面圖＋報價一起談』的，才不會圖是圖、做是做。先確認畫圖是否收費、收多少可折抵，這塊最容易有落差。把你家最想解決的前三件事列出來讓對方針對這個規劃，會比一次全包更省也更準。">
       <div class="post-header"><div><div class="post-author">@lilrockelvin</div><div class="post-date">2026-6-12 · 桃園統包求推薦</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">桃園/新北求推薦統包＋畫圖規劃，預算60萬，有推薦的廠商嗎</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-ok">🚀 病毒訊號 42</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -2012,7 +2062,7 @@
       </div>
     </div>
 
-    <div class="post-card" data-kw="輕裝潢" data-level="A">
+    <div class="post-card" data-kw="輕裝潢" data-level="A" data-draft="高雄70萬空間不小、選擇也多～給你一個挑人的方向：與其先比報價，先看對方願不願意花時間問你的生活習慣再談風格，這種後面溝通通常比較不會踩雷。可以請每家先給一份『這個預算大概能做到哪』的清單，好比較、也看得出誰真的有做功課。">
       <div class="post-header"><div><div class="post-author">@zeroone_life</div><div class="post-date">2026-4-13 · 高雄裝潢求推薦</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">高雄裝潢求推薦，預算70萬，有沒有口碑好的設計師或統包</div></div>
       <div class="post-badges"><span class="badge">焦慮求助型</span><span class="badge vscore v-mid">🚀🚀 病毒訊號 67</span><span class="badge plevel p-A">🎯 A級高意圖</span></div>
@@ -2824,20 +2874,7 @@
     </div>
   </div>
 
-  <div class="a-watchlist" style="margin:26px 0">
-    <div class="section-title">🎯 本週 A 級貼文追蹤清單（24小時內優先接觸）</div>
-    <ul>
-      <li><strong>@keulloi.zip</strong>｜高雄10坪小宅 · 預算百萬選項超出負擔｜<span style="color:var(--text-light)">類型①無方向求推薦（📍高雄，核心服務區）</span></li>
-      <li><strong>@free_can_</strong>｜高雄兩房下週交屋 · 誠徵統包，希望9月完工｜<span style="color:var(--text-light)">類型⑤交屋時程焦慮（📍高雄，時程明確）</span></li>
-      <li><strong>@zeroone_life</strong>｜高雄裝潢求推薦 · 預算70萬找口碑設計師/統包｜<span style="color:var(--text-light)">類型①無方向求推薦（📍高雄）</span></li>
-      <li><strong>@chiaowen.22</strong>｜桃園預售屋15坪兩房一廳 · 預算50萬求設計師/統包｜<span style="color:var(--text-light)">類型②預算明確求解（📍桃園）</span></li>
-      <li><strong>@lilrockelvin</strong>｜桃園/新北求統包＋畫圖規劃 · 預算60萬｜<span style="color:var(--text-light)">類型①無方向求推薦（📍桃園/新北）</span></li>
-      <li><strong>@_nn_lawyer</strong>｜台北市新房即將完工 · 徵求室內設計師推薦/自薦｜<span style="color:var(--text-light)">類型①無方向求推薦（📍台北）</span></li>
-      <li><strong>@qiwen1011</strong>｜新竹輕裝潢 · 小資女預算15-18萬求好收納簡約奶油風｜<span style="color:var(--text-light)">類型②預算明確求解（服務區外，可觀察是否有轉介機會）</span></li>
-      <li><strong>@zzz02.16</strong>｜首購16坪 · 預算10-20萬詢問有無機會找到厲害設計師｜<span style="color:var(--text-light)">類型①②複合（首購小白，預算敏感，符合ChannelDeco主力受眾）</span></li>
-    </ul>
-    <div style="font-size:11px;color:var(--text-light);margin-top:10px;padding-top:8px;border-top:1px dashed var(--border)">📌 追蹤動作：A級貼文完整回答2-4句非推銷式專業判斷、不放連結不自薦，24小時內回頭確認是否已被作者回覆或有其他業者搶先留言；服務區內（高雄／屏東／台南／桃園／新北／台北）優先於服務區外</div>
-  </div>
+  <!-- 本週 A 級追蹤清單已移至頁面最上方「🎯 今日行動佇列」，並改為 JS 自動生成 -->
 
   <!-- Strategy -->
   <div class="strategy-box">
@@ -2867,6 +2904,49 @@ let curKw='all';
 function filterKw(kw,el){curKw=kw;document.querySelectorAll('.cs').forEach(c=>c.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.post-card').forEach(c=>{c.style.display=(kw==='all'||c.dataset.kw===kw)?'flex':'none'})}
 function filterLevel(lvl,el){document.querySelectorAll('.cs').forEach(c=>c.classList.remove('active'));document.querySelector('.cs[data-kw="all"]').classList.add('active');document.querySelectorAll('.pl-grade,.kpi-box').forEach(c=>c.classList.remove('lvl-active'));if(lvl!=='all'){document.querySelectorAll('.pl-grade[data-lvl="'+lvl+'"],.kpi-box[data-lvl="'+lvl+'"]').forEach(c=>c.classList.add('lvl-active'))}document.querySelectorAll('.post-card').forEach(c=>{c.style.display=(lvl==='all'||c.dataset.level===lvl)?'flex':'none'});document.getElementById('postsGrid').scrollIntoView({behavior:'smooth',block:'start'})}
 function toggleComments(btn){const list=btn.nextElementSibling;btn.classList.toggle('open');list.classList.toggle('open')}
+
+/* 🎯 今日行動佇列：自動從所有 A 級卡片生成（作者＋描述＋地區），每週卡片更新後自動同步，不需手動維護 */
+(function buildActionQueue(){
+  var list=document.getElementById('aqList');
+  if(!list)return;
+  var aCards=document.querySelectorAll('.post-card[data-level="A"]');
+  var cnt=document.getElementById('aqCount');
+  if(cnt)cnt.textContent=aCards.length;
+  if(!aCards.length){list.innerHTML='<li class="aq-empty">本週暫無 A 級高意圖貼文。</li>';return;}
+  var html='';
+  aCards.forEach(function(card){
+    var author=(card.querySelector('.post-author')||{}).textContent||'';
+    var dateTxt=((card.querySelector('.post-date')||{}).textContent||'').trim();
+    var desc=dateTxt.indexOf('·')>-1?dateTxt.split('·').slice(1).join('·').trim():dateTxt;
+    var loc='';
+    card.querySelectorAll('.badge').forEach(function(b){if(b.textContent.indexOf('📍')>-1)loc=b.textContent.trim();});
+    var draft=(card.getAttribute('data-draft')||'').trim();
+    var copy=draft?' <button class="aq-copy" onclick="copyDraft(this)">📋 複製留言</button><span class="aq-draft-text">'+esc(draft)+'</span>':'';
+    html+='<li><strong>'+esc(author.trim())+'</strong>　<span class="meta">'+esc(desc)+(loc?'（'+esc(loc)+'）':'')+'</span>'+copy+'</li>';
+  });
+  list.innerHTML=html;
+})();
+
+/* 留言草稿：把卡片 data-draft 顯示在卡片內（A/B/C 級），並提供一鍵複製到剪貼簿 */
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+(function renderDrafts(){
+  document.querySelectorAll('.post-card[data-draft]').forEach(function(card){
+    var d=(card.getAttribute('data-draft')||'').trim();if(!d)return;
+    var box=document.createElement('div');box.className='post-draft';
+    box.innerHTML='<div class="pd-label">💬 建議留言草稿（非推銷式，可直接複製）</div><div class="pd-text"></div><button class="pd-copy" onclick="copyDraft(this)">📋 複製留言</button>';
+    box.querySelector('.pd-text').textContent=d;
+    var anchor=card.querySelector('.comments-section');
+    if(anchor)card.insertBefore(box,anchor);else card.appendChild(box);
+  });
+})();
+function copyDraft(btn){
+  var t=btn.parentElement.querySelector('.pd-text')||btn.parentElement.querySelector('.aq-draft-text');
+  var txt=t?t.textContent:'';if(!txt)return;
+  if(!btn.getAttribute('data-o'))btn.setAttribute('data-o',btn.textContent);
+  function done(){btn.textContent='✅ 已複製';setTimeout(function(){btn.textContent=btn.getAttribute('data-o')},1500);}
+  function legacy(){try{var ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();document.execCommand('copy');document.body.removeChild(ta);done();}catch(e){}}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,legacy);}else{legacy();}
+}
 </script>
 </body>
 </html>
