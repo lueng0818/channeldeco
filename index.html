@@ -238,6 +238,27 @@
     <div class="aq-foot">📌 此清單自動列出目前所有 A 級（地區＋預算／時程訊號明確）貼文；點右上「只看 A 級貼文卡」或下方分級「🎯 A 高意圖」可展開完整卡片與留言草稿。</div>
   </div>
 
+  <!-- 📅 每日更新提醒（固定結構，勿移除）：右欄「今日待回貼文」由頁尾 buildDailyBrief() 依 data-date 自動比對 .post-card[data-added] 生成；左欄「今日重點提醒」由每日 A 級掃描排程改寫 -->
+  <div class="daily-brief" id="dailyBrief" data-date="2026-8-29">
+    <div class="db-head">
+      <div>
+        <div class="db-title">📅 每日更新提醒</div>
+        <div class="db-date">2026 年 8 月 29 日（六）· 每日輕量 A 級掃描 · 下次更新 2026 年 8 月 30 日</div>
+      </div>
+      <div class="db-stat"><span class="db-num" id="dbNewCount">—</span><span class="db-lbl">今日新增 A 級</span></div>
+    </div>
+    <div class="db-grid">
+      <div>
+        <div class="db-sub">🔔 今日重點提醒</div>
+        <ul class="db-points" id="dbPoints"><li><strong>🔴 最優先｜@tiara0628（林口）</strong>發文僅 1 小時、656 次瀏覽，10 則留言全為自薦，是今日競爭最少的一則。她的貓步道／貓跳台需求沒有任何人回應，用「跳台間距與板材承重要跟系統櫃一起規劃」切入最容易被記住。</li><li><strong>🟠 窗口正在關閉｜@baby04210221（雙北）</strong>已發文 3 天、3,357 次瀏覽、55 則留言，今日不處理明天價值會明顯下降。切角走預售屋客變階段先列收納清單，不要再給一組聯絡方式。</li><li><strong>🟡 台南今日一次出現兩則</strong>（@zjl0002 交屋順序、@naia_talks 發包 vs 設計師），可合併成一則內容主題：台南新成屋交屋前後的正確順序，對高雄、屏東受眾同樣通用。</li><li><strong>💡 今日觀察</strong>：四則貼文的留言區合計超過 100 則，沒有任何一則先把坪數、預算或時程問回去。先問問題仍然是成本最低的差異化姿態。</li><li><strong>⚠️ 掃描關鍵字提醒</strong>：「空間佈置靈感」今日查無結果、「軟裝設計」只回傳廠商推銷貼文——消費者不會打這兩個字，明日掃描以「軟裝」「輕裝潢」「室內設計」為主力。</li></ul>
+      </div>
+      <div>
+        <div class="db-sub">✅ 今日待回貼文（建議 24 小時內處理）</div>
+        <ul class="db-tasks" id="dbTasks"><li class="db-empty">載入中…</li></ul>
+      </div>
+    </div>
+    <div class="db-foot">📌 此區塊每天由「每日輕量 A 級掃描」排程更新：右欄自動列出當日新增的 A 級貼文與留言草稿，左欄為當日人工判讀的重點提醒。當日若無新增 A 級貼文，右欄會顯示提示並保留前一日待辦。</div>
+
   <div class="section-title">📂 類別篩選</div>
   <div class="cat-summary">
     <div class="cs active" data-kw="all" onclick="filterKw('all',this)"><div class="num">319</div><div class="lbl">全部</div></div>
@@ -5099,26 +5120,6 @@
     </div>
   </div>
 
-  <!-- 📅 每日更新提醒（固定結構，勿移除）：右欄「今日待回貼文」由頁尾 buildDailyBrief() 依 data-date 自動比對 .post-card[data-added] 生成；左欄「今日重點提醒」由每日 A 級掃描排程改寫 -->
-  <div class="daily-brief" id="dailyBrief" data-date="2026-8-29">
-    <div class="db-head">
-      <div>
-        <div class="db-title">📅 每日更新提醒</div>
-        <div class="db-date">2026 年 8 月 29 日（六）· 每日輕量 A 級掃描 · 下次更新 2026 年 8 月 30 日</div>
-      </div>
-      <div class="db-stat"><span class="db-num" id="dbNewCount">—</span><span class="db-lbl">今日新增 A 級</span></div>
-    </div>
-    <div class="db-grid">
-      <div>
-        <div class="db-sub">🔔 今日重點提醒</div>
-        <ul class="db-points" id="dbPoints"><li><strong>🔴 最優先｜@tiara0628（林口）</strong>發文僅 1 小時、656 次瀏覽，10 則留言全為自薦，是今日競爭最少的一則。她的貓步道／貓跳台需求沒有任何人回應，用「跳台間距與板材承重要跟系統櫃一起規劃」切入最容易被記住。</li><li><strong>🟠 窗口正在關閉｜@baby04210221（雙北）</strong>已發文 3 天、3,357 次瀏覽、55 則留言，今日不處理明天價值會明顯下降。切角走預售屋客變階段先列收納清單，不要再給一組聯絡方式。</li><li><strong>🟡 台南今日一次出現兩則</strong>（@zjl0002 交屋順序、@naia_talks 發包 vs 設計師），可合併成一則內容主題：台南新成屋交屋前後的正確順序，對高雄、屏東受眾同樣通用。</li><li><strong>💡 今日觀察</strong>：四則貼文的留言區合計超過 100 則，沒有任何一則先把坪數、預算或時程問回去。先問問題仍然是成本最低的差異化姿態。</li><li><strong>⚠️ 掃描關鍵字提醒</strong>：「空間佈置靈感」今日查無結果、「軟裝設計」只回傳廠商推銷貼文——消費者不會打這兩個字，明日掃描以「軟裝」「輕裝潢」「室內設計」為主力。</li></ul>
-      </div>
-      <div>
-        <div class="db-sub">✅ 今日待回貼文（建議 24 小時內處理）</div>
-        <ul class="db-tasks" id="dbTasks"><li class="db-empty">載入中…</li></ul>
-      </div>
-    </div>
-    <div class="db-foot">📌 此區塊每天由「每日輕量 A 級掃描」排程更新：右欄自動列出當日新增的 A 級貼文與留言草稿，左欄為當日人工判讀的重點提醒。當日若無新增 A 級貼文，右欄會顯示提示並保留前一日待辦。</div>
   </div>
 </div>
 
