@@ -210,6 +210,10 @@
   .lvlg-body{padding-top:12px}
   .grp-hint{font-size:12px;color:var(--text-light);margin:-6px 0 14px;line-height:1.6}
   @media(max-width:700px){.kwg-head{flex-wrap:wrap;gap:8px}.kwg-counts{order:3;width:100%}}
+  /* 行動佇列收合：預設只顯示前 12 則，其餘可展開（不更動 buildActionQueue 本身） */
+  .aq-list.capped li.aq-hidden{display:none}
+  .aq-more{margin-top:10px;background:#fff;border:1px solid var(--primary);color:var(--primary);border-radius:10px;padding:8px 15px;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;transition:background .2s,color .2s}
+  .aq-more:hover{background:var(--primary);color:#fff}
 
   /* ===== 留言草稿：卡片內顯示＋一鍵複製（草稿由生成 routine 寫進卡片 data-draft；固定結構，勿移除） ===== */
   .post-draft{background:#F0F7F3;border:1px solid #CDE7DA;border-radius:10px;padding:11px 13px}
@@ -5310,6 +5314,26 @@ function setGroup(g,open){if(!g)return;g.classList.toggle('open',!!open);var h=g
   grid.classList.remove('posts-grid');
   grid.innerHTML='';
   grid.appendChild(wrap);
+})();
+
+/* 行動佇列收合（附加行為，不更動 buildActionQueue）：預設只顯示前 12 則 A 級，其餘收合可展開 */
+(function capActionQueue(){
+  var list=document.getElementById('aqList');if(!list)return;
+  var items=[].slice.call(list.children);
+  var SHOW=12;
+  if(items.length<=SHOW)return;
+  items.forEach(function(li,i){if(i>=SHOW)li.classList.add('aq-hidden')});
+  list.classList.add('capped');
+  var btn=document.createElement('button');
+  btn.type='button';btn.className='aq-more';
+  var hidden=items.length-SHOW;
+  btn.textContent='▼ 展開其餘 '+hidden+' 則 A 級（共 '+items.length+' 則）';
+  btn.onclick=function(){
+    var open=list.classList.toggle('capped');
+    btn.textContent=open?('▼ 展開其餘 '+hidden+' 則 A 級（共 '+items.length+' 則）'):('▲ 收合，只看前 '+SHOW+' 則');
+  };
+  var foot=list.parentElement.querySelector('.aq-foot');
+  if(foot)list.parentElement.insertBefore(btn,foot);else list.parentElement.appendChild(btn);
 })();
 /* 類別篩選：展開該類別（並預設打開其 A 級），其餘收起 */
 function filterKw(kw,el){
