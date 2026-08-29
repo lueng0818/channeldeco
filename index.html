@@ -5266,8 +5266,30 @@ function copyDraft(btn){
 var LVL_META={'A':{n:'🎯 A 級高意圖',c:'c-A'},'B':{n:'📋 B 級潛在需求',c:'c-B'},'C':{n:'💬 C 級話題互動',c:'c-C'},'D':{n:'👀 D 級觀察',c:'c-D'},'風險':{n:'⚠️ 風險貼文',c:'c-R'}};
 var LVL_ORDER=['A','B','C','D','風險'];
 function scrollToEl(el){try{if(el&&el.scrollIntoView)el.scrollIntoView({behavior:'smooth',block:'start'})}catch(e){}}
-function toggleGroup(btn){var g=btn.parentElement;var open=g.classList.toggle('open');var body=btn.nextElementSibling;if(body)body.hidden=!open;btn.setAttribute('aria-expanded',open?'true':'false');}
-function setGroup(g,open){if(!g)return;g.classList.toggle('open',!!open);var h=g.querySelector(':scope > .kwg-head, :scope > .lvlg-head');var b=g.querySelector(':scope > .kwg-body, :scope > .lvlg-body');if(b)b.hidden=!open;if(h)h.setAttribute('aria-expanded',open?'true':'false');}
+function toggleGroup(btn){
+  var g=btn.parentElement;var open=g.classList.toggle('open');var body=btn.nextElementSibling;
+  if(body){
+    if(open){
+      if(g.classList.contains('kw-group')){
+        var lgs=[].slice.call(g.querySelectorAll('.lvl-group')).filter(function(l){return !l.hidden});
+        if(lgs.length&&!lgs.some(function(l){return l.classList.contains('open')}))setGroup(lgs[0],true);
+      }
+      mountCards(body);
+    }
+    body.hidden=!open;
+  }
+  btn.setAttribute('aria-expanded',open?'true':'false');
+}
+function mountCards(scope){
+  if(!scope||!scope.querySelectorAll)return;
+  [].forEach.call(scope.querySelectorAll('.posts-grid'),function(pg){
+    if(!pg.__pending)return;
+    var lg=pg.closest?pg.closest('.lvl-group'):null;
+    if(lg&&!lg.classList.contains('open'))return;   /* 只掛載已展開的等級小節 */
+    pg.appendChild(pg.__pending);pg.__pending=null;
+  });
+}
+function setGroup(g,open){if(!g)return;g.classList.toggle('open',!!open);var h=g.querySelector(':scope > .kwg-head, :scope > .lvlg-head');var b=g.querySelector(':scope > .kwg-body, :scope > .lvlg-body');if(b){if(open)mountCards(b);b.hidden=!open;}if(h)h.setAttribute('aria-expanded',open?'true':'false');}
 (function buildHierarchy(){
   var grid=document.getElementById('postsGrid');if(!grid)return;
   var order=[].slice.call(document.querySelectorAll('.cs[data-kw]')).map(function(c){return c.getAttribute('data-kw')}).filter(function(k){return k&&k!=='all'});
@@ -5306,7 +5328,11 @@ function setGroup(g,open){if(!g)return;g.classList.toggle('open',!!open);var h=g
       lh.innerHTML='<span>'+((LVL_META[l]||{n:l}).n)+' · '+arr.length+' 則</span><span class="lvlg-arrow">▼</span>';
       var lb=document.createElement('div');lb.className='lvlg-body';lb.hidden=true;
       var pg=document.createElement('div');pg.className='posts-grid';
-      arr.forEach(function(c){pg.appendChild(c)});
+      /* 延遲掛載：卡片先移出 DOM 放進 fragment，第一次展開時才真正插入，
+         讓收合狀態下的 DOM 節點數維持在數百而非上萬（頁面不再繪製失敗） */
+      var frag=document.createDocumentFragment();
+      arr.forEach(function(c){frag.appendChild(c)});
+      pg.__pending=frag;
       lb.appendChild(pg);lg.appendChild(lh);lg.appendChild(lb);body.appendChild(lg);
     });
     sec.appendChild(head);sec.appendChild(body);wrap.appendChild(sec);
