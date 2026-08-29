@@ -187,6 +187,30 @@
   .db-foot{font-size:11px;color:var(--text-light);margin-top:14px;padding-top:9px;border-top:1px dashed var(--primary-light);overflow-wrap:anywhere}
   @media(max-width:700px){.db-grid{grid-template-columns:1fr}}
 
+  /* 🗂 貼文階層收合（固定結構，勿移除）：第一層＝7 大類別，第二層＝A/B/C/D/風險等級 */
+  .groups-wrap{display:block}
+  .kw-group{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden}
+  .kwg-head{width:100%;display:flex;align-items:center;gap:12px;background:transparent;border:none;font-family:inherit;cursor:pointer;padding:15px 18px;text-align:left;transition:background .15s}
+  .kwg-head:hover{background:#F7F4F0}
+  .kw-group.open .kwg-head{background:#F2FAF6;border-bottom:1px solid var(--border)}
+  .kwg-name{font-size:15.5px;font-weight:800;color:var(--primary);flex-shrink:0}
+  .kwg-counts{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+  .kwg-counts i{font-style:normal;font-size:11px;font-weight:700;border-radius:999px;padding:3px 9px;white-space:nowrap}
+  .c-A{background:#DCFCE7;color:#14532D}.c-B{background:#DBEAFE;color:#1E3A8A}.c-C{background:#EDE9FE;color:#5B21B6}.c-D{background:#F1F1EF;color:#555}.c-R{background:#FEE2E2;color:#7F1D1D}
+  .kwg-total{font-size:12px;color:var(--text-light);flex-shrink:0;font-weight:700}
+  .kwg-arrow{font-size:11px;color:var(--text-light);transition:transform .2s;flex-shrink:0}
+  .kw-group.open .kwg-arrow{transform:rotate(180deg)}
+  .kwg-body{padding:14px 16px 18px}
+  .lvl-group{margin-bottom:10px}
+  .lvlg-head{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;background:#FAF8F5;border:1px solid var(--border);border-radius:10px;font-family:inherit;font-size:13px;font-weight:700;color:var(--text);cursor:pointer;padding:10px 14px;text-align:left;transition:background .15s}
+  .lvlg-head:hover{background:#F2EFEA}
+  .lvl-group.open .lvlg-head{background:#EFF6F2;border-color:var(--primary-light);color:var(--primary)}
+  .lvlg-arrow{font-size:10px;color:var(--text-light);transition:transform .2s}
+  .lvl-group.open .lvlg-arrow{transform:rotate(180deg)}
+  .lvlg-body{padding-top:12px}
+  .grp-hint{font-size:12px;color:var(--text-light);margin:-6px 0 14px;line-height:1.6}
+  @media(max-width:700px){.kwg-head{flex-wrap:wrap;gap:8px}.kwg-counts{order:3;width:100%}}
+
   /* ===== 留言草稿：卡片內顯示＋一鍵複製（草稿由生成 routine 寫進卡片 data-draft；固定結構，勿移除） ===== */
   .post-draft{background:#F0F7F3;border:1px solid #CDE7DA;border-radius:10px;padding:11px 13px}
   .post-draft .pd-label{font-weight:700;color:var(--primary);font-size:11.5px;margin-bottom:5px}
@@ -319,6 +343,7 @@
   </div>
 
   <div class="section-title">📋 貼文分析</div>
+  <div class="grp-hint">🗂 貼文依「類別 → 意圖等級」兩層收合，預設全部收起以保持頁面輕量。點類別列展開，或用上方「📂 類別篩選」與「A／B／C／D」等級鈕直接跳到對應區塊。</div>
   <div class="posts-grid" id="postsGrid">
     <!-- ===== 以下 4 則為 threads-home-deco-daily-a-sweep 每日輕量 A 級掃描新增（2026-8-29） ===== -->
     <div class="post-card" data-added="2026-8-29" data-kw="輕裝潢" data-level="A" data-draft="局部更新最怕的是各工項各自為政，木地板、系統櫃、廚具通常不是同一個班底，順序沒排好會互相等，也容易出現接縫收邊沒人認領的狀況，先確認統包會不會幫你排這個順序，之後會省下很多來回。貓步道建議跟系統櫃一起規劃，板材承重、跳台間距與落地緩衝點要先想好，等櫃體做完才加裝，通常只能鎖在不理想的牆面。廚具那段記得先確認水電位置能不能沿用，這件事會直接決定要不要動管線、預算會不會跳。丈量那天把家裡貓平常最愛待的動線拍給對方看，比講風格更能幫你篩掉不合適的人。">
@@ -5229,6 +5254,101 @@ function copyDraft(btn){
   });
   list.innerHTML=html;
 })();
+
+/* 🗂 貼文階層收合（固定結構，勿移除）
+   於所有既有 JS（行動佇列／草稿／選題）跑完後執行，把 #postsGrid 內的卡片
+   依「類別 → 意圖等級」重新組成兩層可收合結構，預設全部收起。
+   卡片本身不做任何修改，每日排程仍照舊插入 .posts-grid 最前面即可。 */
+var LVL_META={'A':{n:'🎯 A 級高意圖',c:'c-A'},'B':{n:'📋 B 級潛在需求',c:'c-B'},'C':{n:'💬 C 級話題互動',c:'c-C'},'D':{n:'👀 D 級觀察',c:'c-D'},'風險':{n:'⚠️ 風險貼文',c:'c-R'}};
+var LVL_ORDER=['A','B','C','D','風險'];
+function scrollToEl(el){try{if(el&&el.scrollIntoView)el.scrollIntoView({behavior:'smooth',block:'start'})}catch(e){}}
+function toggleGroup(btn){var g=btn.parentElement;var open=g.classList.toggle('open');var body=btn.nextElementSibling;if(body)body.hidden=!open;btn.setAttribute('aria-expanded',open?'true':'false');}
+function setGroup(g,open){if(!g)return;g.classList.toggle('open',!!open);var h=g.querySelector(':scope > .kwg-head, :scope > .lvlg-head');var b=g.querySelector(':scope > .kwg-body, :scope > .lvlg-body');if(b)b.hidden=!open;if(h)h.setAttribute('aria-expanded',open?'true':'false');}
+(function buildHierarchy(){
+  var grid=document.getElementById('postsGrid');if(!grid)return;
+  var order=[].slice.call(document.querySelectorAll('.cs[data-kw]')).map(function(c){return c.getAttribute('data-kw')}).filter(function(k){return k&&k!=='all'});
+  var cards=[].slice.call(grid.querySelectorAll('.post-card'));
+  if(!cards.length)return;
+  var buckets={};
+  cards.forEach(function(card){
+    var k=card.getAttribute('data-kw')||'其他';
+    var l=card.getAttribute('data-level')||'D';
+    if(!buckets[k])buckets[k]={};
+    if(!buckets[k][l])buckets[k][l]=[];
+    buckets[k][l].push(card);
+  });
+  Object.keys(buckets).forEach(function(k){if(order.indexOf(k)<0)order.push(k)});
+  var wrap=document.createElement('div');
+  wrap.className='groups-wrap';
+  order.forEach(function(kw){
+    var lv=buckets[kw];if(!lv)return;
+    var total=0,chips='';
+    LVL_ORDER.forEach(function(l){var n=(lv[l]||[]).length;if(!n)return;total+=n;chips+='<i class="'+LVL_META[l].c+'">'+l+' '+n+'</i>';});
+    Object.keys(lv).forEach(function(l){if(LVL_ORDER.indexOf(l)<0)total+=lv[l].length});
+    if(!total)return;
+    var sec=document.createElement('section');
+    sec.className='kw-group';sec.setAttribute('data-kw',kw);
+    var head=document.createElement('button');
+    head.type='button';head.className='kwg-head';head.setAttribute('aria-expanded','false');
+    head.setAttribute('onclick','toggleGroup(this)');
+    head.innerHTML='<span class="kwg-name">🏷 '+esc(kw)+'</span><span class="kwg-counts">'+chips+'</span><span class="kwg-total">'+total+' 則</span><span class="kwg-arrow">▼</span>';
+    var body=document.createElement('div');body.className='kwg-body';body.hidden=true;
+    LVL_ORDER.concat(Object.keys(lv).filter(function(l){return LVL_ORDER.indexOf(l)<0})).forEach(function(l){
+      var arr=lv[l];if(!arr||!arr.length)return;
+      var lg=document.createElement('div');lg.className='lvl-group';lg.setAttribute('data-lvl',l);
+      var lh=document.createElement('button');
+      lh.type='button';lh.className='lvlg-head';lh.setAttribute('aria-expanded','false');
+      lh.setAttribute('onclick','toggleGroup(this)');
+      lh.innerHTML='<span>'+((LVL_META[l]||{n:l}).n)+' · '+arr.length+' 則</span><span class="lvlg-arrow">▼</span>';
+      var lb=document.createElement('div');lb.className='lvlg-body';lb.hidden=true;
+      var pg=document.createElement('div');pg.className='posts-grid';
+      arr.forEach(function(c){pg.appendChild(c)});
+      lb.appendChild(pg);lg.appendChild(lh);lg.appendChild(lb);body.appendChild(lg);
+    });
+    sec.appendChild(head);sec.appendChild(body);wrap.appendChild(sec);
+  });
+  grid.classList.remove('posts-grid');
+  grid.innerHTML='';
+  grid.appendChild(wrap);
+})();
+/* 類別篩選：展開該類別（並預設打開其 A 級），其餘收起 */
+function filterKw(kw,el){
+  curKw=kw;
+  document.querySelectorAll('.cs').forEach(function(c){c.classList.remove('active')});
+  if(el)el.classList.add('active');
+  document.querySelectorAll('.pl-grade,.kpi-box').forEach(function(c){c.classList.remove('lvl-active')});
+  var first=null;
+  document.querySelectorAll('.kw-group').forEach(function(g){
+    var hit=(kw!=='all'&&g.getAttribute('data-kw')===kw);
+    setGroup(g,hit);
+    g.querySelectorAll('.lvl-group').forEach(function(lg){
+      lg.hidden=false;
+      setGroup(lg,hit&&lg.getAttribute('data-lvl')==='A');
+    });
+    if(hit&&!first)first=g;
+  });
+  scrollToEl(first);
+}
+/* 等級篩選：展開所有含該等級的類別，只打開該等級小節 */
+function filterLevel(lvl,el){
+  document.querySelectorAll('.cs').forEach(function(c){c.classList.remove('active')});
+  var allBtn=document.querySelector('.cs[data-kw="all"]');if(allBtn)allBtn.classList.add('active');
+  document.querySelectorAll('.pl-grade,.kpi-box').forEach(function(c){c.classList.remove('lvl-active')});
+  if(lvl!=='all'){document.querySelectorAll('.pl-grade[data-lvl="'+lvl+'"],.kpi-box[data-lvl="'+lvl+'"]').forEach(function(c){c.classList.add('lvl-active')})}
+  var first=null;
+  document.querySelectorAll('.kw-group').forEach(function(g){
+    var any=false;
+    g.querySelectorAll('.lvl-group').forEach(function(lg){
+      var hit=(lvl==='all'||lg.getAttribute('data-lvl')===lvl);
+      lg.hidden=(lvl!=='all'&&!hit);
+      setGroup(lg,hit&&lvl!=='all');
+      if(hit)any=true;
+    });
+    setGroup(g,lvl!=='all'&&any);
+    if(lvl!=='all'&&any&&!first)first=g;
+  });
+  scrollToEl(first||document.getElementById('postsGrid'));
+}
 </script>
 </body>
 </html>
