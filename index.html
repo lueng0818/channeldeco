@@ -159,6 +159,34 @@
   .aq-foot{font-size:11px;color:var(--text-light);margin-top:10px;padding-top:8px;border-top:1px dashed var(--border)}
   @media(max-width:700px){.aq-list{grid-template-columns:1fr}}
 
+  /* 📅 每日更新提醒（固定結構，勿移除） */
+  .daily-brief{background:linear-gradient(135deg,#F2FAF6,#DFF1E8);border:1px solid var(--primary-light);border-left:6px solid var(--primary);border-radius:16px;padding:20px 24px;margin:26px 0 8px;box-shadow:var(--shadow);content-visibility:auto;contain-intrinsic-size:520px}
+  .db-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px dashed var(--primary-light)}
+  .db-title{font-size:19px;font-weight:800;color:var(--primary)}
+  .db-date{font-size:12.5px;color:var(--text-light);margin-top:5px;overflow-wrap:anywhere}
+  .db-stat{flex-shrink:0;text-align:center;background:var(--primary);color:#fff;border-radius:12px;padding:10px 18px;min-width:112px}
+  .db-num{display:block;font-size:26px;font-weight:800;line-height:1.1}
+  .db-lbl{display:block;font-size:11px;opacity:.9;margin-top:2px}
+  .db-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:22px;margin-top:16px}
+  .db-sub{font-size:13.5px;font-weight:800;color:var(--primary);margin-bottom:9px}
+  .db-points{list-style:none}
+  .db-points li{font-size:12.5px;line-height:1.7;padding:7px 0 7px 2px;border-bottom:1px dashed var(--border);overflow-wrap:anywhere}
+  .db-points li:last-child{border-bottom:none}
+  .db-points li strong{color:var(--primary)}
+  .db-tasks{list-style:none}
+  .db-tasks li{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:12.5px;line-height:1.6;overflow-wrap:anywhere}
+  .db-tasks .dbt-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .db-tasks .dbt-user{font-weight:800;color:var(--primary)}
+  .db-tasks .dbt-kw{flex-shrink:0;font-size:10.5px;background:#EEF5F1;color:var(--primary);border-radius:6px;padding:2px 7px}
+  .db-tasks .dbt-theme{color:var(--text);margin-top:3px}
+  .db-tasks .dbt-meta{color:var(--text-light);font-size:11.5px;margin-top:3px}
+  .db-tasks .dbt-act{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+  .db-tasks .dbt-act a,.db-tasks .dbt-act button{font-family:inherit;font-size:11.5px;font-weight:700;border-radius:8px;padding:6px 11px;cursor:pointer;text-decoration:none;border:1px solid var(--primary);color:var(--primary);background:#fff;transition:background .2s,color .2s}
+  .db-tasks .dbt-act a:hover,.db-tasks .dbt-act button:hover{background:var(--primary);color:#fff}
+  .db-empty{font-size:12.5px;color:var(--text-light);padding:10px 0}
+  .db-foot{font-size:11px;color:var(--text-light);margin-top:14px;padding-top:9px;border-top:1px dashed var(--primary-light);overflow-wrap:anywhere}
+  @media(max-width:700px){.db-grid{grid-template-columns:1fr}}
+
   /* ===== 留言草稿：卡片內顯示＋一鍵複製（草稿由生成 routine 寫進卡片 data-draft；固定結構，勿移除） ===== */
   .post-draft{background:#F0F7F3;border:1px solid #CDE7DA;border-radius:10px;padding:11px 13px}
   .post-draft .pd-label{font-weight:700;color:var(--primary);font-size:11.5px;margin-bottom:5px}
@@ -191,7 +219,7 @@
   <div class="upd">
     <div>最後更新</div>
     <strong>2026年8月29日</strong>
-    <div style="margin-top:4px;font-size:11px">共 <strong>280</strong> 則貼文｜新增留言持續補充中</div>
+    <div style="margin-top:4px;font-size:11px">共 <strong>319</strong> 則貼文｜新增留言持續補充中</div>
   </div>
 </header>
 
@@ -212,14 +240,14 @@
 
   <div class="section-title">📂 類別篩選</div>
   <div class="cat-summary">
-    <div class="cs active" data-kw="all" onclick="filterKw('all',this)"><div class="num">276</div><div class="lbl">全部</div></div>
-    <div class="cs" data-kw="軟裝設計" onclick="filterKw('軟裝設計',this)"><div class="num">37</div><div class="lbl">軟裝設計</div></div>
-    <div class="cs" data-kw="輕裝潢" onclick="filterKw('輕裝潢',this)"><div class="num">64</div><div class="lbl">輕裝潢</div></div>
-    <div class="cs" data-kw="空間佈置" onclick="filterKw('空間佈置',this)"><div class="num">22</div><div class="lbl">空間佈置</div></div>
-    <div class="cs" data-kw="室內設計" onclick="filterKw('室內設計',this)"><div class="num">83</div><div class="lbl">室內設計</div></div>
-    <div class="cs" data-kw="裝潢後悔" onclick="filterKw('裝潢後悔',this)"><div class="num">27</div><div class="lbl">裝潢後悔</div></div>
-    <div class="cs" data-kw="寵物宅" onclick="filterKw('寵物宅',this)"><div class="num">24</div><div class="lbl">寵物宅</div></div>
-    <div class="cs" data-kw="空間佈置靈感" onclick="filterKw('空間佈置靈感',this)"><div class="num">23</div><div class="lbl">空間佈置靈感</div></div>
+    <div class="cs active" data-kw="all" onclick="filterKw('all',this)"><div class="num">319</div><div class="lbl">全部</div></div>
+    <div class="cs" data-kw="軟裝設計" onclick="filterKw('軟裝設計',this)"><div class="num">40</div><div class="lbl">軟裝設計</div></div>
+    <div class="cs" data-kw="輕裝潢" onclick="filterKw('輕裝潢',this)"><div class="num">68</div><div class="lbl">輕裝潢</div></div>
+    <div class="cs" data-kw="空間佈置" onclick="filterKw('空間佈置',this)"><div class="num">27</div><div class="lbl">空間佈置</div></div>
+    <div class="cs" data-kw="室內設計" onclick="filterKw('室內設計',this)"><div class="num">91</div><div class="lbl">室內設計</div></div>
+    <div class="cs" data-kw="裝潢後悔" onclick="filterKw('裝潢後悔',this)"><div class="num">37</div><div class="lbl">裝潢後悔</div></div>
+    <div class="cs" data-kw="寵物宅" onclick="filterKw('寵物宅',this)"><div class="num">27</div><div class="lbl">寵物宅</div></div>
+    <div class="cs" data-kw="空間佈置靈感" onclick="filterKw('空間佈置靈感',this)"><div class="num">29</div><div class="lbl">空間佈置靈感</div></div>
   </div>
 
   <div class="section-title">🔥 本週最高互動</div>
@@ -261,18 +289,18 @@
       <div class="pl-grade" data-lvl="all" onclick="filterLevel('all',this)" style="background:#F3F4F6;color:var(--text-light);cursor:pointer"><b>↺ 顯示全部</b>清除等級篩選，回到完整貼文列表</div>
     </div>
     <div class="kpi-strip">
-      <div class="kpi-box" data-lvl="A" onclick="filterLevel('A',this)" style="background:#DCFCE7;color:#14532D;cursor:pointer"><div class="kn">128</div><div class="kl">🎯 A級貼文</div></div>
-      <div class="kpi-box" data-lvl="B" onclick="filterLevel('B',this)" style="background:#DBEAFE;color:#1E3A8A;cursor:pointer"><div class="kn">82</div><div class="kl">📋 B級貼文</div></div>
-      <div class="kpi-box" data-lvl="C" onclick="filterLevel('C',this)" style="background:#EDE9FE;color:#5B21B6;cursor:pointer"><div class="kn">21</div><div class="kl">💬 C級貼文</div></div>
-      <div class="kpi-box" data-lvl="D" onclick="filterLevel('D',this)" style="background:#F1F1EF;color:#555;cursor:pointer"><div class="kn">47</div><div class="kl">👀 D級貼文</div></div>
-      <div class="kpi-box" data-lvl="風險" onclick="filterLevel('風險',this)" style="background:#FEE2E2;color:#7F1D1D;cursor:pointer"><div class="kn">2</div><div class="kl">⚠️ 風險貼文</div></div>
+      <div class="kpi-box" data-lvl="A" onclick="filterLevel('A',this)" style="background:#DCFCE7;color:#14532D;cursor:pointer"><div class="kn">133</div><div class="kl">🎯 A級貼文</div></div>
+      <div class="kpi-box" data-lvl="B" onclick="filterLevel('B',this)" style="background:#DBEAFE;color:#1E3A8A;cursor:pointer"><div class="kn">100</div><div class="kl">📋 B級貼文</div></div>
+      <div class="kpi-box" data-lvl="C" onclick="filterLevel('C',this)" style="background:#EDE9FE;color:#5B21B6;cursor:pointer"><div class="kn">25</div><div class="kl">💬 C級貼文</div></div>
+      <div class="kpi-box" data-lvl="D" onclick="filterLevel('D',this)" style="background:#F1F1EF;color:#555;cursor:pointer"><div class="kn">57</div><div class="kl">👀 D級貼文</div></div>
+      <div class="kpi-box" data-lvl="風險" onclick="filterLevel('風險',this)" style="background:#FEE2E2;color:#7F1D1D;cursor:pointer"><div class="kn">4</div><div class="kl">⚠️ 風險貼文</div></div>
     </div>
   </div>
 
   <div class="section-title">📋 貼文分析</div>
   <div class="posts-grid" id="postsGrid">
     <!-- ===== 以下 4 則為 threads-home-deco-daily-a-sweep 每日輕量 A 級掃描新增（2026-8-29） ===== -->
-    <div class="post-card" data-kw="輕裝潢" data-level="A" data-draft="局部更新最怕的是各工項各自為政，木地板、系統櫃、廚具通常不是同一個班底，順序沒排好會互相等，也容易出現接縫收邊沒人認領的狀況，先確認統包會不會幫你排這個順序，之後會省下很多來回。貓步道建議跟系統櫃一起規劃，板材承重、跳台間距與落地緩衝點要先想好，等櫃體做完才加裝，通常只能鎖在不理想的牆面。廚具那段記得先確認水電位置能不能沿用，這件事會直接決定要不要動管線、預算會不會跳。丈量那天把家裡貓平常最愛待的動線拍給對方看，比講風格更能幫你篩掉不合適的人。">
+    <div class="post-card" data-added="2026-8-29" data-kw="輕裝潢" data-level="A" data-draft="局部更新最怕的是各工項各自為政，木地板、系統櫃、廚具通常不是同一個班底，順序沒排好會互相等，也容易出現接縫收邊沒人認領的狀況，先確認統包會不會幫你排這個順序，之後會省下很多來回。貓步道建議跟系統櫃一起規劃，板材承重、跳台間距與落地緩衝點要先想好，等櫃體做完才加裝，通常只能鎖在不理想的牆面。廚具那段記得先確認水電位置能不能沿用，這件事會直接決定要不要動管線、預算會不會跳。丈量那天把家裡貓平常最愛待的動線拍給對方看，比講風格更能幫你篩掉不合適的人。">
       <div class="post-header"><div><div class="post-author">@tiara0628</div><div class="post-date">2026-8-29 · 林口局部微裝潢統包・含貓步道規劃求自薦</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">找推薦／歡迎自薦‼️ 🔍 林口地區｜居家微裝潢統包：全室木地板、臥房系統櫃、廚房系統櫃／收納調整、流理台及系統廚具更新、貓步道／貓跳台規劃施工。🤎希望以「局部更新、不大拆大改」為主</div></div>
       <div class="post-badges"><span class="badge">①無方向求推薦型</span><span class="badge">📍新北林口</span><span class="badge">🚗 核心到府區</span><span class="badge">🏠 局部更新・不大拆大改</span><span class="badge">🐱 含貓步道／貓跳台規劃</span><span class="badge">🎯 明確求統包自薦</span><span class="badge">💬 10則留言全為自薦</span><span class="badge">😟 情緒：選擇困難</span><span class="badge plevel p-A">&#127919; A級高意圖</span></div>
@@ -284,7 +312,7 @@
         <div class="comments-list"><div class="comment-item"><div class="comment-author">@yuxu_cabinet <span class="likes">&#10084;&#65039; 1</span></div><div class="comment-text">這題我會🙋‍♀️ 統包、系統櫥櫃、木地板等我都可以協助處理🤗</div></div><div class="comment-item"><div class="comment-author">@vul3mp60620 <span class="likes">&#10084;&#65039; 1</span></div><div class="comment-text">您好 如有木工、系統櫃需求歡迎聯絡，謝謝您</div></div><div class="comment-item"><div class="comment-author">@chenchen_0718 <span class="likes">&#10084;&#65039; 1</span></div><div class="comment-text">標記 @chengtian_floor 設計師純推薦的木地板廠商；跟其他工班不衝突。您自行發包就可以～</div></div><div class="comment-item"><div class="comment-author">@ericyen7840 <span class="likes">&#10084;&#65039; 1</span></div><div class="comment-text">桃園統包裝潢免費丈量估價出平面配置圖，可討論預算及需求。</div></div><div class="comment-item"><div class="comment-author">@xiangsen.co <span class="likes">&#10084;&#65039; 1</span></div><div class="comment-text">森編自薦一下🌲 工廠直營系統傢俱</div></div></div>
       </div>
     </div>
-    <div class="post-card" data-kw="輕裝潢" data-level="A" data-draft="新成屋這幾項的順序其實比找誰做更關鍵。驗屋一定要排在交屋前，缺失記錄拿到手才有跟建商請款修繕的依據，等裝潢進場再發現就很難認定責任。採光罩跟太陽能熱水器牽涉外牆與管線，如果社區有規約或需要報備，建議在驗屋同一天就先問管委會，免得東西買了裝不上去。窗簾則剛好相反，留到油漆與燈具都完成再丈量，才不會被後來的線板或軌道位置卡住。至於驗屋收費要看是逐項儀器檢測還是目測，這兩種價差很大，問報價時直接問會出哪幾項檢測、報告是什麼形式，比較起來才有意義。">
+    <div class="post-card" data-added="2026-8-29" data-kw="輕裝潢" data-level="A" data-draft="新成屋這幾項的順序其實比找誰做更關鍵。驗屋一定要排在交屋前，缺失記錄拿到手才有跟建商請款修繕的依據，等裝潢進場再發現就很難認定責任。採光罩跟太陽能熱水器牽涉外牆與管線，如果社區有規約或需要報備，建議在驗屋同一天就先問管委會，免得東西買了裝不上去。窗簾則剛好相反，留到油漆與燈具都完成再丈量，才不會被後來的線板或軌道位置卡住。至於驗屋收費要看是逐項儀器檢測還是目測，這兩種價差很大，問報價時直接問會出哪幾項檢測、報告是什麼形式，比較起來才有意義。">
       <div class="post-header"><div><div class="post-author">@zjl0002</div><div class="post-date">2026-8-29 · 台南新成屋驗屋・窗簾採光罩輕裝潢一次求推薦</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">想請問台南新成屋有推薦的合理收費驗屋公司嗎🥹 順便求推薦太陽能熱水器／窗簾／採光罩／輕裝潢。可以的話把各位老闆的聯繫方式打上來或是私訊我都可以喲，大感謝🙏</div></div>
       <div class="post-badges"><span class="badge">⑤交屋／時程焦慮型</span><span class="badge">📍台南</span><span class="badge">🚗 核心到府區</span><span class="badge">🏠 新成屋・交屋前後階段</span><span class="badge">📋 一次列出五類需求</span><span class="badge">💰 明講在意收費合理</span><span class="badge">💬 18則留言全為自薦</span><span class="badge">👁 1,297次瀏覽</span><span class="badge">😟 情緒：焦慮求助</span><span class="badge plevel p-A">&#127919; A級高意圖</span></div>
@@ -296,7 +324,7 @@
         <div class="comments-list"><div class="comment-item"><div class="comment-author">@iverson0392 <span class="likes">&#10084;&#65039; 1</span></div><div class="comment-text">是要驗透天的對嗎？你要的需求我能統包，在台南哪區呢？</div></div><div class="comment-item"><div class="comment-author">@jishi.homecheck</div><div class="comment-text">來了來了～ 可以參考佶室科技驗屋，眾多屋主認證，Google 多則好評，可以私訊我們詢價哦</div></div><div class="comment-item"><div class="comment-author">@chengyang_light</div><div class="comment-text">窗簾燈具都來，價格合理♥ 服務周到還可刷卡付款👌🏻</div></div><div class="comment-item"><div class="comment-author">@ling0526_</div><div class="comment-text">匠鑫室內裝修，高雄木工 8 人團隊。平釘天花板 4900/坪含油漆崁燈，純木作平釘 2900/坪，窗簾盒 650/尺。服務地區：台南-高雄-屏東</div></div><div class="comment-item"><div class="comment-author">@peggys11</div><div class="comment-text">我是窗簾地板廠商，有需要可以聯絡我🙋🏻‍♀️</div></div></div>
       </div>
     </div>
-    <div class="post-card" data-kw="輕裝潢" data-level="A" data-draft="預售屋最大的優勢就是可以在客變階段把收納先想清楚，這個時間點動插座、給排水跟隔間，成本遠低於交屋之後再改。建議先把玄關、電器櫃、衣櫃、還有已經確定要買的家電尺寸列成一張清單，帶著格局圖去談，對方怎麼回應這張清單，其實就是最好的配合度測試。系統櫃不用一次做滿，先做每天一定會用到的那幾座，住半年後再補，反而更貼近你真正的生活習慣，也不會讓空間變得很滿。另外可以先問清楚報價怎麼分項、追加怎麼認定，這比看完工照更能看出後續好不好溝通。">
+    <div class="post-card" data-added="2026-8-29" data-kw="輕裝潢" data-level="A" data-draft="預售屋最大的優勢就是可以在客變階段把收納先想清楚，這個時間點動插座、給排水跟隔間，成本遠低於交屋之後再改。建議先把玄關、電器櫃、衣櫃、還有已經確定要買的家電尺寸列成一張清單，帶著格局圖去談，對方怎麼回應這張清單，其實就是最好的配合度測試。系統櫃不用一次做滿，先做每天一定會用到的那幾座，住半年後再補，反而更貼近你真正的生活習慣，也不會讓空間變得很滿。另外可以先問清楚報價怎麼分項、追加怎麼認定，這比看完工照更能看出後續好不好溝通。">
       <div class="post-header"><div><div class="post-author">@baby04210221</div><div class="post-date">2026-8-25 · 雙北預售屋輕裝潢統包・求高收納好溝通團隊</div></div><span class="post-kw kw-輕裝潢">輕裝潢</span></div>
       <div class="post-content"><div class="trunc">跪求推薦雙北預售屋輕裝潢統包！希望多收納空間（系統櫃），好討論配合度高🙏</div></div>
       <div class="post-badges"><span class="badge">①無方向求推薦型</span><span class="badge">📍雙北</span><span class="badge">🚗 核心到府區</span><span class="badge">🏠 預售屋・輕裝潢統包</span><span class="badge">📦 訴求多收納系統櫃</span><span class="badge">🤝 明講重視配合度與溝通</span><span class="badge">💬 55則留言幾乎全為自薦</span><span class="badge">👁 3,357次瀏覽</span><span class="badge">😟 情緒：選擇困難</span><span class="badge plevel p-A">&#127919; A級高意圖</span></div>
@@ -308,7 +336,7 @@
         <div class="comments-list"><div class="comment-item"><div class="comment-author">@sansenhai_design2.0 <span class="likes">&#10084;&#65039; 5</span></div><div class="comment-text">我是林口室內設計師，可以配合喔～</div></div><div class="comment-item"><div class="comment-author">@hehe0612yu <span class="likes">&#10084;&#65039; 2</span></div><div class="comment-text">工班團隊年輕好溝通 歡迎聯繫😀</div></div><div class="comment-item"><div class="comment-author">@lunlun0227 <span class="likes">&#10084;&#65039; 2</span></div><div class="comment-text">如果系統櫃還沒找到，可以找我們聊聊～我們自己就是工班，好溝通、好配合，有想法也都可以私訊討論🔥</div></div><div class="comment-item"><div class="comment-author">@iam_11re</div><div class="comment-text">可以把鼎盛嘉放進比較名單！他們本身就有做系統櫃跟空間規劃，我覺得滿符合你「輕裝潢＋多收納」的需求～而且預售屋真的很適合先拿格局圖討論，把玄關、電器櫃、衣櫃這些先規劃好，比交屋後才想哪裡還能塞櫃子有效率很多🤣</div></div><div class="comment-item"><div class="comment-author">@chloe.592777 <span class="likes">&#10084;&#65039; 1</span></div><div class="comment-text">您好，我們是宅家空間設計，承接新成屋裝修設計、施工統包，以及預售屋客變後交屋設計施工。系統櫃是我們的強項之一，歡迎您詢問</div></div></div>
       </div>
     </div>
-    <div class="post-card" data-kw="室內設計" data-level="A" data-draft="自己發包跟找設計師，其實比較少是能力問題，多半是時間問題。你提到自己就是做設計的、先生一家也是工程專業，那真正要算的是另一件事：發包等於你得親自排工序、跑現場、處理各工班交界，一個中型住宅通常會吃掉三到四個月的零碎時間，而且是集中在上班日。如果這段時間拿不出來，找人統籌反而比較省。折衷作法是把設計跟工程拆開，圖你們自己畫，工程交給有在地工班的統包，既保有想法也不必天天跑工地。不管走哪一條，合約先寫清楚分項報價、追加怎麼認定、付款怎麼綁工程進度，你看到的那些慘案幾乎都是從這三件事開始的。">
+    <div class="post-card" data-added="2026-8-29" data-kw="室內設計" data-level="A" data-draft="自己發包跟找設計師，其實比較少是能力問題，多半是時間問題。你提到自己就是做設計的、先生一家也是工程專業，那真正要算的是另一件事：發包等於你得親自排工序、跑現場、處理各工班交界，一個中型住宅通常會吃掉三到四個月的零碎時間，而且是集中在上班日。如果這段時間拿不出來，找人統籌反而比較省。折衷作法是把設計跟工程拆開，圖你們自己畫，工程交給有在地工班的統包，既保有想法也不必天天跑工地。不管走哪一條，合約先寫清楚分項報價、追加怎麼認定、付款怎麼綁工程進度，你看到的那些慘案幾乎都是從這三件事開始的。">
       <div class="post-header"><div><div class="post-author">@naia_talks</div><div class="post-date">2026-8-29 · 台南自己發包或找設計師・兩邊都怕踩雷</div></div><span class="post-kw kw-室內設計">室內設計</span></div>
       <div class="post-content"><div class="trunc">最近在苦惱裝潢要自己發包還是找設計師，不管哪一個都蠻常看到慘案的，有沒有人能給點意見？順便再問一下座標台南有沒有推薦的公司？有沒有什麼要注意的？</div></div>
       <div class="post-badges"><span class="badge">③決策／審美兩難型</span><span class="badge">📍台南</span><span class="badge">🚗 核心到府區</span><span class="badge">⚖️ 自行發包 vs 找設計師兩難</span><span class="badge">👤 作者本身做設計・先生家為工程專業</span><span class="badge">⏰ 自述兩人都太忙</span><span class="badge">🎯 兼求台南在地公司推薦</span><span class="badge">💬 21則留言</span><span class="badge">👁 1,362次瀏覽</span><span class="badge">😟 情緒：選擇困難</span><span class="badge plevel p-A">&#127919; A級高意圖</span></div>
@@ -5070,6 +5098,28 @@
       </div>
     </div>
   </div>
+
+  <!-- 📅 每日更新提醒（固定結構，勿移除）：右欄「今日待回貼文」由頁尾 buildDailyBrief() 依 data-date 自動比對 .post-card[data-added] 生成；左欄「今日重點提醒」由每日 A 級掃描排程改寫 -->
+  <div class="daily-brief" id="dailyBrief" data-date="2026-8-29">
+    <div class="db-head">
+      <div>
+        <div class="db-title">📅 每日更新提醒</div>
+        <div class="db-date">2026 年 8 月 29 日（六）· 每日輕量 A 級掃描 · 下次更新 2026 年 8 月 30 日</div>
+      </div>
+      <div class="db-stat"><span class="db-num" id="dbNewCount">—</span><span class="db-lbl">今日新增 A 級</span></div>
+    </div>
+    <div class="db-grid">
+      <div>
+        <div class="db-sub">🔔 今日重點提醒</div>
+        <ul class="db-points" id="dbPoints"><li><strong>🔴 最優先｜@tiara0628（林口）</strong>發文僅 1 小時、656 次瀏覽，10 則留言全為自薦，是今日競爭最少的一則。她的貓步道／貓跳台需求沒有任何人回應，用「跳台間距與板材承重要跟系統櫃一起規劃」切入最容易被記住。</li><li><strong>🟠 窗口正在關閉｜@baby04210221（雙北）</strong>已發文 3 天、3,357 次瀏覽、55 則留言，今日不處理明天價值會明顯下降。切角走預售屋客變階段先列收納清單，不要再給一組聯絡方式。</li><li><strong>🟡 台南今日一次出現兩則</strong>（@zjl0002 交屋順序、@naia_talks 發包 vs 設計師），可合併成一則內容主題：台南新成屋交屋前後的正確順序，對高雄、屏東受眾同樣通用。</li><li><strong>💡 今日觀察</strong>：四則貼文的留言區合計超過 100 則，沒有任何一則先把坪數、預算或時程問回去。先問問題仍然是成本最低的差異化姿態。</li><li><strong>⚠️ 掃描關鍵字提醒</strong>：「空間佈置靈感」今日查無結果、「軟裝設計」只回傳廠商推銷貼文——消費者不會打這兩個字，明日掃描以「軟裝」「輕裝潢」「室內設計」為主力。</li></ul>
+      </div>
+      <div>
+        <div class="db-sub">✅ 今日待回貼文（建議 24 小時內處理）</div>
+        <ul class="db-tasks" id="dbTasks"><li class="db-empty">載入中…</li></ul>
+      </div>
+    </div>
+    <div class="db-foot">📌 此區塊每天由「每日輕量 A 級掃描」排程更新：右欄自動列出當日新增的 A 級貼文與留言草稿，左欄為當日人工判讀的重點提醒。當日若無新增 A 級貼文，右欄會顯示提示並保留前一日待辦。</div>
+  </div>
 </div>
 
 <script>
@@ -5137,6 +5187,44 @@ function copyDraft(btn){
     var kw=((card.querySelector('.post-kw')||{}).textContent||'').trim();
     var angle=(card.getAttribute('data-topic')||'').trim();
     html+='<li><span class="ct-theme">'+esc(theme)+'</span> <span class="ct-meta">｜'+esc(kw)+'｜📤'+shares(card)+'｜'+esc(author)+'</span>'+(angle?'<span class="ct-angle">→ '+esc(angle)+'</span>':'')+'</li>';
+  });
+  list.innerHTML=html;
+})();
+
+/* 📅 每日更新提醒：依 #dailyBrief 的 data-date 自動比對 .post-card[data-added]，列出當日新增的 A 級貼文與草稿（固定結構，勿移除） */
+(function buildDailyBrief(){
+  var box=document.getElementById('dailyBrief');if(!box)return;
+  var list=document.getElementById('dbTasks'),cnt=document.getElementById('dbNewCount');if(!list)return;
+  var day=(box.getAttribute('data-date')||'').trim();
+  var cards=[].slice.call(document.querySelectorAll('.post-card[data-added="'+day+'"]'));
+  if(cnt)cnt.textContent=cards.length;
+  if(!cards.length){
+    list.innerHTML='<li class="db-empty">今日無新增 A 級貼文——維持前一日待辦，請往上查看「🎯 今日行動佇列」。</li>';
+    return;
+  }
+  function txt(card,sel){var e=card.querySelector(sel);return e?e.textContent.trim():''}
+  var html='';
+  cards.forEach(function(card){
+    var author=txt(card,'.post-author');
+    var kw=txt(card,'.post-kw');
+    var dateTxt=txt(card,'.post-date');
+    var theme=dateTxt.indexOf('·')>-1?dateTxt.split('·').slice(1).join('·').trim():dateTxt;
+    var region='';
+    card.querySelectorAll('.post-badges .badge').forEach(function(b){if(!region&&b.textContent.indexOf('📍')>-1)region=b.textContent.trim();});
+    var stats=[];
+    card.querySelectorAll('.post-stats .stat').forEach(function(st){stats.push(st.textContent.replace(/\s+/g,''));});
+    var a=card.querySelector('.post-link a');
+    var href=a?a.getAttribute('href'):'';
+    var draft=(card.getAttribute('data-draft')||'').trim();
+    html+='<li>'+
+      '<div class="dbt-top"><span class="dbt-user">'+esc(author)+'</span><span class="dbt-kw">'+esc(kw)+'</span></div>'+
+      '<div class="dbt-theme">'+esc(theme)+'</div>'+
+      '<div class="dbt-meta">'+esc(region)+(stats.length?'｜'+esc(stats.join('　')):'')+'</div>'+
+      '<div class="dbt-act">'+
+        (href?'<a href="'+esc(href)+'" target="_blank" rel="noopener">🔗 前往原文</a>':'')+
+        (draft?'<button type="button" onclick="copyDraft(this)">📋 複製留言草稿</button><span class="aq-draft-text" style="display:none">'+esc(draft)+'</span>':'')+
+      '</div>'+
+    '</li>';
   });
   list.innerHTML=html;
 })();
