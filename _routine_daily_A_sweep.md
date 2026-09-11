@@ -285,10 +285,28 @@ bash tools/deploy_verify.sh
 
 ## 步驟 10：驗證（推送前）
 
-- `<div>`／`</div>` 數量平衡為 0、無 `.post-card` 巢狀
-- 無重複 `post/POSTID`（若有，保留週更那張）
+> ⛔ **凡可機器判定的硬規則一律實測，不得目測或抽查**（2026-09-11 裁決，見
+> [`_routine_persist_rules.md`](_routine_persist_rules.md) §8）。
+
+**主要方式**：在 repo 根目錄跑
+
+```powershell
+.\tools\content_gate.ps1
+```
+
+離開碼 0 才可宣告 `CONTENT_COMPLETE`。它會實測：div 平衡／七類別與五等級加總是否等於總卡片數／
+頁面顯示數字是否等於實際數字／重複 POSTID／當日每則 `data-draft` 的字數與三段式硬規則／
+必填屬性／LF 與 BOM。
+
+**容器端 bash 不可用時的替代**：用瀏覽器 JS 引擎對實際字串量測（`String.length`、正則），
+或載入已發布頁面以其自身 JS 產出的統計數字反查。**不得改用目測。**
+
+補充（工具未涵蓋的部分）：
+
 - 抽出最後一段 `<script>` 存成 .js 跑 `node --check`
-- 有 jsdom 時載入一次，確認 `#dbTasks` 項數＝今日新增則數、`.kw-group` 為 7、收合狀態下 DOM 內 `.post-card` 為 0
+- 有 jsdom 或已發布頁面時，確認 `#dbTasks` 項數＝今日新增則數、`.kw-group` 為 7、
+  收合狀態下 DOM 內 `.post-card` 為 0、`#aqList` 項數＝A 級總數
+- `.post-card` 巢狀為 0
 
 ## 步驟 11：報告（四段狀態模型）
 

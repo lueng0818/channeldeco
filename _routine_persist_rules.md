@@ -119,6 +119,22 @@
 
 ## 8. Content Gate：宣告 `CONTENT_COMPLETE` 前的驗證清單
 
+> ⛔ **硬規則（2026-09-11 Tilandky 裁決）：凡可機器判定的 canonical 硬規則，
+> 不得以目測、估算或抽查宣告 PASS，一律實測全部項目。**
+>
+> 涵蓋範圍：字數上下限、emoji 數、禁用字元（`"` `<` `>`）、必要收尾（「聊聊」）、
+> 必填屬性（`data-added`／`data-kw`／`data-level`／A 級的 `data-draft`）、
+> 重複 POSTID、各項計數一致性、div 平衡、LF／BOM。
+>
+> **執行方式**：`.\tools\content_gate.ps1`（Windows PowerShell，repo 根目錄執行）。
+> 離開碼 0 才可宣告 `CONTENT_COMPLETE`。容器端 bash 不可用時，
+> 可用瀏覽器 JS 引擎對實際字串量測代替，**但不得改用目測**。
+>
+> *依據（三個獨立情境，同方向）*：2026-09-11 五則 `data-draft` 以目測抽查宣告
+> 通過，實測為 151–161 字，全數超過 §I 的 150 字上限；同日 HTML 結構驗證以
+> 「結構比對」代替實跑；KPI A 級沿用舊值，實際已少算 2。
+> 這是已發生事故的防呆，不是預防性設計。
+
 以下全過才可以宣告 `CONTENT_COMPLETE`、把發布指令交給 Windows。
 任一項不過就修好再交，不要留下計數與卡片不一致的版本。
 
