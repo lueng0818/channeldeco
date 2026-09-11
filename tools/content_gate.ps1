@@ -218,10 +218,20 @@ Write-Host ""
 if ($n -eq 0) {
   Write-Host "CONTENT GATE: PASS - 可宣告 CONTENT_COMPLETE" -ForegroundColor Green
   Write-Host ""
-  Write-Host "⚠️ 本 gate 只涵蓋『慣用語檢查』裡可機器判定的部分，不代表流程已完成。" -ForegroundColor Yellow
-  Write-Host "   ChannelDeco 內容流程：AI 生成 → Human Write → 慣用語檢查 → 發布／回覆" -ForegroundColor Yellow
-  Write-Host "   Human Write 與 Real-World Validation 的 owner 是 Hailey／ChannelDeco 團隊，不是本工具。" -ForegroundColor Yellow
-  Write-Host "   『通過品牌語氣規格』≠『Human Write 完成』——前者是規則符合度，後者是人的語言所有權，兩個 Gate 分開記。" -ForegroundColor Yellow
+  Write-Host "ChannelDeco 內容流程與責任模型" -ForegroundColor Yellow
+  Write-Host "  AI Generate" -ForegroundColor Yellow
+  Write-Host "  -> Human Write            （把 AI 寫得對，轉成本人真的會這樣說）" -ForegroundColor Yellow
+  Write-Host "  -> 慣用語檢查             （本 gate 只涵蓋其中可機器判定的部分）" -ForegroundColor Yellow
+  Write-Host "  -> Real-World Validation  （這句我會不會真的留言出去）" -ForegroundColor Yellow
+  Write-Host "  -> 發布／回覆" -ForegroundColor Yellow
+  Write-Host ""
+  Write-Host "  Owner       : Hailey / ChannelDeco" -ForegroundColor Yellow
+  Write-Host "  Human Write : NOT RUN" -ForegroundColor Yellow
+  Write-Host "  Real-World  : NOT RUN" -ForegroundColor Yellow
+  Write-Host ""
+  Write-Host "  上面兩項一律由本工具輸出為 NOT RUN，owner 是 Hailey／ChannelDeco 團隊。" -ForegroundColor Yellow
+  Write-Host "  不得因為 Validation: PASS 就把它們改成完成——" -ForegroundColor Yellow
+  Write-Host "  『通過品牌語氣規格』不等於『Human Write 完成』：前者是規則符合度，後者是人的語言所有權。" -ForegroundColor Yellow
   exit 0
 } else {
   Write-Host "CONTENT GATE: FAIL（$n 項）- 不得宣告 CONTENT_COMPLETE，修好再跑一次" -ForegroundColor Red
