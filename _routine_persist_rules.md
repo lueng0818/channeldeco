@@ -8,6 +8,10 @@
 > 對應排程檔：
 > - `skills/threads-home-deco-daily.SKILL.md`（週一完整版）
 > - `skills/threads-home-deco-daily-a-sweep.SKILL.md`（每日 A 級掃描）
+>
+> 發布相關（2026-09-06 加入）：
+> - `tools/deploy_verify.sh` — Deployment Evidence Gate
+> - `000_Agent/knowledge/EXECUTION-BOUNDARY-STANDARD.md` — 跨專案執行邊界 canonical
 
 ---
 
@@ -84,10 +88,22 @@
 
 ## 6. 留言草稿口徑
 
-2–4 句、先直接解對方的題、給一個具體可用的判斷或方向；
-**不放連結、不自薦 ChannelDeco、不批評同業**；溫暖真實、用生活語言不用術語。
-依 8 類切入點決定切角（例：⑤交屋時程 → 先談工期綁合約＋分階段；②預算明確 → 談把錢花在收納／採光，風格交給軟裝）。
-風險／同業帳號：`data-draft` 留空或寫「（不留言，避免涉入敏感議題）」。
+> **2026-09-11 更新**：舊口徑「不放連結、不自薦」已作廢。正本＝`語感規格_v0.1_2026-09-11.md` §G／§I。
+
+走 **ChannelDeco 三段式**：
+
+```
+① 接住對方寫出來的條件，給一句判斷
+② 給一個具體、可驗證的技術提醒（對方沒問、但實際會踩到的那一題）
+③ 收尾：「我們是 Channel Deco，做輕裝修＋軟裝設計，歡迎跟我們聊聊。」
+```
+
+硬規則：用「我們」不用「我」｜**emoji 0 個**｜不批評同業｜3–5 句、約 **100–150 字**｜
+`data-draft` 內不可有半形雙引號 `"`、不可有 `<` `>`。
+「聊聊」是招牌收尾，**不要改成「歡迎諮詢」「歡迎詢問」「歡迎私訊」**。
+
+依 8 類切入點決定第 ① 段切角（例：⑤交屋時程 → 先談工期綁合約＋分階段；②預算明確 → 談把錢花在收納／採光，風格交給軟裝）。
+**風險級貼文為唯一例外**：維持不批評、不自薦，`data-draft` 留空或寫「（不留言，避免涉入敏感議題）」，只轉化為自家透明度內容題材。
 
 ## 7. 兩支排程的分工邊界
 
@@ -101,10 +117,60 @@
 
 **同日衝突：每週一完整版 > 每日 A 級掃描。** 每日版當天自行跳過，不得覆蓋或重複週更新增的卡片。
 
-## 8. 推送前驗證清單
+## 8. Content Gate：宣告 `CONTENT_COMPLETE` 前的驗證清單
+
+以下全過才可以宣告 `CONTENT_COMPLETE`、把發布指令交給 Windows。
+任一項不過就修好再交，不要留下計數與卡片不一致的版本。
 
 - [ ] `<div>`／`</div>` 數量平衡為 0、無 `.post-card` 巢狀
-- [ ] 無重複 `post/POSTID`
+- [ ] 無重複 `post/POSTID`（與週更撞號時保留週更那張）
 - [ ] 最後一段 `<script>` 存成 .js 跑 `node --check` 通過
 - [ ] 有 jsdom 時：`.kw-group` 為 7、收合狀態下 DOM 內 `.post-card` 為 0、`#dbTasks` 項數＝當日新增則數、`#aqList` 項數＝A 級總數
 - [ ] header 總數／各類別 `.cs`／KPI 五格皆為實際 grep 結果，A 級數字與行動佇列一致
+- [ ] 五個 `data-level` 計數加總＝總卡片數；七個 `data-kw` 計數加總＝總卡片數
+- [ ] 行尾維持全 LF、無 BOM（`grep -c $'\r'` 應為 0）——避免整檔換行漂移蓋掉別人的修改
+- [ ] 覆寫前後各驗一次 `git hash-object index.html`，並確認 hash 已穩定（間隔 30 秒兩次相同）
+
+> ⚠️ **用 Grep 工具代替 bash 統計時要加 `<div class="post-card` 前綴**，
+> 否則會把 `<style>` 裡的 `.post-card[data-level="A"]` 等 CSS 選擇器一起算進去
+> （2026-09-11 實測多算 7 筆）。加總對不上總卡片數就是統計式寫錯了。
+
+## 9. Deployment Gate：發布後的驗證
+
+**Content Gate 過 ≠ 已發布。** 容器端不碰 git（見
+[`_routine_daily_A_sweep.md`](_routine_daily_A_sweep.md) 步驟 9），
+發布由 Windows 主機人工執行**正常 branch workflow**：
+`fetch → gate → reset --mixed FETCH_HEAD → add → commit → push channeldeco main:refs/heads/main`。
+
+🚫 **不再使用「Windows 直接推容器算出的 dangling commit SHA」**——
+那會讓遠端前進而本機 `main` ref 不前進，divergence 每天累積，
+2026-09-11 已實際造成 `non-fast-forward` 而中斷發布。
+
+驗證擇一：
+
+```powershell
+git fetch channeldeco main
+git diff FETCH_HEAD -- index.html     # 輸出為空 → DEPLOY_VERIFIED
+```
+
+```bash
+bash tools/deploy_verify.sh
+```
+
+| 退出碼 | 意義 | 狀態 |
+|---|---|---|
+| 0 | 遠端＝本機 | **`DEPLOY_VERIFIED`** ← 只有這裡才叫「發布完成」 |
+| 1 | 遠端落後本機 | `DEPLOY_WAITING` / `DEPLOY_BLOCKED` |
+| 2 | 讀不到遠端 | `UNKNOWN`——不得宣稱已發布，也不得記成 0 |
+
+狀態模型 `CONTENT_COMPLETE → DEPLOY_WAITING → DEPLOY_PUSHED → DEPLOY_VERIFIED`，
+容器端結束時最多只能宣告 `CONTENT_COMPLETE`。
+若恢復「容器先算 commit」作為 candidate／evidence，模型改為
+`CONTENT_COMPLETE → COMMIT_CANDIDATE_READY → Windows branch workflow → DEPLOY_PUSHED → DEPLOY_VERIFIED`，
+且 **`COMMIT_CANDIDATE_READY` 不等於「Windows 直接推這顆 SHA」**。
+
+**執行環境故障**（如容器 `Plan9 share "c" is not mounted`）歸類為 **Environment Failure**，
+與 Git 發布流程缺陷分開記——兩者根因不同、修法也不同。
+
+canonical 規範：`000_Agent/knowledge/EXECUTION-BOUNDARY-STANDARD.md`
+憑證規範：[`GITHUB-AUTH-STANDARD.md`](GITHUB-AUTH-STANDARD.md)

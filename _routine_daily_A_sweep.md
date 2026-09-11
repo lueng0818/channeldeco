@@ -67,6 +67,41 @@
 > Threads 頁面易逾時：同一 tab 反覆 timeout 就用 `tabs_create_mcp` 開新 tab 重試。
 > 實務上用 `javascript_tool` 撈 `a[href*="/post/"]` 取單篇連結，比 `find` 穩定。
 
+### 步驟 2.9：Discovery degraded-mode cutoff（2026-09-06）
+
+節流（回傳量變少）與 endpoint 掛掉是**兩件事**，處置相反：
+
+| 症狀 | 判斷 | 處置 |
+|---|---|---|
+| 只回 1～2 筆、單頁逾時 | throttling | 拉長間隔、換 tab、scroll 觸發載入 |
+| 連續回錯誤頁／空頁 | endpoint availability | **停止擴大關鍵字**，進 DEGRADED |
+
+**觸發條件**：同一輪中 3 個**相互獨立**的 discovery surface 均持續失敗
+（A `/search?q=…` ／ B `/tag/軟裝設計` ／ C `/@channel.deco/replies`）
+→ platform-side discovery degradation，立即停止重試。
+
+```
+Surface A fail → wait 20-30s
+Surface B fail → wait 20-30s
+Surface C fail → DEGRADED（不再擴大關鍵字、不再長時間重試）
+```
+
+先確認首頁 `https://www.threads.com/` 是否正常，用來區分「平台端異常」與「登入失效」。
+
+**狀態記法（查不到 ≠ 是零）**：
+
+```
+Discovery       = DEGRADED
+Intent analysis = SKIP — insufficient reliable input
+Comment audit   = UNKNOWN
+```
+
+**不得**記成「0 則新貼文」「今日無新增 A 級」。
+DEGRADED 當日跳過建卡，仍完成步驟 6（每日提醒，⚠️ 那條寫明三 surface 探測結果）、
+步驟 7（計數重算）、步驟 10（驗證）、步驟 11（報告）。
+
+canonical 規範：`000_Agent/knowledge/EXECUTION-BOUNDARY-STANDARD.md` 第四節。
+
 ## 步驟 3：取直連 URL ＋ 熱門留言 Top 5
 
 只對選中的 A 級貼文做。用 `find`（或 JS 撈 anchor）取得 `href="/@user/post/POSTID"`，直接 navigate 過去（點內文區不會換頁）→ wait 4 秒 → `get_page_text` 取前 5 則留言（帳號＋內容＋讚數）。
@@ -78,7 +113,20 @@
 - 情緒：焦慮求助／成就感分享／無奈妥協／選擇困難／理性建議 之一
 - 透視分析：核心痛點 ＋ ChannelDeco 商機（有反差留言標 ⚡）
 - 意圖等級**固定為 A**（本掃只收 A）
-- 留言草稿 `data-draft`：2–4 句、先解題、給具體方向；**不放連結、不自薦、不批評同業**；溫暖生活語言。依 8 類切入點決定切角：①無方向求推薦 ②預算明確求解 ③決策/審美兩難 ④找錯人踩雷 ⑤交屋/時程焦慮 ⑥生活機能疑慮 ⑦軟硬裝決策兩難 ⑧老屋/租屋翻新
+- 留言草稿 `data-draft`：走 **ChannelDeco 三段式**（2026-09-11 由 Tilandky 裁決；正本 `語感規格_v0.1_2026-09-11.md` §G／§I，語料 `語感庫_原始語料_2026-09-11.md` C01–C06）：
+
+  ```
+  ① 接住對方寫出來的條件，給一句判斷
+  ② 給一個具體、可驗證的技術提醒（對方沒問、但實際會踩到的那一題）
+  ③ 收尾：「我們是 Channel Deco，做輕裝修＋軟裝設計，歡迎跟我們聊聊。」
+  ```
+
+  硬規則：用「我們」不用「我」｜**emoji 0 個**｜不批評同業｜3–5 句、約 **100–150 字**｜`data-draft` 內不可有半形雙引號與角括號。
+
+  ⚠️ **舊版「不放連結、不自薦」已於 2026-09-11 作廢**——@channel.deco 實際留言 C01–C06 六則全部以自薦＋「聊聊」收尾，舊規則與品牌真實語氣衝突。
+  ⚠️ **唯一例外**：`data-level="風險"` 維持不批評、不自薦，只轉化為自家透明度內容題材。
+
+  依 8 類切入點決定第 ① 段切角：①無方向求推薦 ②預算明確求解 ③決策/審美兩難 ④找錯人踩雷 ⑤交屋/時程焦慮 ⑥生活機能疑慮 ⑦軟硬裝決策兩難 ⑧老屋/租屋翻新
 
 ## 步驟 5：建卡並插入
 
@@ -120,25 +168,120 @@
 
 見 [`_routine_persist_rules.md`](_routine_persist_rules.md)。本排程對「本週社群關鍵信號」「建議本週發文方向」「語意集群健康度檢查」等週更專屬區塊**只讀不改**。
 
-## 步驟 9：推送 GitHub
+## 步驟 9：準備 commit（容器端；**不推送**）
 
-雲端掛載資料夾，一般 git 指令常因 lock 檔失敗，改用底層 plumbing：
+> ⚠️ **執行與發布解耦（2026-09-06 定案）**
+>
+> 排程容器（Ubuntu）與 Windows 主機是**不同的 execution boundary**：
+> 容器裡沒有 `C:\`、沒有 Windows Credential Store、沒有 `gh auth` 登入狀態。
+> **這不是 PATH 問題，也不是 token 過期——依現行架構，容器必然無法 push。**
+>
+> 兩次事故同一個根因：2026-09-05 Tru-Mi「找不到 gh」、
+> 2026-09-06 ChannelDeco `could not read Username for 'https://github.com'`。
+> 過去 SOP 把「內容完成」與「發布完成」寫成同一個狀態，
+> 於是撞到邊界時 Agent 會往兩個錯方向找解法：硬編 gh 路徑，或建 token 檔——
+> 後者直接製造出 09-05 的明碼 PAT 外洩。
+>
+> canonical：`000_Agent/knowledge/EXECUTION-BOUNDARY-STANDARD.md`
+> 憑證：[`GITHUB-AUTH-STANDARD.md`](GITHUB-AUTH-STANDARD.md)
 
-```bash
+> ⚠️ **2026-09-11 追加修正：容器端不再產生 commit，Windows 端也不再推 dangling SHA。**
+>
+> 舊版流程是容器用 `git commit-tree` 造出 commit object、Windows 端 `git push <sha>:refs/heads/main`。
+> 這會讓**遠端前進、但本機 `main` 這個 ref 不前進**。divergence 每天累積，
+> 2026-09-11 實際撞上：本機 main 落後遠端數天，commit 掛在舊 parent 上被判 `non-fast-forward`。
+> **這是流程本身會累積的結構性缺陷，不是偶發錯誤**，所以整段 plumbing 從 Deployment Pipeline 移除。
+>
+> `commit-tree` 之後仍可作為容器端產生 **candidate／evidence** 的手段，
+> 但**不得**再當成 branch-management 的正式方式——那條路徑會把今天剛查清楚的根因寫回 SOP。
+
+| Pipeline | 執行環境 | 責任 |
+|---|---|---|
+| Content Pipeline | 本排程（Ubuntu 容器） | 掃描、判讀、改 `index.html`、驗證。**不碰 git** |
+| Deployment Pipeline | **Windows 主機（人工）** | fetch → gate → reset --mixed → commit → push → verify |
+| Verification | Windows／容器 | `git diff FETCH_HEAD -- index.html` 為空，或 [`tools/deploy_verify.sh`](tools/deploy_verify.sh) |
+
+容器端做到「`index.html` 改好且通過步驟 10 驗證」為止，宣告 `CONTENT_COMPLETE`。
+
+### 容器端不做的事
+
+- ❌ `git push`、`git commit`、`git commit-tree`、`git mktree`、`git reset`
+- ❌ `gh auth status`（容器沒有 gh，問了也沒意義）
+- ❌ 用 `git ls-remote` 當「推得動」的證據——它只驗 **read reachability**。
+  要驗當前 runtime 的推送能力用 `git push --dry-run`。
+- ❌ 硬編 `gh` 路徑、建 `.github_token`／`token.txt`、把 token 寫進 remote URL 或 `.git/config`
+- ❌ 向使用者索取 token 字串
+
+### 交給 Windows 的交付物（正常 branch workflow，照抄貼上不要改順序）
+
+```powershell
+cd "$env:USERPROFILE\Documents\Claude專區\chanel deco"
+
+# ⓪ 確認在 main 這條 branch 上（detached HEAD 會讓本機 ref 又不前進）
+git branch --show-current          # 預期輸出：main
+
+# ① 取得遠端最新（只更新 FETCH_HEAD，不動工作區）
 git fetch channeldeco main
-NEW=$(git hash-object -w index.html)
-git ls-tree FETCH_HEAD                      # 務必用 FETCH_HEAD，remote 沒設 fetch refspec
-printf '100644 blob %s\tindex.html\n' "$NEW" > tree.txt
-TREE=$(git mktree < tree.txt)
-export GIT_AUTHOR_NAME="ChannelDeco Bot" GIT_AUTHOR_EMAIL="bot@channeldeco.local"
-export GIT_COMMITTER_NAME="ChannelDeco Bot" GIT_COMMITTER_EMAIL="bot@channeldeco.local"
-C=$(git commit-tree "$TREE" -p <FETCH_HEAD_sha> -m "Daily A-sweep <日期>: +N 則A級")
-git push channeldeco "$C:refs/heads/main"
-git fetch channeldeco main && git diff FETCH_HEAD -- index.html    # 應為 0
+
+# ② ⛔ GATE：確認「今天的修改確實還在工作區」才准往下走
+#    reset 是為了對齊遠端 ref，不是為了清掉本地工作
+git status --short                                                   # index.html 應為 M
+Select-String -Path index.html -Pattern 'a-sweep 每日輕量 A 級掃描新增（<今天日期>' -Quiet   # 應為 True
+(Select-String -Path index.html -Pattern '<div class="post-card' -AllMatches).Matches.Count  # 應為預期卡片數
+# 任一不符 → 停下來回報，不要 reset
+
+# ③ 對齊遠端 ref（--mixed 只移動 HEAD 與索引，working tree 原封不動）
+#    🚫 絕對不要用 --hard，那會把今天的修改整個抹掉
+git reset --mixed FETCH_HEAD
+
+# ④ 覆核差異規模：淨增行數應約等於「新增卡片數 × 9 + 1」
+#    出現四位數改動量代表整檔換行／BOM 漂移 → 停下來回報，不要 commit
+git diff --stat -- index.html
+
+# ⑤ 提交並推送 branch（不是 SHA）：本機 main、遠端 main、working tree 三者重新一致
+git add index.html
+git commit -m "Daily A-sweep <日期>: +N 則A級"
+git push channeldeco main:refs/heads/main
+
+# ⑥ 驗證：下面這行輸出為空才算 DEPLOY_VERIFIED
+git fetch channeldeco main
+git diff FETCH_HEAD -- index.html
 ```
 
-diff 不是 0 → 推送期間檔案又被改動 → 重新 fetch、重算計數後再推一次。
-token 到期日 2027-08-12；**推送成功時不要提 token**，只有 push 回 401／403 時才提一次，請使用者自行更新 `.git/config`，永遠不要索取 token 字串。
+> 用 `main:refs/heads/main` 而不是 `HEAD:refs/heads/main`：兩者在正常情況等價，
+> 但 HEAD detached 時前者會**直接失敗**、後者會靜默推出一顆本機 ref 追不到的 commit——
+> 那正是舊流程的失敗模式，讓它大聲壞掉比較安全。
+
+### 換行政策
+
+本 repo 已設 **repo-local** `core.autocrlf=input`（不設 `--global`，避免影響其他專案）：
+
+```powershell
+git config core.autocrlf input
+git config --get core.autocrlf     # 預期輸出：input
+```
+
+`index.html` 行尾維持全 LF、無 BOM。改檔時**只動要改的行**，不要整檔重寫
+（2026-09-02 `MEMORY.md` 整檔 LF→CRLF 漂移事故同型）。
+更徹底的做法是用 `.gitattributes` 把文字檔換行政策固定下來，比個人 Git config 更可重現。
+
+## 步驟 9.5：Deployment Evidence Gate
+
+```bash
+bash tools/deploy_verify.sh
+```
+
+四項證據：local artifact hash／local HEAD／remote HEAD／target file hash comparison。
+驗的是「GitHub 上的內容是否等於本機內容」，比 `git push` 的 exit code 更接近真正在意的結果。
+
+| 退出碼 | 意義 | 狀態 |
+|---|---|---|
+| 0 | 遠端＝本機 | **`DEPLOY_VERIFIED`** ← 只有這裡才叫發布完成 |
+| 1 | 遠端落後本機 | `DEPLOY_WAITING` / `DEPLOY_BLOCKED` |
+| 2 | 讀不到遠端 | `UNKNOWN`——不得宣稱已發布，也不得記成 0 |
+
+> 本機 `.git` 的 HEAD ref 不會因 plumbing 推送而前進，`[2] local HEAD` 常顯示很舊的日期，
+> 這是正常的。**權威證據是 `[4]` 的檔案 hash 比對。**
 
 ## 步驟 10：驗證（推送前）
 
@@ -147,12 +290,50 @@ token 到期日 2027-08-12；**推送成功時不要提 token**，只有 push �
 - 抽出最後一段 `<script>` 存成 .js 跑 `node --check`
 - 有 jsdom 時載入一次，確認 `#dbTasks` 項數＝今日新增則數、`.kw-group` 為 7、收合狀態下 DOM 內 `.post-card` 為 0
 
-## 步驟 11：報告
+## 步驟 11：報告（四段狀態模型）
 
-- 讓路時：只回報一句，不附 commit
-- 無新 A 級：仍更新日期與提醒後推送，回報「今日無新 A 級貼文」
-- 有新增：新增 N 則（各帳號＋地區）、當日重點提醒摘要、commit SHA、repo 連結
-  https://github.com/lueng0818/channeldeco
+**不得**在未經 `deploy_verify.sh` 驗證時寫「發布完成」「已上線」「每日更新完成」。
+
+```
+Environment : [OK ／ DEGRADED（沙箱掛載失敗等執行環境問題，與 Git 流程缺陷分開記）]
+Discovery   : [OK ／ DEGRADED（附三 surface 探測結果與重試過程）]
+Content     : CONTENT_COMPLETE
+Validation  : [PASS ／ FAIL（列出哪幾項因環境限制未能執行）]
+Deployment  : DEPLOY_WAITING — 待 Windows 端執行步驟 9 指令
+```
+
+標準狀態模型：
+
+```
+CONTENT_COMPLETE → DEPLOY_WAITING → DEPLOY_PUSHED → DEPLOY_VERIFIED
+```
+
+若哪天恢復「容器先算 commit」的架構（僅作 candidate／evidence，不直接推），
+狀態模型改為：
+
+```
+CONTENT_COMPLETE → COMMIT_CANDIDATE_READY
+                 → Windows fetch / reset --mixed / stage / commit / push
+                 → DEPLOY_PUSHED → DEPLOY_VERIFIED
+```
+
+**`COMMIT_CANDIDATE_READY` 不等於「Windows 直接推這顆 SHA」**——Windows 端一律重走
+正常 branch workflow，容器算出的 commit 只是佐證與比對用。
+
+容器端結束時最多只能宣告 `CONTENT_COMPLETE`；
+架構上無法推送記 `DEPLOY_BLOCKED`（不是 `PENDING`——後者的語意是「等一下可能自己好」，
+會讓 Agent 一直重試一件結構上不可能成功的事）。
+**執行環境故障（如 `Plan9 share "c" is not mounted`）歸類為 Environment Failure，
+不併入 Git 發布流程缺陷計算**——兩者根因不同、修法也不同。
+搭配 CLAUDE.md 交付狀態：內容完成但未發布 → **⚠️ 做完了但有疑慮**，不可用 ✅。
+
+內容部分：
+
+- 步驟 0 讓路：只回一句「今日由每週一完整版負責，每日 A 級掃描自動略過」，不附 commit
+- Discovery 為 DEGRADED：照步驟 2.9 記法，**不要寫「今日無新 A 級」**
+- 掃描正常但無合格 A 級：回報「今日無新 A 級貼文（7 組關鍵字皆正常回傳）」
+- 有新增：新增 N 則（各帳號＋地區）、當日重點提醒摘要、可貼的 push 指令、
+  repo 連結 https://github.com/lueng0818/channeldeco
 
 ---
 
