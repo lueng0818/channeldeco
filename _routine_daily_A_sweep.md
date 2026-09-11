@@ -358,5 +358,15 @@ CONTENT_COMPLETE → COMMIT_CANDIDATE_READY
 ## 背景
 
 品牌 ChannelDeco 伽宜諾；輕裝修＋軟裝設計＋空間陳列擺拍；
-服務區 高雄／屏東／台南／桃園／新北／台北；
+核心到府區 高雄／屏東／台南／桃園／新北／台北，其餘縣市線上視訊承接、仍列 A 級；
 受眾 首購小白／品味租屋族／局部換殼族／長輩照護族。
+
+> ⛔ **品牌歸屬（2026-09-11 Tilandky 裁定）：ChannelDeco 是 Hailey 的品牌，Jessica 對應的是 Tru-Mi。**
+> 兩邊的品牌語感與 Real-World Validation 不可混用。本排程產出的草稿一律走 ChannelDeco 語感規格，
+> **不得套用 Tru-Mi／Jessica 的語氣規格或驗收流程**。
+>
+> 內容流程：**AI 生成 → Human Write → 慣用語檢查 → 發布／回覆**（完整責任邊界見
+> [`_routine_persist_rules.md`](_routine_persist_rules.md) §5.5）。
+> 本排程只負責 ① 與 ③ 的機器可判定部分；② Human Write 與 ④ Real-World Validation
+> 的 owner 是 Hailey／ChannelDeco 團隊。
+> **「通過品牌語氣規格」不等於「Human Write 完成」**——前者是規則符合度，後者是人的語言所有權，兩個 Gate 分開記。

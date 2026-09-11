@@ -86,6 +86,33 @@
 地區用含 📍 的 `.badge`（例：`<span class="badge">📍高雄</span>`）—— 行動佇列會自動抓這兩者組出清單。
 官方帳號 @channel.deco 已留言的貼文，作者旁加 ⭐。
 
+## 5.5 品牌歸屬與內容流程（2026-09-11 Tilandky 裁定）
+
+> ⛔ **ChannelDeco 是 Hailey 的品牌。Jessica 對應的是 Tru-Mi。**
+> 兩邊的品牌語感與 Real-World Validation **不可混用**，
+> 也不可把 Tru-Mi／Jessica 的語氣規格套到 ChannelDeco 內容上。
+
+| 階段 | 做什麼 | Owner |
+|---|---|---|
+| ① AI 生成 | 依 ChannelDeco 品牌語氣、既有真實語料、貼文情境產生貼文或 Threads 回覆建議 | AI |
+| ② Human Write | 人工改寫。**重點不是校稿，是把「AI 寫得對」轉成「本人真的會這樣說」** | Hailey／ChannelDeco 團隊 |
+| ③ 慣用語檢查 | 對照 ChannelDeco 語感庫檢查常用詞、句型、稱呼、CTA、禁用語、長度與 AI 味；**可機器判定的硬規則必須實測**（`tools/content_gate.ps1`） | AI ＋ 工具 |
+| ④ Real-World Validation | 「這句我會不會真的留言出去？」 | **Hailey／ChannelDeco 團隊** |
+
+⛔ **兩個 Gate 不可合併**：
+- 「通過品牌語氣規格」＝ **規則符合度**（③）
+- 「Human Write 完成」＝ **人的語言所有權**（②）
+
+前者 PASS 不等於後者完成，狀態要分開記：
+
+```
+Content            : CONTENT_COMPLETE
+Validation         : PASS（Automated Gate）
+Human Write        : [DONE ／ NOT RUN]
+Real-World         : [DONE ／ NOT RUN]
+Owner              : Hailey / ChannelDeco
+```
+
 ## 6. 留言草稿口徑
 
 > **2026-09-11 更新**：舊口徑「不放連結、不自薦」已作廢。正本＝`語感規格_v0.1_2026-09-11.md` §G／§I。

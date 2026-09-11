@@ -217,7 +217,11 @@ $n = $script:fail
 Write-Host ""
 if ($n -eq 0) {
   Write-Host "CONTENT GATE: PASS - 可宣告 CONTENT_COMPLETE" -ForegroundColor Green
-  Write-Host "注意：以上皆為 Automated Gate。Jessica Real-World Validation 另計，不得因此標為完成。" -ForegroundColor Yellow
+  Write-Host ""
+  Write-Host "⚠️ 本 gate 只涵蓋『慣用語檢查』裡可機器判定的部分，不代表流程已完成。" -ForegroundColor Yellow
+  Write-Host "   ChannelDeco 內容流程：AI 生成 → Human Write → 慣用語檢查 → 發布／回覆" -ForegroundColor Yellow
+  Write-Host "   Human Write 與 Real-World Validation 的 owner 是 Hailey／ChannelDeco 團隊，不是本工具。" -ForegroundColor Yellow
+  Write-Host "   『通過品牌語氣規格』≠『Human Write 完成』——前者是規則符合度，後者是人的語言所有權，兩個 Gate 分開記。" -ForegroundColor Yellow
   exit 0
 } else {
   Write-Host "CONTENT GATE: FAIL（$n 項）- 不得宣告 CONTENT_COMPLETE，修好再跑一次" -ForegroundColor Red

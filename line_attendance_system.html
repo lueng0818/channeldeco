@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChannelDeco LINE 雲端打卡系統</title>
+<style>
+  :root {
+    --primary: #2C5F4A;
+    --primary-2: #3F7C61;
+    --line: #06C755;
+    --accent: #E8A87C;
+    --warm: #F9F6F2;
+    --card: #FFFFFF;
+    --text: #26312C;
+    --muted: #6D766F;
+    --border: #E5E0DA;
+    --danger: #D94B4B;
+    --warning: #E7A23A;
+    --ok: #1D9A68;
+    --info: #3777D6;
+    --shadow: 0 12px 32px rgba(44, 95, 74, .10);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--warm);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "Segoe UI", sans-serif;
+  }
+
+  button, input, select, textarea { font: inherit; }
+  button { cursor: pointer; }
+
+  .app-shell { min-height: 100vh; display: grid; grid-template-columns: 256px 1fr; }
+
+  .sidebar {
+    background: #213C31;
+    color: white;
+    padding: 24px 18px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: auto;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid rgba(255,255,255,.14);
+  }
+
+  .brand-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    background: var(--accent);
+    color: #213C31;
+    font-weight: 800;
+  }
+
+  .brand h1 { margin: 0; font-size: 17px; line-height: 1.2; }
+  .brand p { margin: 3px 0 0; color: rgba(255,255,255,.68); font-size: 12px; }
+
+  .nav { margin-top: 22px; display: grid; gap: 6px; }
+  .nav button {
+    border: 0;
+    background: transparent;
+    color: rgba(255,255,255,.78);
+    text-align: left;
+    padding: 11px 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav button.active, .nav button:hover { background: rgba(255,255,255,.12); color: #fff; }
+
+  .line-card {
+    margin-top: 22px;
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 10px;
+    padding: 14px;
+    background: rgba(255,255,255,.06);
+  }
+  .line-card .tag {
+    display: inline-flex;
+    background: var(--line);
+    color: white;
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .line-card p { margin: 0; font-size: 12px; color: rgba(255,255,255,.72); line-height: 1.7; }
+
+  main { padding: 24px; min-width: 0; }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .topbar h2 { margin: 0; font-size: 24px; color: var(--primary); }
+  .topbar p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
+
+  .user-switch {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.04);
+  }
+  .user-switch select { border: 0; outline: 0; background: transparent; color: var(--text); }
+
+  .grid { display: grid; gap: 16px; }
+  .grid.metrics { grid-template-columns: repeat(5, minmax(120px, 1fr)); margin-bottom: 16px; }
+  .grid.two { grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr); }
+  .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 18px;
+  }
+
+  .metric {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 8px 22px rgba(44,95,74,.07);
+  }
+  .metric .num { font-size: 28px; font-weight: 800; color: var(--primary); line-height: 1; }
+  .metric .label { margin-top: 7px; color: var(--muted); font-size: 12px; }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .section-title h3 { margin: 0; font-size: 17px; color: var(--primary); }
+  .section-title span { color: var(--muted); font-size: 12px; }
+
+  .mobile-preview {
+    max-width: 390px;
+    margin: 0 auto;
+    border: 8px solid #1D2521;
+    border-radius: 28px;
+    background: #F7FAF8;
+    overflow: hidden;
+  }
+
+  .phone-head {
+    background: var(--line);
+    color: white;
+    padding: 16px;
+  }
+  .phone-head b { display: block; font-size: 17px; }
+  .phone-head small { opacity: .9; }
+
+  .clock-panel { padding: 16px; text-align: center; }
+  .clock-time { font-size: 36px; font-weight: 800; color: var(--primary); }
+  .clock-date { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .gps-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    border-radius: 999px;
+    padding: 7px 11px;
+    background: #E8F7EF;
+    color: var(--ok);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .punch-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 16px 16px; }
+  .punch-grid button {
+    border: 1px solid var(--border);
+    background: white;
+    border-radius: 8px;
+    min-height: 74px;
+    color: var(--primary);
+    font-weight: 800;
+  }
+  .punch-grid button.primary { background: var(--primary); color: white; border-color: var(--primary); }
+  .punch-grid button.line { background: var(--line); color: white; border-color: var(--line); }
+
+  .rich-menu {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid #DDE7E1;
+    background: white;
+  }
+  .rich-menu button {
+    border: 0;
+    border-right: 1px solid #DDE7E1;
+    border-bottom: 1px solid #DDE7E1;
+    background: white;
+    padding: 14px 6px;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  .timeline { display: grid; gap: 10px; }
+  .event {
+    display: grid;
+    grid-template-columns: 74px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 11px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #FCFBF9;
+  }
+  .event time { color: var(--primary); font-weight: 800; }
+  .event b { display: block; font-size: 13px; }
+  .event span { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 58px;
+    border-radius: 999px;
+    padding: 5px 9px;
+    font-size: 12px;
+    font-weight: 800;
+  }
+  .status.ok { background: #E8F7EF; color: var(--ok); }
+  .status.warn { background: #FFF4DF; color: #A56912; }
+  .status.bad { background: #FDEAEA; color: var(--danger); }
+  .status.info { background: #EAF2FF; color: var(--info); }
+
+  .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .form-row { display: grid; gap: 6px; }
+  .form-row.full { grid-column: 1 / -1; }
+  label { font-size: 12px; color: var(--muted); font-weight: 700; }
+  input, select, textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 11px;
+    background: white;
+    color: var(--text);
+    outline-color: var(--primary-2);
+  }
+  textarea { min-height: 82px; resize: vertical; }
+
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+  .btn {
+    border: 1px solid var(--primary);
+    background: var(--primary);
+    color: white;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-weight: 800;
+  }
+  .btn.secondary { background: white; color: var(--primary); }
+  .btn.line { background: var(--line); border-color: var(--line); }
+  .btn.danger { background: var(--danger); border-color: var(--danger); }
+
+  .table-wrap { overflow: auto; border: 1px solid var(--border); border-radius: 8px; }
+  table { width: 100%; border-collapse: collapse; min-width: 760px; background: white; }
+  th, td { padding: 11px 12px; border-bottom: 1px solid var(--border); text-align: left; font-size: 13px; }
+  th { background: #F5F7F4; color: var(--primary); font-size: 12px; }
+  tr:last-child td { border-bottom: 0; }
+
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tabs button {
+    border: 1px solid var(--border);
+    background: white;
+    color: var(--muted);
+    border-radius: 999px;
+    padding: 8px 12px;
+    font-weight: 800;
+    font-size: 13px;
+  }
+  .tabs button.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .hr-panel { display: none; }
+  .hr-panel.active { display: block; }
+
+  .site-list { display: grid; gap: 10px; }
+  .site {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: center;
+    background: #FCFBF9;
+  }
+  .site b { color: var(--primary); }
+  .site span { display: block; color: var(--muted); font-size: 12px; margin-top: 3px; }
+
+  .notice-list { display: grid; gap: 10px; }
+  .notice {
+    border-left: 4px solid var(--accent);
+    background: #FFFBF7;
+    padding: 12px;
+    border-radius: 8px;
+  }
+  .notice b { color: var(--primary); }
+  .notice p { margin: 5px 0 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+  .toast {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 50;
+    background: #213C31;
+    color: white;
+    padding: 13px 15px;
+    border-radius: 8px;
+    box-shadow: 0 12px 34px rgba(0,0,0,.22);
+    display: none;
+    max-width: min(360px, calc(100vw - 36px));
+    line-height: 1.5;
+  }
+  .toast.show { display: block; }
+
+  @media (max-width: 1080px) {
+    .app-shell { grid-template-columns: 1fr; }
+    .sidebar { position: static; height: auto; }
+    .nav { grid-template-columns: repeat(3, 1fr); }
+    .grid.metrics { grid-template-columns: repeat(2, 1fr); }
+    .grid.two, .grid.three { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    main { padding: 16px; }
+    .topbar { align-items: stretch; flex-direction: column; }
+    .user-switch { justify-content: space-between; }
+    .nav { grid-template-columns: repeat(2, 1fr); }
+    .form-grid { grid-template-columns: 1fr; }
+    .event { grid-template-columns: 62px 1fr; }
+    .event .status { grid-column: 2; justify-self: start; }
+  }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">CD</div>
+      <div>
+        <h1>ChannelDeco<br>LINE 打卡系統</h1>
+        <p>Cloud HRM Prototype</p>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="主選單">
+      <button class="active" data-view="dashboard">總覽儀表板</button>
+      <button data-view="line">LINE 打卡</button>
+      <button data-view="leave">請假補卡</button>
+      <button data-view="approval">主管簽核</button>
+      <button data-view="hr">HR 後台</button>
+      <button data-view="settings">系統設定</button>
+    </nav>
+
+    <div class="line-card">
+      <div class="tag">LINE Ready</div>
+      <p>此原型模擬 LINE Rich Menu、LIFF 登入、GPS 打卡、請假簽核與出缺勤紀錄。正式版可串接 LINE Login、Messaging API 與資料庫。</p>
+    </div>
+  </aside>
+
+  <main>
+    <div class="topbar">
+      <div>
+        <h2 id="pageTitle">總覽儀表板</h2>
+        <p id="pageSub">即時掌握今日出勤、遲到、請假、外勤與未打卡狀態。</p>
+      </div>
+      <div class="user-switch">
+        <label for="roleSelect">目前角色</label>
+        <select id="roleSelect">
+          <option value="employee">員工 王小美</option>
+          <option value="manager">主管 林主管</option>
+          <option value="hr">HR 陳人資</option>
+          <option value="admin">Admin 系統管理員</option>
+        </select>
+      </div>
+    </div>
+
+    <section id="dashboard" class="panel active">
+      <div class="grid metrics">
+        <div class="metric"><div class="num" id="metricPresent">42</div><div class="label">今日已出勤</div></div>
+        <div class="metric"><div class="num" id="metricLate">3</div><div class="label">遲到人數</div></div>
+        <div class="metric"><div class="num" id="metricMissing">5</div><div class="label">未打卡</div></div>
+        <div class="metric"><div class="num" id="metricLeave">4</div><div class="label">今日請假</div></div>
+        <div class="metric"><div class="num" id="metricField">7</div><div class="label">外勤中</div></div>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <div class="section-title">
+            <h3>今日出勤紀錄</h3>
+            <span>自動判斷正常、遲到、GPS 異常與補卡</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>員工</th><th>部門</th><th>班別</th><th>上班</th><th>下班</th><th>狀態</th><th>地點</th></tr>
+              </thead>
+              <tbody id="attendanceRows"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">
+            <h3>LINE 通知中心</h3>
+            <span>推播模擬</span>
+          </div>
+          <div class="notice-list" id="noticeList"></div>
+          <div class="actions">
+            <button class="btn line" id="sendReminderBtn">推播未打卡提醒</button>
+            <button class="btn secondary" id="exportTodayBtn">匯出今日 CSV</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="line" class="panel">
+      <div class="grid two">
+        <div class="card">
+          <div class="section-title">
+            <h3>員工 LINE LIFF 畫面</h3>
+            <span>手機端操作原型</span>
+          </div>
+          <div class="mobile-preview">
+            <div class="phone-head">
+              <b>ChannelDeco 打卡</b>
+              <small>已綁定：王小美 EMP-001</small>
+            </div>
+            <div class="clock-panel">
+              <div class="clock-time" id="clockTime">09:00</div>
+              <div class="clock-date" id="clockDate">2026/06/28</div>
+              <div class="gps-badge" id="gpsBadge">GPS：台北總公司 82m 內</div>
+            </div>
+            <div class="punch-grid">
+              <button class="line" data-punch="上班">上班打卡</button>
+              <button class="primary" data-punch="下班">下班打卡</button>
+              <button data-punch="外出">外出</button>
+              <button data-punch="返回">返回</button>
+              <button data-punch="外勤">外勤打卡</button>
+              <button data-punch="加班開始">加班開始</button>
+            </div>
+            <div class="rich-menu">
+              <button data-nav="line">我要打卡</button>
+              <button data-nav="dashboard">我的班表</button>
+              <button data-nav="leave">我要請假</button>
+              <button data-nav="leave">補卡申請</button>
+              <button data-nav="dashboard">出勤紀錄</button>
+              <button data-nav="dashboard">公告中心</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">
+            <h3>我的今日紀錄</h3>
+            <span>存於本機瀏覽器</span>
+          </div>
+          <div class="timeline" id="punchTimeline"></div>
+          <div class="actions">
+            <button class="btn secondary" id="useGpsBtn">重新取得 GPS</button>
+            <button class="btn danger" id="clearPunchBtn">清除今日測試資料</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="leave" class="panel">
+      <div class="grid two">
+        <div class="card">
+          <div class="section-title">
+            <h3>請假申請</h3>
+            <span>支援一至三層簽核</span>
+          </div>
+          <form id="leaveForm" class="form-grid">
+            <div class="form-row">
+              <label>假別</label>
+              <select name="type">
+                <option>特休</option><option>病假</option><option>事假</option><option>公假</option>
+                <option>婚假</option><option>喪假</option><option>生理假</option><option>產假</option><option>補休</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label>簽核層級</label>
+              <select name="levels"><option>主管</option><option>主管 + HR</option><option>主管 + HR + Admin</option></select>
+            </div>
+            <div class="form-row">
+              <label>開始日期</label>
+              <input name="start" type="date" required>
+            </div>
+            <div class="form-row">
+              <label>結束日期</label>
+              <input name="end" type="date" required>
+            </div>
+            <div class="form-row full">
+              <label>請假原因</label>
+              <textarea name="reason" placeholder="請填寫原因，正式版可上傳附件。"></textarea>
+            </div>
+          </form>
+          <div class="actions">
+            <button class="btn" form="leaveForm">送出請假</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">
+            <h3>補卡申請</h3>
+            <span>忘記打卡、外勤補登</span>
+          </div>
+          <form id="correctionForm" class="form-grid">
+            <div class="form-row">
+              <label>補卡日期</label>
+              <input name="date" type="date" required>
+            </div>
+            <div class="form-row">
+              <label>補卡時間</label>
+              <input name="time" type="time" required>
+            </div>
+            <div class="form-row">
+              <label>種類</label>
+              <select name="type"><option>上班</option><option>下班</option><option>外出</option><option>返回</option><option>外勤</option></select>
+            </div>
+            <div class="form-row">
+              <label>地點</label>
+              <select name="site"><option>台北總公司</option><option>高雄工地</option><option>客戶 A</option><option>遠距工作</option></select>
+            </div>
+            <div class="form-row full">
+              <label>補卡原因</label>
+              <textarea name="reason" placeholder="例如：外勤會議延長，返程後補登。"></textarea>
+            </div>
+          </form>
+          <div class="actions">
+            <button class="btn" form="correctionForm">送出補卡</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="section-title">
+          <h3>我的申請紀錄</h3>
+          <span>請假、補卡、加班</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>申請時間</th><th>類型</th><th>內容</th><th>目前關卡</th><th>狀態</th></tr></thead>
+            <tbody id="requestRows"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="approval" class="panel">
+      <div class="card">
+        <div class="section-title">
+          <h3>主管待簽核</h3>
+          <span>可核准請假、補卡與加班</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>員工</th><th>部門</th><th>申請類型</th><th>內容</th><th>送出時間</th><th>狀態</th><th>操作</th></tr></thead>
+            <tbody id="approvalRows"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="hr" class="panel">
+      <div class="tabs">
+        <button class="active" data-hr-tab="employees">員工管理</button>
+        <button data-hr-tab="shifts">排班班別</button>
+        <button data-hr-tab="reports">報表中心</button>
+      </div>
+
+      <div id="employees" class="hr-panel active">
+        <div class="card">
+          <div class="section-title">
+            <h3>員工管理</h3>
+            <span>員工編號、部門、LINE UID、狀態</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>員編</th><th>姓名</th><th>部門</th><th>職稱</th><th>Email</th><th>LINE 綁定</th><th>狀態</th></tr></thead>
+              <tbody id="employeeRows"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="shifts" class="hr-panel">
+        <div class="grid three">
+          <div class="card"><div class="section-title"><h3>固定班</h3><span>09:00-18:00</span></div><p>允許彈性 10 分鐘，午休 60 分鐘，自動判斷遲到與早退。</p></div>
+          <div class="card"><div class="section-title"><h3>晚班</h3><span>14:00-23:00</span></div><p>適合門市與客服班別，可套用跨日下班判斷。</p></div>
+          <div class="card"><div class="section-title"><h3>外勤班</h3><span>彈性工時</span></div><p>允許客戶端、工地、遠距工作區域打卡，需留下備註。</p></div>
+        </div>
+      </div>
+
+      <div id="reports" class="hr-panel">
+        <div class="card">
+          <div class="section-title">
+            <h3>報表中心</h3>
+            <span>每日、每週、每月、年度匯出</span>
+          </div>
+          <div class="grid metrics">
+            <div class="metric"><div class="num">94%</div><div class="label">本月出勤率</div></div>
+            <div class="metric"><div class="num">6%</div><div class="label">遲到率</div></div>
+            <div class="metric"><div class="num">128h</div><div class="label">加班工時</div></div>
+            <div class="metric"><div class="num">32h</div><div class="label">請假時數</div></div>
+            <div class="metric"><div class="num">11</div><div class="label">GPS 異常</div></div>
+          </div>
+          <div class="actions">
+            <button class="btn" id="exportMonthBtn">匯出月報 CSV</button>
+            <button class="btn secondary" id="printReportBtn">列印 PDF 報表</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="settings" class="panel">
+      <div class="grid two">
+        <div class="card">
+          <div class="section-title">
+            <h3>GPS 地點設定</h3>
+            <span>不同地點可設定不同半徑</span>
+          </div>
+          <div class="site-list" id="siteList"></div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">
+            <h3>系統與 LINE 設定</h3>
+            <span>正式版串接項目</span>
+          </div>
+          <div class="notice-list">
+            <div class="notice"><b>LINE Login</b><p>員工加入官方帳號後，以 LIFF 登入並輸入員工編號完成綁定，一人限綁一個 LINE UID。</p></div>
+            <div class="notice"><b>Messaging API</b><p>推播打卡成功、未打卡提醒、請假核准、補卡退回、加班核准等通知。</p></div>
+            <div class="notice"><b>安全性</b><p>HTTPS、JWT、權限控管、API Token、操作 Log、備份、SQL Injection 與 XSS 防護。</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script type="application/json" id="legacy-prototype-script">
+  const state = {
+    activeView: "dashboard",
+    role: "employee",
+    gps: { label: "台北總公司", distance: 82, ok: true },
+    attendance: [
+      ["王小美", "設計部", "固定班", "08:56", "", "正常", "台北總公司"],
+      ["林志豪", "工程部", "外勤班", "09:18", "", "遲到", "高雄工地"],
+      ["陳怡君", "客服部", "晚班", "13:57", "", "正常", "台北總公司"],
+      ["張雅婷", "業務部", "外勤班", "09:03", "", "外勤", "客戶 A"],
+      ["李冠廷", "行政部", "固定班", "", "", "未打卡", "-"],
+      ["黃佩文", "設計部", "固定班", "09:06", "", "GPS 異常", "範圍外"]
+    ],
+    employees: [
+      ["EMP-001", "王小美", "設計部", "設計師", "mei@channeldeco.com", "U8a91...綁定", "在職"],
+      ["EMP-002", "林志豪", "工程部", "現場主管", "hao@channeldeco.com", "U3f21...綁定", "在職"],
+      ["EMP-003", "陳怡君", "客服部", "客服專員", "yijun@channeldeco.com", "未綁定", "在職"],
+      ["EMP-004", "張雅婷", "業務部", "業務", "ting@channeldeco.com", "U7c42...綁定", "在職"],
+      ["EMP-005", "李冠廷", "行政部", "行政", "lee@channeldeco.com", "U1d73...綁定", "在職"]
+    ],
+    sites: [
+      ["台北總公司", "25.033964", "121.564468", "100m"],
+      ["高雄工地", "22.627278", "120.301435", "300m"],
+      ["客戶 A", "25.047760", "121.517030", "500m"],
+      ["遠距工作", "依員工申請地址", "需主管核准", "彈性"]
+    ],
+    requests: JSON.parse(localStorage.getItem("cd_requests") || "[]"),
+    punches: JSON.parse(localStorage.getItem("cd_punches") || "[]")
+  };
+
+  const titles = {
+    dashboard: ["總覽儀表板", "即時掌握今日出勤、遲到、請假、外勤與未打卡狀態。"],
+    line: ["LINE 打卡", "員工不用下載 App，從 LINE Rich Menu 進入即可完成打卡。"],
+    leave: ["請假補卡", "員工可送出請假、補卡、加班申請，主管與 HR 線上簽核。"],
+    approval: ["主管簽核", "主管可查看部門申請並核准或退回。"],
+    hr: ["HR 後台", "管理員工、排班、報表與出缺勤資料。"],
+    settings: ["系統設定", "設定 LINE、GPS、權限、安全與 API。"]
+  };
+
+  function $(selector) { return document.querySelector(selector); }
+  function $all(selector) { return Array.from(document.querySelectorAll(selector)); }
+
+  function showToast(message) {
+    const toast = $("#toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3200);
+  }
+
+  function formatNow() {
+    const now = new Date();
+    return {
+      date: now.toLocaleDateString("zh-TW"),
+      time: now.toLocaleTimeString("zh-TW", { hour: "2-digit", minute: "2-digit" }),
+      full: now.toLocaleString("zh-TW", { hour12: false })
+    };
+  }
+
+  function renderClock() {
+    const now = formatNow();
+    $("#clockTime").textContent = now.time;
+    $("#clockDate").textContent = now.date;
+  }
+
+  function setView(view) {
+    state.activeView = view;
+    $all(".panel").forEach(panel => panel.classList.toggle("active", panel.id === view));
+    $all(".nav button").forEach(btn => btn.classList.toggle("active", btn.dataset.view === view));
+    $("#pageTitle").textContent = titles[view][0];
+    $("#pageSub").textContent = titles[view][1];
+  }
+
+  function statusClass(status) {
+    if (["正常", "核准", "外勤"].includes(status)) return "ok";
+    if (["遲到", "待主管簽核", "待 HR 確認"].includes(status)) return "warn";
+    if (["GPS 異常", "未打卡", "退回"].includes(status)) return "bad";
+    return "info";
+  }
+
+  function renderAttendance() {
+    $("#attendanceRows").innerHTML = state.attendance.map(row => `
+      <tr>
+        <td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td><td>${row[3] || "-"}</td><td>${row[4] || "-"}</td>
+        <td><span class="status ${statusClass(row[5])}">${row[5]}</span></td><td>${row[6]}</td>
+      </tr>
+    `).join("");
+  }
+
+  function renderEmployees() {
+    $("#employeeRows").innerHTML = state.employees.map(row => `
+      <tr>
+        <td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td><td>${row[3]}</td><td>${row[4]}</td><td>${row[5]}</td>
+        <td><span class="status ok">${row[6]}</span></td>
+      </tr>
+    `).join("");
+  }
+
+  function renderSites() {
+    $("#siteList").innerHTML = state.sites.map(site => `
+      <div class="site">
+        <div><b>${site[0]}</b><span>經度 ${site[1]}｜緯度 ${site[2]}｜允許半徑 ${site[3]}</span></div>
+        <span class="status ok">啟用</span>
+      </div>
+    `).join("");
+  }
+
+  function renderNotices() {
+    const notices = [
+      ["上午 09:10 尚未打卡", "行政部 李冠廷尚未完成上班打卡，系統已排入提醒。"],
+      ["今日遲到 15 分鐘", "工程部 林志豪 09:18 打卡，依固定規則判定遲到。"],
+      ["請假已核准", "王小美 2026/06/29 特休已由主管核准，等待 HR 確認。"]
+    ];
+    $("#noticeList").innerHTML = notices.map(item => `<div class="notice"><b>${item[0]}</b><p>${item[1]}</p></div>`).join("");
+  }
+
+  function persist() {
+    localStorage.setItem("cd_requests", JSON.stringify(state.requests));
+    localStorage.setItem("cd_punches", JSON.stringify(state.punches));
+  }
+
+  function renderPunches() {
+    if (!state.punches.length) {
+      $("#punchTimeline").innerHTML = `<div class="notice"><b>尚無今日打卡紀錄</b><p>點選手機畫面中的打卡按鈕即可新增測試紀錄。</p></div>`;
+      return;
+    }
+    $("#punchTimeline").innerHTML = state.punches.map(punch => `
+      <div class="event">
+        <time>${punch.time}</time>
+        <div><b>${punch.type}</b><span>${punch.site}｜GPS ${punch.distance}m｜LINE UID U8a91...</span></div>
+        <span class="status ${punch.ok ? "ok" : "bad"}">${punch.ok ? "成功" : "異常"}</span>
+      </div>
+    `).join("");
+  }
+
+  function renderRequests() {
+    const rows = state.requests.length ? state.requests : [
+      { time: "2026/06/27 10:22", type: "請假", content: "特休 2026/06/29", step: "HR", status: "待 HR 確認", employee: "王小美", dept: "設計部" },
+      { time: "2026/06/27 15:40", type: "補卡", content: "上班 09:00 台北總公司", step: "主管", status: "待主管簽核", employee: "王小美", dept: "設計部" }
+    ];
+    $("#requestRows").innerHTML = rows.map(req => `
+      <tr><td>${req.time}</td><td>${req.type}</td><td>${req.content}</td><td>${req.step}</td><td><span class="status ${statusClass(req.status)}">${req.status}</span></td></tr>
+    `).join("");
+    $("#approvalRows").innerHTML = rows.map((req, index) => `
+      <tr>
+        <td>${req.employee || "王小美"}</td><td>${req.dept || "設計部"}</td><td>${req.type}</td><td>${req.content}</td><td>${req.time}</td>
+        <td><span class="status ${statusClass(req.status)}">${req.status}</span></td>
+        <td>
+          <button class="btn secondary" data-approve="${index}">核准</button>
+          <button class="btn danger" data-reject="${index}">退回</button>
+        </td>
+      </tr>
+    `).join("");
+  }
+
+  function addRequest(type, content, step) {
+    const now = formatNow();
+    state.requests.unshift({
+      time: now.full,
+      type,
+      content,
+      step,
+      status: step === "主管" ? "待主管簽核" : "待 HR 確認",
+      employee: "王小美",
+      dept: "設計部"
+    });
+    persist();
+    renderRequests();
+  }
+
+  function punch(type) {
+    const now = formatNow();
+    const ok = state.gps.ok;
+    state.punches.unshift({
+      type,
+      time: now.time,
+      site: state.gps.label,
+      distance: state.gps.distance,
+      ok
+    });
+    persist();
+    renderPunches();
+    showToast(`LINE 推播：${type}打卡${ok ? "成功" : "GPS 異常，已送待審"}。`);
+  }
+
+  function updateGps(useReal) {
+    if (useReal && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(() => {
+        state.gps = { label: "台北總公司", distance: Math.floor(20 + Math.random() * 90), ok: true };
+        $("#gpsBadge").textContent = `GPS：${state.gps.label} ${state.gps.distance}m 內`;
+        showToast("已取得 GPS，目前在允許範圍內。");
+      }, () => {
+        state.gps = { label: "範圍外", distance: 680, ok: false };
+        $("#gpsBadge").textContent = "GPS：範圍外 680m";
+        showToast("無法取得精準位置，已標記為 GPS 異常。");
+      });
+      return;
+    }
+    state.gps = Math.random() > .25
+      ? { label: "台北總公司", distance: Math.floor(30 + Math.random() * 85), ok: true }
+      : { label: "範圍外", distance: Math.floor(520 + Math.random() * 500), ok: false };
+    $("#gpsBadge").textContent = state.gps.ok ? `GPS：${state.gps.label} ${state.gps.distance}m 內` : `GPS：${state.gps.label} ${state.gps.distance}m`;
+  }
+
+  function exportCsv(filename, rows) {
+    const csv = rows.map(row => row.map(cell => `"${String(cell).replaceAll('"', '""')}"`).join(",")).join("\n");
+    const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function bindEvents() {
+    $all(".nav button").forEach(btn => btn.addEventListener("click", () => setView(btn.dataset.view)));
+    $all("[data-nav]").forEach(btn => btn.addEventListener("click", () => setView(btn.dataset.nav)));
+    $all("[data-punch]").forEach(btn => btn.addEventListener("click", () => punch(btn.dataset.punch)));
+
+    $("#roleSelect").addEventListener("change", event => {
+      state.role = event.target.value;
+      showToast(`已切換為 ${event.target.options[event.target.selectedIndex].text} 權限。`);
+    });
+
+    $("#useGpsBtn").addEventListener("click", () => updateGps(true));
+    $("#clearPunchBtn").addEventListener("click", () => {
+      state.punches = [];
+      persist();
+      renderPunches();
+      showToast("已清除今日測試打卡紀錄。");
+    });
+
+    $("#sendReminderBtn").addEventListener("click", () => showToast("LINE 推播：上午 09:10 尚未打卡，請開啟 Rich Menu 完成上班打卡。"));
+    $("#exportTodayBtn").addEventListener("click", () => exportCsv("channeldeco_today_attendance.csv", [["員工","部門","班別","上班","下班","狀態","地點"], ...state.attendance]));
+    $("#exportMonthBtn").addEventListener("click", () => exportCsv("channeldeco_monthly_report.csv", [["項目","數值"],["出勤率","94%"],["遲到率","6%"],["加班工時","128h"],["請假時數","32h"],["GPS 異常","11"]]));
+    $("#printReportBtn").addEventListener("click", () => window.print());
+
+    $("#leaveForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const data = new FormData(event.target);
+      addRequest("請假", `${data.get("type")} ${data.get("start")} 至 ${data.get("end")}`, "主管");
+      event.target.reset();
+      showToast("LINE 推播：請假申請已送出，等待主管簽核。");
+    });
+
+    $("#correctionForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const data = new FormData(event.target);
+      addRequest("補卡", `${data.get("type")} ${data.get("date")} ${data.get("time")}｜${data.get("site")}`, "主管");
+      event.target.reset();
+      showToast("LINE 推播：補卡申請已送出，等待主管簽核。");
+    });
+
+    document.body.addEventListener("click", event => {
+      const approve = event.target.closest("[data-approve]");
+      const reject = event.target.closest("[data-reject]");
+      if (approve || reject) {
+        const index = Number((approve || reject).dataset[approve ? "approve" : "reject"]);
+        const seededCount = state.requests.length ? 0 : 2;
+        if (seededCount) {
+          showToast("這是範例資料。請先送出一筆申請後再測試簽核。");
+          return;
+        }
+        state.requests[index].status = approve ? "核准" : "退回";
+        state.requests[index].step = approve ? "完成" : "員工修正";
+        persist();
+        renderRequests();
+        showToast(approve ? "LINE 推播：申請已核准。" : "LINE 推播：申請已退回，請補充原因。");
+      }
+    });
+
+    $all("[data-hr-tab]").forEach(btn => btn.addEventListener("click", () => {
+      $all("[data-hr-tab]").forEach(tab => tab.classList.toggle("active", tab === btn));
+      $all(".hr-panel").forEach(panel => panel.classList.toggle("active", panel.id === btn.dataset.hrTab));
+    }));
+  }
+
+  function init() {
+    renderClock();
+    setInterval(renderClock, 1000);
+    updateGps(false);
+    renderAttendance();
+    renderEmployees();
+    renderSites();
+    renderNotices();
+    renderPunches();
+    renderRequests();
+    bindEvents();
+  }
+
+  init();
+</script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
